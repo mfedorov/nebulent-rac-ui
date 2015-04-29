@@ -1,0 +1,157 @@
+@import "vars-mixin";
+@import "bootstrap";
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  padding-top: 55px;
+  color: $black;
+  font-family: 'Open Sans', sans-serif;
+  @include normalfont;
+  a {
+    color: $shade-blue;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      color: $orange;
+    }
+    &.disabled {
+      color: $light-grey;
+    }
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @import "modal";
+  @import "header";
+  @import "body";
+  @import "footer";
+  @import "command-line";
+  @import "styles";
+
+  .code {
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  ul.tools.editor.params.types {
+    width: 45px;
+  }
+
+  .tools.constructor.params > .list-group {
+    padding-bottom: 20px;
+  }
+
+  .conditional-modal-option button.close {
+    display: none;
+  }
+
+  .droppable-list {
+    min-height: 20px;
+    padding-bottom: 20px;
+  }
+
+
+}
+
+.label-container {
+  padding: 0;
+  > a {
+    margin-left: 40px;
+    i {
+      padding-right: 8px;
+    }
+  }
+}
+
+.nav-tabs {
+  margin-bottom: 5px;
+}
+
+.configuration-link {
+  word-break: break-all;
+}
+
+.page-name{
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tools-search {
+
+  .tools-search-input {
+    .item-view {
+      .form-group {
+        &.search-select {
+          max-width: 500px;
+        }
+        &.search-input {
+          padding-left: 24px;
+          background: transparent url("../images/arrow-right.png") no-repeat scroll left center;
+          max-width: 500px;
+          .form-control {
+            border: none;
+            box-shadow: none;
+            outline: none;
+            font-size: 18px;
+            color: $black;
+            padding: 10px 4px;
+            height: 38px;
+            border-radius: 0;
+            background-color: transparent;
+          }
+          input[name="search-string"] {
+            border-bottom: 3px solid $black;
+          }
+        }
+      }
+    }
+  }
+
+  .tools-search-results {
+    .list-group-view {
+      .list-group-item-view {
+        border-top: 1px solid $light-grey;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        a {
+          font-size: 16px;
+          @include boldfont;
+          word-break: break-all;
+        }
+        p {
+          font-size: 13px;
+          @include lightfont;
+          line-height: 20px;
+          padding-top: 9px;
+        }
+        &.active {
+          a {
+            color: $black;
+            padding-left: 18px;
+            background: transparent url("../images/arrow-right.png") no-repeat scroll left center;
+            background-size: 10px 10px;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.sidebar {
+  position: fixed;
+  top: 56px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  background-color: $white;
+}

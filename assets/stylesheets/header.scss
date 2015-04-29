@@ -1,0 +1,85 @@
+#header-region {
+
+  .navbar {
+    margin-bottom: 0;
+    background-color: $grey;
+
+    .navbar-right, .navbar-header {
+      min-height: 55px;
+    }
+
+    .navbar-header {
+      width: 100%;
+      height: 100%;
+      .logo {
+        height: 55px;
+        display: block;
+        @include hide-text;
+        background-size: 100%;
+        width: 100%;
+        background: transparent url("../images/bashworks-logo-white.png") no-repeat scroll center center;
+      }
+    }
+
+    .col-xs-2 {
+      background-color: $dark-grey;
+    }
+
+    .navbar-left {
+      height: 55px;
+      width: 100%;
+      .tools-visualizer {
+        padding-top: 15px;
+
+        label[name='name'] {
+          padding-right: 20px;
+          font-size: 18px;
+          @include boldfont;
+        }
+
+        .info {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background: transparent url("../images/i.png") no-repeat scroll center center;
+        }
+
+        .favorites {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background: transparent url("../images/favorite.png") no-repeat scroll center center;
+          margin-right: 10px;
+        }
+
+        .favorites.active {
+          background: transparent url("../images/favorite-active.png") no-repeat scroll center center;
+        }
+
+        .generate {
+          margin-top: -4px;
+          color: $orange;
+        }
+
+      }
+    }
+
+
+    .navbar-right {
+      .sign-in-container {
+         a {
+          color: $white;
+          &:hover {
+            color: $orange;
+          }
+        }
+        padding-top: 17px;
+        padding-right: 20px;
+      }
+      .dropdown-menu {
+        background-color: $dark-grey;
+      }
+    }
+  }
+
+}
