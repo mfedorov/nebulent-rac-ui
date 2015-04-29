@@ -1,0 +1,9 @@
+doctype html
+html(lang="en")
+  head
+  body
+    script(type='text/javascript').
+      if (window.opener) {
+        window.opener.location.href = "/#" + window.location.pathname.substr(1);
+        window.close();
+      }

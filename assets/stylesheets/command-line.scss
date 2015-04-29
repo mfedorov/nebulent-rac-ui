@@ -1,0 +1,55 @@
+#command-line-region {
+
+  display: none;
+  position: fixed;
+  bottom: 0;
+  height: 25%;
+  width: 100%;
+
+  .layout-view {
+    height: 100%
+  }
+
+  .menu-bar {
+    opacity: 9;
+    background-color: $black;
+
+    .col-md-12 {
+      line-height: 36px;
+      padding-left: 25px;
+    }
+  }
+
+  .terminal {
+    height: 100%;
+    opacity: 0.8;
+    background-color: $black;
+
+    .green-text {
+      color: green;
+      float: left;
+      padding-right: 15px;
+      padding-left: 25px;
+    }
+
+    .white-text {
+      color: white;
+    }
+  }
+
+  .copy-button {
+    padding: 1px 16px;
+    background-color: $light-grey;
+    border-radius: 0;
+  }
+
+  .close {
+    color: $light-grey;
+    opacity: 1;
+    font-weight: normal;
+    text-shadow: none;
+    font-size: 24px;
+    line-height: inherit;
+  }
+
+}
