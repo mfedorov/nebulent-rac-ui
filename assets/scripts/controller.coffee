@@ -4,12 +4,7 @@ define ->
 
     index: ->
       channel = Backbone.Radio.channel 'app'
-      orgData = $.cookie "org"
-
-      if !orgData
+      if appConfig.get("org").length == 0
         channel.trigger 'show:index'
       else
-        console.log $.parseJSON(orgData)
-        appConfig.set "orgData", orgData
-        channel.trigger 'show:index'
-        debugger
+        channel.trigger 'show:dashboard'

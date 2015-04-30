@@ -1,11 +1,14 @@
 express         = require 'express'
 authentication  = require './authentication'
+api             = require './api'
 
-router = express.Router()
+router          = express.Router()
 
 router.get '/', (req, res) ->
   res.render 'layout', title: req.app.get "title"
 
 router.use '/authentication', authentication
+
+router.use '', api
 
 module.exports = router
