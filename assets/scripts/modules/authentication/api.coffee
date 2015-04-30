@@ -12,17 +12,20 @@ define [
         user = Module.getOption "user"
         new LayoutView model: user
 
-      success: (provider) ->
-        channel = Backbone.Radio.channel 'global'
-        user = channel.requset 'user'
-        user.fetch()
-
-      failure: (provider) ->
-        console.error "Failed to login with #{provider}"
+      success: (data) ->
+        #saving data in cookies
+        $.cookie("org", JSON.stringify(
+          apikey: data.org.apikey
+          id:     data.org.id
+        ));
+        channel = Backbone.Radio.channel 'dashboard'
+        channel.trigger "show:dashboard", data
+        appConfig.set "orgData", data
 
     Module.on 'start', ->
       channel = Backbone.Radio.channel 'authentication'
       channel.reply 'view', API.getView
+      channel.on 'auth:success', (data)-> API.success(data)
       return
 
     return

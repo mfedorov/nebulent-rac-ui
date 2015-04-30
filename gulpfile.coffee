@@ -73,6 +73,8 @@ gulp.task "scripts", ["cleanScripts"], ->
       "bootstrap-growl":      "./public/scripts/vendor/jquery.bootstrap-growl"
       "backbone.picky":       "./public/scripts/vendor/backbone.picky"
       "handlebars":           "./public/scripts/vendor/handlebars"
+      "toastr":               "./public/scripts/vendor/toastr"
+      "jquery-cookie":        "./public/scripts/vendor/jquery-cookie"
     shim:
       "jquery-ui":
         deps: ['jquery']

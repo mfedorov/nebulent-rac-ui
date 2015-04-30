@@ -10,9 +10,12 @@ define ['./layout-template', './module'],
         events:
           "click button[type=submit]": "onSubmit"
 
+        ui:
+          "username": "[name=username]"
+
         bindings:
-          "[name=username]": observe: "username"
-          "[name=password]": observe: "password"
+          "[name=username]":  observe: "username"
+          "[name=password]":  observe: "password"
 
         onRender: ->
           @stickit()
@@ -20,9 +23,14 @@ define ['./layout-template', './module'],
         onSubmit: (event)->
           event.preventDefault()
           this.model.save()
-            .success ->
-              debugger
-            .error ->
-              debugger
+            .success (data)=>
+              toastr.success "Successfully authenticated"
+              channel = Backbone.Radio.channel "authentication"
+              channel.trigger "auth:success", data
+            .error (data)=>
+              toastr.error "Wrong combination of username and password. Please try again!"
+              @model.set "username", ""
+              @model.set "password", ""
+              @ui.username.focus()
 
     App.Authentication.LayoutView

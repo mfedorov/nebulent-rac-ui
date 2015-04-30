@@ -3,6 +3,7 @@ define [
   'backbone.marionette'
   'jquery'
   'underscore'
+  'toastr'
   'backbone.radio'
   'backbone.stickit'
   'backbone.picky'
@@ -12,9 +13,12 @@ define [
   'bootstrap'
   'bootstrap-growl'
   'jquery-ui'
+  'jquery-cookie'
   './behaviors/validation'
   './behaviors/textarea-supporting-tabs'
-], (Backbone, Marionette, $, _) ->
+], (Backbone, Marionette, $, _, toastr) ->
+
+  window.toastr = toastr
 
   Backbone.Marionette.Renderer.render = (template, data) ->
     Marionette.TemplateCache.get(template)(data)
