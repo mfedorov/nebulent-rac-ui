@@ -3,11 +3,13 @@ require [
   'layout-view'
   'router'
   'controller'
+  'app-config'
 ], (
   App,
   AppLayoutView,
   AppRouter,
-  AppController
+  AppController,
+  AppConfig
 ) ->
 
   window.App = new App()
@@ -15,6 +17,8 @@ require [
     new AppLayoutView().render()
     new AppRouter controller: new AppController()
     Backbone.history.start()
+
+  window.appConfig = new AppConfig()
 
   $.ajaxSetup
     statusCode:
@@ -24,21 +28,8 @@ require [
       404: (response, status, error) ->
 
   require [
-#    "modules/alerts/api"
     "modules/authentication/api"
-#    "modules/command-line/api"
-#    "modules/configurations/api"
-#    "modules/tabbed/api"
-#    "modules/tools/api"
-#    "modules/tools/search/api"
-#    "modules/tools/search/input/api"
-#    "modules/tools/search/results/api"
-#    "modules/tools/visualizer/api"
-#    "modules/tools/editor/params/api"
-#    "modules/user/module"
-#    "modules/user/configurations/api"
-#    "modules/user/tools/api"
-#    "modules/user/favorites/api"
+    "modules/dashboard/api"
   ], ->
     window.App.start()
     return

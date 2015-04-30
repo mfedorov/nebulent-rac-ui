@@ -17,9 +17,8 @@ passport.use new LocalStrategy (username, password, done) ->
     url: "#{process.env.API_URL}/public/login"
     json:
       username: username
-      passwordHash: password
+      passwordHash: new Buffer(password).toString('base64')
   }, (error, response, body) ->
-    console.log response.body,body
     if not error && response.statusCode is 200
       return done null, response.body
     else
@@ -39,10 +38,10 @@ router.post '/sign-up', (req, res, next) ->
     return
 
 router.post '/sign-in', passport.authenticate('local'), (req, res, info) ->
-  if req.user.id and req.user.username
+  if req.user.id
     res.json
       id:       req.user.id
-      username: req.user.username
+      org:      req.user
   else
     res.status 401
     .end()

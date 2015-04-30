@@ -1,10 +1,10 @@
 define ['./module'], ->
 
-  App.module "Authentication", (Module, App, Backbone, Marionette, $, _) ->
+  App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.Model extends Backbone.Model
 
-      url: "authentication/sign-in"
+      url: "api/dashboard"
 
       defaults:
         username: ""
@@ -25,6 +25,11 @@ define ['./module'], ->
 
     Module.on 'start', ->
       user = new Module.Model()
+#      user
+#      .fetch()
+#      .success ->
+#        user_channel = Backbone.Radio.channel 'user'
+#        user_channel.command "is-authorized"
       Module.options.user = user
       return
 
