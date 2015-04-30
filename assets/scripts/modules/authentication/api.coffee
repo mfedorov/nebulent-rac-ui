@@ -18,9 +18,9 @@ define [
           apikey: data.org.apikey
           id:     data.org.id
         ));
-        channel = Backbone.Radio.channel 'dashboard'
-        channel.trigger "show:dashboard", data
+        channel = Backbone.Radio.channel 'app'
         appConfig.set "orgData", data
+        channel.trigger "show:dashboard", data
 
     Module.on 'start', ->
       channel = Backbone.Radio.channel 'authentication'

@@ -7,4 +7,14 @@ define ['./layout-template', './module'],
         className:  "layout-view dashboard"
         template:   template
 
+        initialize:->
+          super
+          @model.on "change", => @onData()
+
+        onRender:->
+
+        onData:->
+          @$el.append $("<xmp>#{JSON.stringify(@model.attributes)}</xmp>")
+
+
     App.Dashboard.LayoutView

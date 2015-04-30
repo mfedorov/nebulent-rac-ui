@@ -12,7 +12,6 @@ define ['./header-layout-view', './initialize'], (Header) ->
 
       channel = Backbone.Radio.channel 'app'
       channel.on 'show:index', @showIndex, @
-      channel = Backbone.Radio.channel 'app'
       channel.on 'show:dashboard', @showDashboard, @
 
     onRender: ->
@@ -20,7 +19,10 @@ define ['./header-layout-view', './initialize'], (Header) ->
         channel = Backbone.Radio.channel 'authentication'
         @views.main_view = channel.request 'view'
         channel = Backbone.Radio.channel 'dashboard'
-        @views.main_view = channel.request 'view'
+        @views.dashboard_view = channel.request 'view'
 
     showIndex: () ->
       @main_region.show @views.main_view
+
+    showDashboard: () ->
+      @main_region.show @views.dashboard_view

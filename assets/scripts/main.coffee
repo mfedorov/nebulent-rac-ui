@@ -12,13 +12,12 @@ require [
   AppConfig
 ) ->
 
+  window.appConfig = new AppConfig org: $.parseJSON($.cookie("org") or "{}")
   window.App = new App()
   window.App.on 'start', ->
     new AppLayoutView().render()
     new AppRouter controller: new AppController()
     Backbone.history.start()
-
-  window.appConfig = new AppConfig()
 
   $.ajaxSetup
     statusCode:
