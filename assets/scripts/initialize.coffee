@@ -14,6 +14,10 @@ define [
   'bootstrap-growl'
   'jquery-ui'
   'jquery-cookie'
+  'datatables'
+  'backstretch'
+  'amcharts'
+  'pieChart'
   './behaviors/validation'
   './behaviors/textarea-supporting-tabs'
 ], (Backbone, Marionette, $, _, toastr) ->

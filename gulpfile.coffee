@@ -75,6 +75,11 @@ gulp.task "scripts", ["cleanScripts"], ->
       "handlebars":           "./public/scripts/vendor/handlebars"
       "toastr":               "./public/scripts/vendor/toastr"
       "jquery-cookie":        "./public/scripts/vendor/jquery-cookie"
+      "metronic":             "./public/scripts/vendor/metronic"
+      "backstretch":          "./public/scripts/vendor/jquery.backstretch"
+      "datatables":           "./public/scripts/vendor/jquery.dataTables"
+      "amcharts":             "./public/scripts/vendor/amcharts/amcharts"
+      "pieChart":             "./public/scripts/vendor/amcharts/pie"
     shim:
       "jquery-ui":
         deps: ['jquery']

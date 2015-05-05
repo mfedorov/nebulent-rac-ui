@@ -11,8 +11,6 @@ require [
   AppController,
   AppConfig
 ) ->
-
-  window.appConfig = new AppConfig org: $.parseJSON($.cookie("org") or "{}")
   window.App = new App()
   window.App.on 'start', ->
     new AppLayoutView().render()
@@ -29,6 +27,7 @@ require [
   require [
     "modules/authentication/api"
     "modules/dashboard/api"
+    "modules/top-menu/api"
   ], ->
     window.App.start()
     return

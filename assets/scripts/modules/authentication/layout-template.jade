@@ -1,12 +1,44 @@
-.col-md-6.col-sm-8.col-lg-4.col-xs-12.col-md-offset-3.col-sm-offset-2.col-lg-offset-4.login-wrap
-  .login-form
-    .error
-    form
+.login
+  // BEGIN LOGO
+  .logo
+    a(href='index.html')
+      img(src="/images/city-logo.png", alt='')
+  // END LOGO
+  // BEGIN LOGIN
+  .content
+    // BEGIN LOGIN FORM
+    form.login-form(method="POST")
+      h3.form-title Sign In
+      .alert.alert-danger.display-hide
+        button.close(data-close='alert')
+        span
+          | Enter any username and password.
       .form-group
-        label(for='username') Username
-        input#username.form-control(type='text', placeholder='Enter username', name='username')
+        // ie8, ie9 does not support html5 placeholder, so we just show field title for that
+        label.control-label.visible-ie8.visible-ie9 Username
+        input.form-control.form-control-solid.placeholder-no-fix(type='text', autocomplete='off', placeholder='Username', name='username')
       .form-group
-        label(for='password') Password
-        input#password.form-control(type='password', placeholder='Password', name='password')
-      .text-right
-        button.btn.btn-default(type='submit') Submit
+        label.control-label.visible-ie8.visible-ie9 Password
+        input.form-control.form-control-solid.placeholder-no-fix(type='password', autocomplete='off', placeholder='Password', name='password')
+      .form-actions
+        button.btn.btn-success.uppercase.pull-right(type='submit') Login
+        label.rememberme.check
+          input(type='checkbox', name='remember', value='1')
+          | Remember
+        a#forget-password.forget-password(href='javascript:;') Forgot Password?
+      .create-account
+        p
+          a#register-btn.uppercase(href='javascript:;') Create an account
+      // END LOGIN FORM
+
+    script.
+      $(function() {
+        Metronic.init();
+        Layout.init();
+        Login.init();
+        Demo.init();
+        $.backstretch(['/images/1.jpg', '/images/2.jpg', '/images/3.jpg', '/images/4.jpg'], {
+          fade: 1000,
+          duration: 8000
+        });
+      })

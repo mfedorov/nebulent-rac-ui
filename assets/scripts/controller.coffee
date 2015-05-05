@@ -4,7 +4,10 @@ define ->
 
     index: ->
       channel = Backbone.Radio.channel 'app'
-      if appConfig.get("org").length == 0
+      $orgData = $.cookie("org")
+
+      unless $orgData?.length
         channel.trigger 'show:index'
       else
-        channel.trigger 'show:dashboard'
+        data = $.parseJSON $orgData
+        channel.trigger 'loggedin', org: data

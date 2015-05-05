@@ -8,7 +8,7 @@ define ['./layout-template', './module'],
         template:   template
 
         events:
-          "click button[type=submit]": "onSubmit"
+          'submit .login-form': "onSubmit"
 
         ui:
           "username": "[name=username]"
@@ -19,6 +19,9 @@ define ['./layout-template', './module'],
 
         onRender: ->
           @stickit()
+          $.backstretch ['/images/login-background2.jpg', '/images/login-background3.jpg'],
+            fade: 1000,
+            duration: 8000
 
         onSubmit: (event)->
           event.preventDefault()
@@ -26,6 +29,7 @@ define ['./layout-template', './module'],
             .success (data)=>
               toastr.success "Successfully authenticated"
               channel = Backbone.Radio.channel "authentication"
+              $.backstretch("destroy", false)
               channel.trigger "auth:success", data
             .error (data)=>
               toastr.error "Wrong combination of username and password. Please try again!"

@@ -18,9 +18,10 @@ define [
           apikey: data.org.apikey
           id:     data.org.id
         ));
+
+        #sending data back to main layout view
         channel = Backbone.Radio.channel 'app'
-        appConfig.set "orgData", data
-        channel.trigger "show:dashboard", data
+        channel.trigger "loggedin", data
 
     Module.on 'start', ->
       channel = Backbone.Radio.channel 'authentication'

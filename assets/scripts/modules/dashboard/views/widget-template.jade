@@ -1,0 +1,19 @@
+.portlet.box(class="#{color}")
+  .portlet-title
+    .caption
+      i.fa(class="#{icon}")
+      = title + "  (" + count + ")"
+    .tools
+      a.collapse.collapser(href='javascript:;', data-original-title='', title='')
+        i.fa.fa-chevron-down
+        i.fa.fa-chevron-up.hidden
+  .portlet-body.hidden
+    .table-scrollable
+      table.table.table-bordered.table-hover(id="#{dataTableId}")
+        thead
+          tr
+            - for item in header
+              th
+                span
+                  b= item
+        tbody.row-container

@@ -1,0 +1,11 @@
+.portlet.box(class="#{color}")
+    .portlet-title
+        .caption
+            i.fa(class="#{icon}")
+            = title
+        .tools
+            a.collapse.collapser(href='javascript:;', data-original-title='', title='')
+                i.fa.fa-chevron-down.hidden
+                i.fa.fa-chevron-up
+    .portlet-body
+        #utilization-chart-container
