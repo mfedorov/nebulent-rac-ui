@@ -4,11 +4,8 @@ define ['./module'], ->
 
     class Module.Model extends Backbone.Model
 
-      url: ->
-        debugger
-        return "api/#{@get('orgId')}/dashboard?api_key=#{@get('apiKey')}"
-
+      url: -> "api/#{@get('config').get('orgId')}/dashboard?api_key=#{@get('config').get('apiKey')}"
 
     return
 
-  return
+  App.Dashboard.Model
