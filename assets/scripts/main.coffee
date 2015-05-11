@@ -14,7 +14,7 @@ require [
   window.App = new App()
   window.App.on 'start', ->
     new AppLayoutView().render()
-    new AppRouter controller: new AppController()
+    window.App.Router = new AppRouter controller: new AppController()
     Backbone.history.start()
 
   $.ajaxSetup
@@ -28,6 +28,8 @@ require [
     "modules/authentication/api"
     "modules/dashboard/api"
     "modules/top-menu/api"
+    "modules/rent-agreement/api"
+    "modules/sidebar-menu/api"
   ], ->
     window.App.start()
     return

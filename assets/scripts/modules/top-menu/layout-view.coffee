@@ -4,18 +4,20 @@ define ['./layout-template', './module'],
     App.module "TopMenu", (Module, App, Backbone, Marionette, $, _) ->
 
       class Module.LayoutView extends Marionette.LayoutView
-        className:  "layout-view top-menu"
+        className:  "layout-view top-menu-bar"
         template:   template
 
         events:
           'click #logout-toggle': 'onLogout'
+          'click .page-logo a':   'onLogoClick'
 
-        onRender:->
+        onLogoClick: (e)->
+          e.preventDefault()
+          App.Router.navigate '', trigger: true
 
-
-        onLogout:->
+        onLogout:()->
           $.cookie 'org', ''
-          window.location.reload()
+          window.location.href = window.location.origin + "/login"
 
 
     App.TopMenu.LayoutView

@@ -2,5 +2,6 @@ define ->
 
   class AppRouter extends Marionette.AppRouter
     appRoutes:
-      '': 'index'
+      '':                'index'
+      'rent-agreement':  'newAgreement'
 

@@ -23,7 +23,7 @@ if env is "development"
 
 paths =
   stylesheets:  "assets/stylesheets/**/*"
-  images:       "assets/images/**/*.*"
+  images:       "assets/img/**/*.*"
   vendor_js:    ["assets/scripts/vendor/**/*", "#{pjson.browser.requirejs}.js"]
   vendor_swf:   "assets/vendor/**/*.swf"
   coffee:       "assets/scripts/**/*.coffee"
@@ -42,10 +42,10 @@ gulp.task 'fonts',  ->
 
 gulp.task "images", ["cleanImages"], ->
   gulp.src paths.images
-    .pipe gulp.dest "public/images/"
+    .pipe gulp.dest "public/img/"
 
 gulp.task "cleanImages", (cb) ->
-  del ['public/images'], cb
+  del ['public/img'], cb
 
 gulp.task "scripts", ["cleanScripts"], ->
 
@@ -75,11 +75,16 @@ gulp.task "scripts", ["cleanScripts"], ->
       "handlebars":           "./public/scripts/vendor/handlebars"
       "toastr":               "./public/scripts/vendor/toastr"
       "jquery-cookie":        "./public/scripts/vendor/jquery-cookie"
-      "metronic":             "./public/scripts/vendor/metronic"
+      "metronic":             "./public/scripts/vendor/metronic/metronic"
+      "layout":               "./public/scripts/vendor/metronic/layout"
+      "quick-sidebar":        "./public/scripts/vendor/metronic/quick-sidebar"
+      "demo":                 "./public/scripts/vendor/metronic/demo"
       "backstretch":          "./public/scripts/vendor/jquery.backstretch"
       "datatables":           "./public/scripts/vendor/jquery.dataTables"
       "amcharts":             "./public/scripts/vendor/amcharts/amcharts"
       "pieChart":             "./public/scripts/vendor/amcharts/pie"
+      "select2":              "./public/scripts/vendor/select2.full"
+      "moment":               "./public/scripts/vendor/moment"
     shim:
       "jquery-ui":
         deps: ['jquery']

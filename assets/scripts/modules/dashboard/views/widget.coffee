@@ -35,8 +35,8 @@ define [
         @$("##{@dataTableId}").dataTable()
 
       onCollapser:(e)->
-        e.preventDefault()
-        @$('.portlet-body').toggleClass 'hidden'
+#        e.preventDefault()
+#        @$('.portlet-body').toggleClass 'hidden'
         @ui.collapser.find('i').toggleClass 'hidden'
 
   App.Dashboard.WidgetView

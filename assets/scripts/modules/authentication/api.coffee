@@ -20,8 +20,10 @@ define [
         ));
 
         #sending data back to main layout view
-        channel = Backbone.Radio.channel 'app'
-        channel.trigger "loggedin", data
+#        channel = Backbone.Radio.channel 'app'
+#        channel.trigger "loggedin", data
+
+        window.location.href = window.location.origin
 
     Module.on 'start', ->
       channel = Backbone.Radio.channel 'authentication'

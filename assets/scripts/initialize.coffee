@@ -4,6 +4,12 @@ define [
   'jquery'
   'underscore'
   'toastr'
+  'select2'
+  'metronic'
+  'layout'
+  'quick-sidebar'
+  'demo'
+  'moment'
   'backbone.radio'
   'backbone.stickit'
   'backbone.picky'
@@ -20,9 +26,16 @@ define [
   'pieChart'
   './behaviors/validation'
   './behaviors/textarea-supporting-tabs'
-], (Backbone, Marionette, $, _, toastr) ->
+], (Backbone, Marionette, $, _, toastr, select2, metronic, layout, quickSidebar, demo, moment) ->
 
   window.toastr = toastr
+  window.moment = moment
+
+  #init metronic theme
+  window.initMetronic = ()->
+    Metronic.init()
+    Layout.init()
+    Demo.init()
 
   Backbone.Marionette.Renderer.render = (template, data) ->
     Marionette.TemplateCache.get(template)(data)
