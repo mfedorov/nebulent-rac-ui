@@ -1,5 +1,20 @@
 @import 'admin/layout/layout';
-@import 'admin/layout/themes/light';
+@import 'admin/layout/themes/darkblue';
 @import 'global/plugins';
 @import 'global/components';
 @import 'pages/login';
+
+
+// Because of Metronics strange scss constructions in Page Container .scss
+
+//.page-container {
+//  margin-top: $header-height;
+//}
+//
+//
+//.page-footer-fixed.page-footer-fixed-mobile {
+//  .page-container {
+//    margin-bottom: 20px !important;
+//  }
+//}
+// end of metronic patches

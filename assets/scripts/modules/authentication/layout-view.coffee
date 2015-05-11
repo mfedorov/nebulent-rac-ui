@@ -19,7 +19,7 @@ define ['./layout-template', './module'],
 
         onRender: ->
           @stickit()
-          $.backstretch ['/images/login-background2.jpg', '/images/login-background3.jpg'],
+          $.backstretch ['/img/login-background2.jpg', '/img/login-background3.jpg'],
             fade: 1000,
             duration: 8000
 

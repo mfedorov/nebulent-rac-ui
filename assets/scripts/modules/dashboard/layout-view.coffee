@@ -1,19 +1,12 @@
 define [
   './layout-template'
-  './collections/deposits-due'
-  './collections/last-call-logs'
-  './collections/rental-dues'
-  './collections/utilization'
-  './collections/vehicles-need-inspections'
-  './collections/vehicles-need-oil-change'
   './views/vehicles-need-inspections-widget'
   './views/vehicles-need-oil-change-widget'
   './views/deposits-due-widget'
   './views/last-call-logs-widget'
   './views/rental-dues-widget'
   './views/utilization-widget'
-], (template, DepositsDue, LastCallLogs, RentalDues,
-    Utilization, VehiclesNeedInspections, VehiclesNeedOilChange, VehiclesNeedInpsectionsWidget,
+], (template, VehiclesNeedInpsectionsWidget,
     VehiclesNeedOilChangeWidget, DepositsDueWidget, LastCallLogsWidget, RentalDuesWidget,
     UtilizationWidget) ->
 
@@ -35,23 +28,33 @@ define [
           super
           @collection = new Backbone.Collection()
 
+          @views = {}
+
+          @views.vehicles_need_inspections =  new VehiclesNeedInpsectionsWidget()
+          @views.vehicles_need_oil_change =   new VehiclesNeedOilChangeWidget()
+          @views.deposits_due =               new DepositsDueWidget()
+          @views.last_call_logs =             new LastCallLogsWidget()
+          @views.rental_dues =                new RentalDuesWidget()
+          @views.utilization =                new UtilizationWidget()
+
         onRender:->
 
         onRefresh:->
+          @render()
           @vehicles_need_inspections.show new VehiclesNeedInpsectionsWidget
-            collection: new VehiclesNeedInspections(@model.get('vehiclesNeedInspections'))
+            collection: @model.get('vehiclesNeedInspections')
 
           @vehicles_need_oil_change.show new VehiclesNeedOilChangeWidget
-            collection: new VehiclesNeedOilChange(@model.get('vehiclesNeedOilChanges'))
+            collection: @model.get('vehiclesNeedOilChange')
 
           @deposits_due.show new DepositsDueWidget
-            collection: new DepositsDue(@model.get('depositsDues'))
+            collection: @model.get('dpositsDue')
 
           @last_call_logs.show new LastCallLogsWidget
-            collection: new LastCallLogs(@model.get('last24HCalls'))
+            collection: @model.get('lastCallLogs')
 
           @rental_dues.show new RentalDuesWidget
-            collection: new RentalDues(@model.get('activeRentals'))
+            collection: @model.get('rentalDues')
 
 
           @utilization.show new UtilizationWidget()

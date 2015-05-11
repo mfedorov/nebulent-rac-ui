@@ -1,0 +1,252 @@
+.row
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet
+    .portlet.light
+      .portlet-title
+        .row
+          .col-md-4
+            .caption
+              i.fa.fa-user.font-purple-plum
+              span.caption-subject.bold.font-purple-plum.uppercase
+                | Customer
+              span.caption-helper (first name, last name, id)
+          .col-md-4
+            .form-group
+              .radio-list
+                label.radio-inline
+                  #uniform-optionsRadios4.radio
+                    span.checked
+                      input#optionsRadios4(type='radio', name='optionsRadios', value='option1', checked='')
+                  |  New Customer
+                label.radio-inline
+                  #uniform-optionsRadios5.radio
+                    span
+                      input#optionsRadios5(type='radio', name='optionsRadios', value='option2')
+                  |  Existing Customer
+          .col-md-3
+            .inputs
+              .portlet-input.input-inline.input-small
+                select.form-control.input-circle.width-150(type='text', name='customer_search', placeholder='search...')
+              //label.checkbox-inline.show-all
+              //  #uniform-inlineCheckbox1.checker
+              //    span
+              //      input#inlineCheckbox1(type='checkbox', value='option1')
+              //  |  Show all field
+        .tools
+          a.expand(href='javascript:;', data-original-title='', title='')
+
+      .portlet-body.display-hide
+.row
+  .col-md-6.col-sm-6.col-xs-12
+    .portlet.light
+      .portlet-title
+        .caption
+          i.fa.fa-car.font-purple-plum
+          span.caption-subject.bold.font-purple-plum.uppercase
+            | Vehicle
+          span.caption-helper (plate number, vin)
+        .inputs
+          .portlet-input.input-inline.input-small
+            select.form-control.input-circle.width-150(type='text', name='vehicle_search', placeholder='search...')
+      .portlet-body
+
+//.row
+//  .form-group.col-md-3.col-sm-6.col-xs-12
+//    label.col-md-12.control-label
+//      | Client
+//      span.required(aria-required='true') *
+//    .col-md-12
+//      .input-group
+//        span.input-group-addon
+//          i.fa.fa-user
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='First Name', data-container='body')
+//          input.form-control(type='text' name='first_name')
+//
+//form#rent-agreement-form
+//  .row
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Confirmation Number
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='Confirmation Number', data-container='body')
+//          input.form-control(type='text' name='confirmation_number')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | First Name
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-group
+//          span.input-group-addon
+//            i.fa.fa-user
+//          .input-icon.right
+//            i.fa.fa-info-circle.tooltips(data-original-title='First Name', data-container='body')
+//            input.form-control(type='text' name='first_name')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label  Middle Name
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='Middle Name', data-container='body')
+//          input.form-control(type='text' name='middle_name')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Last Name
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='Last Name', data-container='body')
+//          input.form-control(type='text' name='last_name')
+//
+//  .row
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | License Number
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-group
+//          span.input-group-addon
+//            i.fa.fa-list-alt
+//          .input-icon.right
+//            i.fa.fa-info-circle.tooltips(data-original-title='Driving License', data-container='body')
+//            input.form-control(type='text' name='license_number')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | License State
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='Driving License State', data-container='body')
+//          input.form-control(type='text' name='license_state')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Expiration Date
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='Driving Expiration Date', data-container='body')
+//          input.form-control(type='text' name='license_expiration_date')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | DOB
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='Date of Birth', data-container='body')
+//          input.form-control(type='text' name='date_of_birth')
+//
+//    .col-md-12
+//      .col-md-12
+//        hr
+//  .row
+//    .form-group.col-md-6.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Address 1
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='Address 1', data-container='body')
+//          input.form-control(type='text' name='address_1')
+//    .form-group.col-md-6.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Address 2
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='Address 2', data-container='body')
+//          input.form-control(type='text' name='address_2')
+//  .row
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | City
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-icon.right
+//          i.fa.fa-info-circle.tooltips(data-original-title='City', data-container='body')
+//          input.form-control(type='text' name='city')
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.control-label.col-md-12
+//        | Country
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        select.form-control(name='country')
+//          option(value='') Select...
+//          option(value='USA') USA
+//          option(value='Canada') Canada
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.control-label.col-md-12
+//        | State
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        select.form-control(name='state')
+//          option(value='') Select...
+//          option(value='NY') NY
+//          option(value='FL') FL
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Postal Code
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-group
+//          span.input-group-addon
+//            i.fa.fa-envelope
+//          .input-icon.right
+//            i.fa.fa-info-circle.tooltips(data-original-title='Postal Code', data-container='body')
+//            input.form-control(type='text' name='postal_code')
+//  .row
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Home Phone
+//        span.required(aria-required='true') *
+//      .col-md-12
+//        .input-group
+//          span.input-group-addon
+//            i.fa.fa-phone
+//          .input-icon.right
+//            i.fa.fa-info-circle.tooltips(data-original-title='Home Phone', data-container='body')
+//            input.form-control(type='text' name='home_phone')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Mobile Phone
+//      .col-md-12
+//        .input-group
+//          span.input-group-addon
+//            i.fa.fa-mobile
+//          .input-icon.right
+//            i.fa.fa-info-circle.tooltips(data-original-title='Mobile Phone', data-container='body')
+//            input.form-control(type='text' name='mobile_phone')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Work Phone
+//      .col-md-12
+//        .input-group
+//          span.input-group-addon
+//            i.fa.fa-phone
+//          .input-icon.right
+//            i.fa.fa-info-circle.tooltips(data-original-title='Work Phone', data-container='body')
+//            input.form-control(type='text' name='work_phone')
+//
+//    .form-group.col-md-3.col-sm-6.col-xs-12
+//      label.col-md-12.control-label
+//        | Email
+//      .col-md-12
+//        .input-group
+//          span.input-group-addon
+//            i.fa.fa-envelope
+//          .input-icon.right
+//            i.fa.fa-info-circle.tooltips(data-original-title='Email', data-container='body')
+//            input.form-control(type='text' name='email')
+//
+//    .col-md-12
+//      .col-md-12
+//        hr
+
+
+

@@ -5,7 +5,7 @@
   padding: 14px 10px 9px 10px !important;
 }
 
-.dashboard-content {
+#main-region {
   padding: 25px 20px 10px 20px;
 }
 
@@ -18,4 +18,32 @@ a.collapse.collapser {
   margin-bottom: 25px;
   width: 100%;
   height: 362px;
+}
+
+#main-region {
+  background-color: white;
+}
+
+.sidebar-toggler-wrapper {
+  margin-bottom: 15px !important;
+}
+
+.width-150 {
+  width: 100% !important;
+}
+
+.portlet-title .select2-container {
+  width: 100% !important;
+}
+
+.caption-helper {
+  margin-left: 5px !important;
+}
+
+.rent-agreement-portlet .radio {
+  margin: 0;
+}
+
+.show-all {
+  margin-left: 20px
 }

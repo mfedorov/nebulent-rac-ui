@@ -4,10 +4,8 @@
       i.fa(class="#{icon}")
       = title + "  (" + count + ")"
     .tools
-      a.collapse.collapser(href='javascript:;', data-original-title='', title='')
-        i.fa.fa-chevron-down
-        i.fa.fa-chevron-up.hidden
-  .portlet-body.hidden
+      a.expand(href='javascript:;', data-original-title='', title='')
+  .portlet-body.display-hide
     .table-scrollable
       table.table.table-bordered.table-hover(id="#{dataTableId}")
         thead
