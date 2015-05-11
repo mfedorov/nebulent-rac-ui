@@ -16,7 +16,6 @@ define [
 
         onRender:->
           @rentalAgreement = new RentAgreementView(model:new Backbone.Model(config: @model.get('config')))
-          debugger
           @main_region.show @rentalAgreement
 
 

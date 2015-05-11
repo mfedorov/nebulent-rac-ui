@@ -40,10 +40,35 @@ a.collapse.collapser {
   margin-left: 5px !important;
 }
 
-.rent-agreement-portlet .radio {
-  margin: 0;
+.rent-agreement-portlet {
+  .portlet-title {
+    .caption {
+      padding: 0 !important;
+    }
+  }
+  .inputs.left {
+    float: left !important;
+  }
+  .tools {
+    text-align: right;
+  }
 }
 
-.show-all {
-  margin-left: 20px
+.rent-agreement-portlet .radio {
+  margin: 0;
+  .tools a {
+    display: inline-block;
+    height: 16px;
+    margin-left: 5px;
+    opacity: 1;
+    width: 14px;
+    visibility: visible;
+    &.collapse {
+      background-image: url(../img/portlet-collapse-icon.png);
+    }
+    &.expand {
+      background-image: url(../img/portlet-expand-icon.png);
+
+    }
+  }
 }
