@@ -1,10 +1,10 @@
 td
   = modelIndex + 1
 td
-  = customerName
+  = customer.firstName + ' ' + customer.lastName
 td
-  = driverLicense||'none'
+  = customer.driverLicense
 td
-  = dipositTaken
+  = payment.amount
 td
-  = date||'none'
+  = moment(this.takenOn).format("D MMMM YYYY")
