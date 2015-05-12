@@ -4,5 +4,5 @@ define [], ->
 
     class Module.DepositsDue extends Backbone.Model
       idAttribute: 'itemID'
-
+    	
   App.Dashboard.DepositsDue

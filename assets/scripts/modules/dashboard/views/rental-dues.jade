@@ -1,14 +1,14 @@
 td
   = modelIndex + 1
 td
-  = customerName
+  = customer.firstName + ' ' + customer.lastName
 td
-  = make
+  = vehicle.make
 td
-  = model
+  = vehicle.model
 td
-  = color
+  = vehicle.color
 td
-  = plateNumber
+  = vehicle.plateNumber
 td
-  = rentStartDate||'none'
+  = vehicle.registrationDate
