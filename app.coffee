@@ -12,10 +12,10 @@ app.use express.static "public"
 app.use cookie_parser()
 app.use body_parser.json()
 app.use body_parser.urlencoded extended: true
-app.use session
-  secret:             process.env.SECRET_KEY
-  resave:             true
-  saveUninitialized:  true
+# app.use session
+#   secret:             process.env.SECRET_KEY
+#   resave:             true
+#   saveUninitialized:  true
 app.use passport.initialize()
 app.use passport.session()
 

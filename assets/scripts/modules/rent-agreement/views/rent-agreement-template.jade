@@ -211,7 +211,7 @@
         .tools.col-md-1.right
           a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
-        form#customer-form
+        form#vehicle-form
           .row
             .form-group.col-md-3.col-sm-6.col-xs-12
               label.col-md-12.control-label
@@ -251,68 +251,12 @@
       .row
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
-            | Vehicle Make
+            | Daily rate
             span.required(aria-required='true') *
           .col-md-12
             .input-group
               span.input-group-addon
                 i.fa.fa-user
               .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Vehicle Make', data-container='body')
-                input.form-control(type='text' name='vehicle_make')
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label  Color
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Vehicle Color', data-container='body')
-              input.form-control(type='text' name='vehicle_color')
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Plate Number
-            span.required(aria-required='true') *
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Vehicle Plate Number', data-container='body')
-              input.form-control(type='text' name='vehicle_plate_number')
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Model
-            span.required(aria-required='true') *
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Vhicle Model', data-container='body')
-              input.form-control(type='text' name='vehicle_model')
-      .row
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Year
-            span.required(aria-required='true') *
-          .col-md-12
-            .input-group
-              span.input-group-addon
-                i.fa.fa-user
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Year of production of the Vehicle', data-container='body')
-                input.form-control(type='text' name='vehicle_year')
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label  Current Milage
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Vehicle Current Milage', data-container='body')
-              input.form-control(type='text' name='vehicle_current_milage')
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Plate Number
-            span.required(aria-required='true') *
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Vehicle Plate Number', data-container='body')
-              input.form-control(type='text' name='vehicle_plate_number')
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Model
-            span.required(aria-required='true') *
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Vhicle Model', data-container='body')
-              input.form-control(type='text' name='vehicle_model')
+                i.fa.fa-info-circle.tooltips(data-original-title='Daily Rate', data-container='body')
+                input.form-control(type='text' name='dayly_rates')

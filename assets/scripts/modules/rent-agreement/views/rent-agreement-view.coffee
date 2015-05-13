@@ -22,7 +22,7 @@ define [
               search: params.term
             processResults: (data, page) =>
               @lastSearch = data
-              @data = data
+              @customer = new Backbone.Model data[0]
               result = _.map data , (item)->
                 id: item.contactID, text: item.firstName + ' ' + item.lastName + " (ID: #{item.contactID})", contact: item
               { results: result }
@@ -42,17 +42,36 @@ define [
           debugger
           @$('select[name="vehicle_search"]').select2('val','')
         .error (data)->
-          debugger
-
-
-
 
         @$('select[name="customer_search"]').on 'change', =>
           if @lastSearch[0]?.contactID?
-            @fillExistingCustomer(@lastSearch[0])
+            @fillExistingCustomer()
+
+        @$('select[name="vehicle_search"]').on 'change', (e)=>
+          id = $(e.currentTarget).val()
+          if id
+            @vehicle = (_.filter @model.get('vehicles'), (item)-> return item.itemID is id)[0]
+            @fillExistingVehicle()
+
+      fillExistingVehicle: ->
+        @fillParameter 'vehicle_make', @vehicle.make
+        @fillParameter 'vehicle_color', @vehicle.color
+        @fillParameter 'vehicle_plate_number', @vehicle.plateNumber
+        @fillParameter 'vehicle_model', @vehicle.model
+        @fillParameter 'daily_rate', @vehicle.dailyRate
 
       fillExistingCustomer: ->
-        console.log "got an existing user, filling him in"
+        @fillParameter 'first_name', @customer.get('firstName')
+        @fillParameter 'last_name', @customer.get('lastName')
+        @fillParameter 'middle_name', @customer.get('middleName')
+        @fillParameter 'date_of_birth', moment.unix(parseInt(@customer.get('dateOfBirth'))/1000).format("DD/MM/YYYY")
+        @fillParameter 'license_number', @customer.get('driverLicense')
+        if @customer.get('driverLicenseExpirationDate')
+          @fillParameter 'license_expiration_date', moment.unix(parseInt(@customer.get('driverLicenseExpirationDate'))/1000).format("DD/MM/YYYY")
+        @fillParameter 'lisence_state', @customer.get('driverLicenseState')
+
+      fillParameter: (field, value)->
+        @$(":input[name=\"#{field}\"]").val value
 
       customerChoiceChange: (e)->
         if $(e.currentTarget).val() is "new"
