@@ -3,7 +3,6 @@ define ->
   class AppController extends Marionette.Controller
 
     index: ->
-      debugger
       channel = Backbone.Radio.channel 'app'
       $orgData = $.cookie("org")
 

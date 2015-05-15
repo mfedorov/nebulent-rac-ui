@@ -1,0 +1,33 @@
+form#vehicle-form
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Vehicle Make
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-group
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Vehicle Make', data-container='body')
+            input.form-control(type='text' name='vehicle_make')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label  Color
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Vehicle Color', data-container='body')
+          input.form-control(type='text' name='vehicle_color')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Plate Number
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Vehicle Plate Number', data-container='body')
+          input.form-control(type='text' name='vehicle_plate_number')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Model
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Vhicle Model', data-container='body')
+          input.form-control(type='text' name='vehicle_model')

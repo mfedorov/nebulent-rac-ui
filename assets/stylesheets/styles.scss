@@ -54,6 +54,12 @@ a.collapse.collapser {
   }
 }
 
+.rental-details {
+  .form-actions .row{
+    text-align: right;
+  }
+}
+
 .rent-agreement-portlet .radio {
   margin: 0;
   .tools a {
@@ -70,5 +76,16 @@ a.collapse.collapser {
       background-image: url(../img/portlet-expand-icon.png);
 
     }
+  }
+}
+
+.phones-toolbar, .addresses-toolbar {
+  .phones-list-title, .addresses-list-title {
+    display: inline-block;
+    float: left;
+  }
+  .list-add {
+    float:right;
+    margin-top: 3px;
   }
 }
