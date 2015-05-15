@@ -14,7 +14,7 @@ define [
         regions:
           main_region: "#main-rent-agreement-region"
 
-        onRender:->
+        onShow:->
           @rentalAgreement = new RentAgreementView(model:new Backbone.Model(config: @model.get('config')))
           @main_region.show @rentalAgreement
 
