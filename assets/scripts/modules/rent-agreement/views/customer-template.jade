@@ -1,0 +1,82 @@
+form#customer-form
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | First Name
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-group
+          span.input-group-addon
+            i.fa.fa-user
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='First Name', data-container='body')
+            input.form-control(type='text' name='first_name')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label  Middle Name
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Middle Name', data-container='body')
+          input.form-control(type='text' name='middle_name')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Last Name
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Last Name', data-container='body')
+          input.form-control(type='text' name='last_name')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | DOB
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Date of Birth', data-container='body')
+          input.form-control(type='text' name='date_of_birth')
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | License Number
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-group
+          span.input-group-addon
+            i.fa.fa-list-alt
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Driving License', data-container='body')
+            input.form-control(type='text' name='license_number')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | License State
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Driving License State', data-container='body')
+          input.form-control(type='text' name='license_state')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Expiration Date
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Driving Expiration Date', data-container='body')
+          input.form-control(type='text' name='license_expiration_date')
+    .col-md-12
+      .col-md-12
+        hr
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Email
+      .col-md-12
+        .input-group
+          span.input-group-addon
+            i.fa.fa-envelope
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Email', data-container='body')
+            input.form-control(type='text' name='email_address')
+.row
+  .col-md-6.col-xs-12.col-sm-12
+    #phones-region
+  .col-md-6.col-xs-12.col-sm-12
+    #addresses-region

@@ -10,7 +10,7 @@ define [
 
       getView: ->
         model = new Module.Model
-        Module.config = model
+        Module.model = model
 
         new LayoutView model: model
 
