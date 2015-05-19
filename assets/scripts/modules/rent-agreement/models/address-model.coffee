@@ -8,13 +8,11 @@ define [],  ()->
         addressLine2: ""
         addressLine3: ""
         addressLine4: ""
-        addressType: ""
-        attentionTo: ""
-        city: ""
-        country: ""
-        createdDateUTC: null
-        postalCode: ""
-        region: ""
-        updatedDateUTC: null
+        addressType:  "STREET"
+        attentionTo:  ""
+        city:         ""
+        country:      ""
+        postalCode:   ""
+        region:       ""
 
   App.CarRentAgreement.AddressModel

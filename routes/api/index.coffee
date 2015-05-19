@@ -7,7 +7,7 @@ ensureAuthenticated = (req, res, next) ->
   else
     res.sendStatus 401
 
-router.get '/api', ensureAuthenticated, (req, res) ->
+router.all '/api', ensureAuthenticated, (req, res) ->
   res.json
     id:       req.user.id
     username: req.user.username

@@ -1,7 +1,8 @@
 define [
   './../collections/customer-collection'
   './../collections/vehicle-collection'
-],  (CustomerCollection, VehicleCollection)->
+  './../collections/deposits-collection'
+],  (CustomerCollection, VehicleCollection, DepositCollection)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -11,6 +12,7 @@ define [
       defaults:
           vehicles:   new VehicleCollection()
           customers:  new CustomerCollection()
+          deposits:   new DepositCollection()
 
       parse: (response, options) ->
         @get 'vehicles'

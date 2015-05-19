@@ -3,18 +3,21 @@ require [
   'layout-view'
   'router'
   'controller'
+  './helpers/data_helper'
   'app-config'
 ], (
   App,
   AppLayoutView,
   AppRouter,
   AppController,
+  DataHelper,
   AppConfig
 ) ->
   window.App = new App()
   window.App.on 'start', ->
     new AppLayoutView().render()
     window.App.Router = new AppRouter controller: new AppController()
+    window.App.DataHelper = DataHelper
     Backbone.history.start()
 
   $.ajaxSetup
