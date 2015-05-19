@@ -10,6 +10,7 @@ define [
   'quick-sidebar'
   'demo'
   'moment'
+  'bootstrap-datetimepicker'
   'backbone.radio'
   'backbone.stickit'
   'backbone.picky'
@@ -26,7 +27,8 @@ define [
   'pieChart'
   './behaviors/validation'
   './behaviors/textarea-supporting-tabs'
-], (Backbone, Marionette, $, _, toastr, select2, metronic, layout, quickSidebar, demo, moment) ->
+], (Backbone, Marionette, $, _, toastr, select2, metronic, layout,
+    quickSidebar, demo, moment) ->
 
   window.toastr = toastr
   window.moment = moment

@@ -4,7 +4,7 @@ define [],  ()->
 
     class Module.PhoneModel extends Backbone.Model
       defaults:
-        phoneType: "Home"
+        phoneType: "DEFAULT"
         phoneNumber: ""
 
   App.CarRentAgreement.PhoneModel

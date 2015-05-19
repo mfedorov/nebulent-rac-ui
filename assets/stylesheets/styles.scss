@@ -89,3 +89,43 @@ a.collapse.collapser {
     margin-top: 3px;
   }
 }
+
+.contains-select2 {
+  &.loading-select2 {
+    .spinner {
+      display: inline-block;
+    }
+    .select2-container-div {
+      display: none;
+    }
+  }
+  .spinner {
+    display: none;
+  }
+  .select2-container-div {
+    display: block;
+  }
+}
+
+// select 2 style override
+span.select2-selection.select2-selection--single {
+  height: 34px;
+  padding-top: 3px;
+}
+
+span.select2-selection__arrow {
+  top: 4px !important;
+}
+// select 2 style override end
+
+//phones view start
+.remove-phone {
+  cursor: pointer;
+  background-color: transparent !important;
+  &:hover {
+    i {
+      color: #F3565D;
+    }
+  }
+}
+//phones view end
