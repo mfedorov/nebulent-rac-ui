@@ -2,6 +2,8 @@
   .input-group
     span.input-group-addon
       i.fa.fa-phone
-    input.form-control(type='text' name="phone_type_#{phoneType}" value=phoneType)
+    input.form-control(type='text' name="phone_type" value=phoneType)
     span.input-group-addon :
-    input.form-control(type='text' name="phone_number_#{phoneNumber}" value= phoneNumber)
+    input.form-control(type='text' name="phone_number" value= phoneNumber)
+    span.input-group-addon.remove-phone
+      i.fa.fa-times

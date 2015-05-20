@@ -21,13 +21,15 @@
                       input#optionsRadios5(type='radio', name='customerChoiceRadios', value='existing', checked='')
                   |  Existing Customer
           .inputs.col-md-3.left
-            .portlet-input.input-inline.input-small
-              select.form-control.width-150(type='text', name='customer_search', placeholder='search...')
+            .portlet-input.input-inline.input-small.contains-select2.loading-select2
+              i.spinner.fa.fa-spinner.fa-pulse
+              .select2-container-div
+                select.form-control.width-150(type='text', name='customer_search', placeholder='search...')
           .tools.col-md-1.right
             a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
         #customer-region
-  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.hidden
     .portlet.light
       .portlet-title
         .col-md-4.caption
@@ -43,8 +45,35 @@
           a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
         #vehicle-region
-
-  .col-md-12.col-sm-12.col-xs-12.rental-details
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.hidden
+    .portlet.light
+      .portlet-title
+        .col-md-4.caption
+          i.fa.fa-user.font-purple-plum
+          span.caption-subject.bold.font-purple-plum.uppercase
+            | Deposit
+          span.caption-helper (id)
+        .col-md-4
+          .form-group
+            .radio-list
+              label.radio-inline
+                #uniform-optionsRadios4.radio
+                  span.checked
+                    input#optionsRadios4(type='radio', name='depositChoiceRadios', value='new')
+                |  New Deposit
+              label.radio-inline
+                #uniform-optionsRadios5.radio
+                  span
+                    input#optionsRadios5(type='radio', name='depositChoiceRadios', value='existing', checked='')
+                |  Existing Deposit
+        .inputs.col-md-3.left
+          .portlet-input.input-inline.input-small
+            select.form-control.width-150(type='text', name='deposit_search', placeholder='search...')
+        .tools.col-md-1.right
+          a.expand(href='javascript:;', data-original-title='', title='')
+      .portlet-body.display-hide
+        #deposit-region
+  .col-md-12.col-sm-12.col-xs-12.rental-details.hidden
     form#rental-details-form.form
       .row
         .form-group.col-md-3.col-sm-6.col-xs-12

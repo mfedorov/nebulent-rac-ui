@@ -11,9 +11,14 @@ define [
       childView: PhoneView
       childViewContainer: '#phones-list'
 
+      events: ->
+        'click .add-phone': 'onAddClick'
+
       initialize:(options)->
-        debugger
         @collection.add( new PhoneModel()) unless @collection.length
         @collection.on 'change', -> console.log "changed"
+
+      onAddClick: ->
+        @collection.add new PhoneModel()
 
   App.CarRentAgreement.PhonesView

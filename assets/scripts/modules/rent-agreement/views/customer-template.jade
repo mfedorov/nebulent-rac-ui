@@ -51,20 +51,13 @@ form#customer-form
         span.required(aria-required='true') *
       .col-md-12
         .input-icon.right
-          i.fa.fa-info-circle.tooltips(data-original-title='Driving License State', data-container='body')
-          input.form-control(type='text' name='license_state')
+          select.form-control(type='text' name='license_state')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Expiration Date
         span.required(aria-required='true') *
       .col-md-12
-        .input-icon.right
-          i.fa.fa-info-circle.tooltips(data-original-title='Driving Expiration Date', data-container='body')
-          input.form-control(type='text' name='license_expiration_date')
-    .col-md-12
-      .col-md-12
-        hr
-  .row
+        input.form-control(type='text' name='license_expiration_date')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Email
@@ -75,8 +68,16 @@ form#customer-form
           .input-icon.right
             i.fa.fa-info-circle.tooltips(data-original-title='Email', data-container='body')
             input.form-control(type='text' name='email_address')
+    .col-md-12
+      .col-md-12
+        hr
 .row
   .col-md-6.col-xs-12.col-sm-12
     #phones-region
   .col-md-6.col-xs-12.col-sm-12
     #addresses-region
+.row
+  .form-actions
+    .col-md-12.right
+      .col-md-12
+        button.btn.green(type='submit' name='submit_customer') Create New User
