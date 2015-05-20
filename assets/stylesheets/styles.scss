@@ -119,7 +119,7 @@ span.select2-selection__arrow {
 // select 2 style override end
 
 //phones view start
-.remove-phone {
+.remove-phone, .remove-address {
   cursor: pointer;
   background-color: transparent !important;
   &:hover {

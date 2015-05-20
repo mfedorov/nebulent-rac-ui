@@ -10,15 +10,29 @@ define [
 
 
 #      bindings:
-#        "[name=vehicle_make]":             observe: "make"
-#        "[name=vehicle_color]":            observe: "color"
-#        "[name=vehicle_plate_number]":     observe: "plateNumber"
-#        "[name=vehicle_model]":            observe: "model"
+#        "description":
+#        "code":
+#        "salesDetails":
+#        "purchaseDetails":
+#        "customer":
+#        "location":
+#        "payments":
+#        "credit":
+#        "notes":
+#        "properties":
+#        "incidentIds":
+#        "orgId":
+#        "returnedOn":
+#        "takenOn":
+#        "status":
+      initialize:(options)->
+        @organization = options.organization
 
       onShow:->
-        debugger
         return unless @model
         @stickit()
+
+        @$('[name="deposit_customer"]').select2 data: @organization.get('customers').toArray()
 
 
   App.CarRentAgreement.Deposit

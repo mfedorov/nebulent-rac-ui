@@ -19,12 +19,18 @@ define [
       currentVehicle:   null
       currentDeposit:   null
 
+      dataCollection:
+        organization: false
+        customers:    false
+        deposits:     false
+
       events:
         'change input:radio[name="customerChoiceRadios"]':      "customerChoiceChange"
         'change input:radio[name="depositChoiceRadios"]':       "depositChoiceChange"
         'change select[name="vehicle_search"]':                 "onVehicleSearch"
         'change select[name="customer_search"]':                "onCustomerSearch"
         'change select[name="deposit_search"]':                 "onDepositSearch"
+        'loaded':                                               "initViewElements"
 
 
       regions:
@@ -33,45 +39,71 @@ define [
         deposit_region:   "#deposit-region"
 
       initialize:->
-        @organization ?= new OrganizationModel(@model.toJSON())
+        @organization ?= new OrganizationModel()
+        window.organization = @organization
+        @listenTo @model, 'change:customer', @onCustomerChange
+        @listenTo @model, 'change:vehicle', @onVehicleChange
+        @listenTo @model, 'change:deposit', @onDepositChange
+
+        @listenTo @organization, 'sync', _.partial(@loaded, 'organization')
+        @listenTo @organization.get('customers'), 'sync',  _.partial(@loaded, 'customers')
+        @listenTo @organization.get('deposits'), 'sync',  _.partial(@loaded, 'deposits')
+
         @initData()
+
+      loaded:(target)->
+        @dataCollection[target] = true
+        @organizationLoaded() if target is 'organization'
+        unless false in _.values(@dataCollection)
+          console.log "loaded all data rendering"
+          @$el.trigger "loaded"
 
       onShow:->
         @customer_region.show new CustomerView( model: new CustomerModel(), config: @model.get('config'))
-        @vehicle_region.show  new VehicleView()
-        @deposit_region.show  new DepositView()
+
+        @deposit_region.show  new DepositView(organization: @organization)
 
       initData: ->
+        @fetchOrganization()
+        @fetchCustomers()
+        @fetchDeposits()
+
+      initViewElements:->
+        @initCustomerSelect2()
+        @initVehicleSelect2()
+        @initDepositSelect2()
+
+      showFetchError: (target)->
+        toastr.error "Error getting #{target} data"
+        console.error "error fetching #{target} data", data
+
+      fetchOrganization: ->
         @organization.fetch()
-          .success (data)=>
-            console.log @organization.attributes
-            @organization.get('customers').fetch()
-              .success (data)=>
-                @organization.get('deposits').fetch()
-                  .success (data)=>
-                    @initCustomerSelect2()
-                    @initVehicleSelect2()
-                    @initDepositSelect2()
-                  .error (data)=>
-                    toastr.error "Error getting Deposits data"
-                    console.error "error fetching deposits data", data
-              .error (data)=>
-                toastr.error "Error getting Customers data"
-                console.error "error fetching customer data", data
-          .error (data)->
-            toastr.error "Error getting Organization data"
-            console.error "error fetching org data", data
+          .success (data)-> console.log "org loaded"
+          .error   (data)=> @showFetchError 'Organization'
+
+      fetchCustomers: ->
+        @organization.get('customers').fetch()
+          .success (data)-> console.log "customers loaded"
+          .error   (data)=> @showFetchError 'Customers'
+
+      fetchDeposits: ->
+        @organization.get('deposits').fetch()
+          .success (data)-> console.log "deposits loaded"
+          .error   (data)=> @showFetchError 'Deposits'
 
       onCustomerSearch: (e)->
         id = $(e.currentTarget).val()
         if id
+          @model.set 'customer', id
           @currentCustomer = @organization.get('customers').get(id)
           console.log @currentCustomer
-          @customer_region.show new CustomerView( model:@currentCustomer, config: @model.get 'config' )
+          @customer_region.show new CustomerView model:@currentCustomer
 
       onVehicleSearch: (e)->
         id = $(e.currentTarget).val()
         if id
+          @model.set 'vehicle', id
           @currentVehicle = @organization.get('vehicles').get(id)
           console.log @currentVehicle
           @vehicle_region.show new VehicleView model: @currentVehicle
@@ -79,21 +111,16 @@ define [
       onDepositSearch: (e)->
         id = $(e.currentTarget).val()
         if id
+          @model.set 'deposit', id
           @currentDeposit = @organization.get('deposits').get(id)
           console.log @currentDeposit
-          @deposit_region.show new DepositView model: @currentDeposit
-
-      CustomersToArray: ->
-        result = _.map  @organization.get('customers').models , (customer)->
-          id: customer.get('contactID'), text: customer.get('firstName') + ' ' + customer.get('lastName') + " (ID: #{customer.get('contactID')})"
-        result.unshift id: 0, text:""
-        result
+          @deposit_region.show new DepositView model: @currentDeposit, organization: @organization
 
       initCustomerSelect2: ()->
         @$('select[name="customer_search"]').parent().parent().toggleClass "loading-select2"
         @$('select[name="customer_search"]').select2('destroy') if @$('select[name="customer_search"]').data('select2')
         @$('select[name="customer_search"]').select2
-          data: @CustomersToArray()
+          data: @organization.get('customers').toArray()
           minimumInputLength: 1
 
       vehiclesToArray: ->
@@ -127,8 +154,50 @@ define [
           if @customer_region.currentView?
             @currentCustomer = new CustomerModel()
             @$('select[name="customer_search"]').select2 'val', ''
-            @customer_region.show new CustomerView( model:@currentCustomer, config: @model.get 'config' )
+            @customer_region.show new CustomerView model: @currentCustomer
         else
           $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().show()
+          @customer_region.reset()
+
+      onCustomerChange: ->
+        if @model.get('customer').length
+          @showVehicleChoice()
+
+        else
+          @hideVehicleChoice()
+
+      onVehicleChange: ->
+        if @model.get('vehicle').length
+          @showDepositChoice()
+        else
+          @hideDepositChoice()
+
+      onDepositChange: ->
+        if @model.get('deposit').length
+          @showAgreementDetails()
+        else
+          @hideAgreementDetails()
+
+
+      showVehicleChoice: ->
+        @$('.vehicle-portlet').removeClass('hidden')
+
+      hideVehicleChoice: ->
+        @$('.vehicle-portlet').removeClass('hidden').addClass('hidden')
+
+      showDepositChoice: ->
+        @$('.deposit-portlet').removeClass('hidden')
+
+      hideDepositChoice: ->
+        @$('.deposit-portlet').removeClass('hidden').addClass('hidden')
+
+      showAgreementDetails: ->
+        @$('.agreement-details-portlet').removeClass('hidden')
+
+      hideAgreementDetails: ->
+        @$('.agreement-details-portlet').removeClass('hidden').addClass('hidden')
+
+      organizationLoaded:->
+        @$('[name="daily_rate"]').val() unless @$('[name="daily_rate"]').val()
 
   App.CarRentAgreement.RentAgreement

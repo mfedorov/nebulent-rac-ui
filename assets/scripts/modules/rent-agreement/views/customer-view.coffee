@@ -42,7 +42,8 @@ define [
         return unless @model
 
         @stickit()
-
+        @$('.usercreate-controlls').show()
+        @$('.usercreate-controlls').hide() if @model.get 'contactID'
         @$("[name=date_of_birth]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_expiration_date]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_state]").select2 data: App.DataHelper.states
@@ -54,8 +55,9 @@ define [
       onSubmit:->
         @model.save()
           .success (data)->
-            debugger
-          .error (data)->
-            debugger
+            toastr.success "Successfully Created user"
+        .error (data)->
+            toastr.error "Error Creating user"
+
 
   App.CarRentAgreement.Customer
