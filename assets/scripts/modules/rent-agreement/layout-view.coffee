@@ -1,8 +1,9 @@
 define [
     './layout-template'
     './views/rent-agreement-view'
+    './models/rent-agreement'
     './module'
-],  (template, RentAgreementView) ->
+],  (template, RentAgreementView, RentAgreement) ->
 
     App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -15,7 +16,7 @@ define [
           main_region: "#main-rent-agreement-region"
 
         onShow:->
-          @rentalAgreement = new RentAgreementView(model:new Backbone.Model(config: @model.get('config')))
+          @rentalAgreement = new RentAgreementView model:new RentAgreement()
           @main_region.show @rentalAgreement
 
 

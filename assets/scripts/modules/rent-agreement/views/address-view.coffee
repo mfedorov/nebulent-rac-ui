@@ -19,7 +19,13 @@ define [
         ':input[name="postal_code"]'    : observe:"postalCode"
         ':input[name="region"]'         : observe:"region"
 
+      events:
+        'click .remove-address': 'onRemove'
+
       onShow:->
         @stickit()
+
+      onRemove:->
+        @model.destroy()
 
   App.CarRentAgreement.AddressView
