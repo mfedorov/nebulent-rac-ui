@@ -53,9 +53,7 @@ define [
 
       loaded:(target)->
         @dataCollection[target] = true
-        @organizationLoaded() if target is 'organization'
         unless false in _.values(@dataCollection)
-          console.log "loaded all data rendering"
           @$el.trigger "loaded"
 
       onShow:->
@@ -110,6 +108,7 @@ define [
 
       onDepositSearch: (e)->
         id = $(e.currentTarget).val()
+        debugger
         if id
           @model.set 'deposit', id
           @currentDeposit = @organization.get('deposits').get(id)
@@ -183,13 +182,15 @@ define [
       onCustomerChange: ->
         if @model.get('customer').length
           @showVehicleChoice()
-
         else
           @hideVehicleChoice()
 
       onVehicleChange: ->
         if @model.get('vehicle').length
           @showDepositChoice()
+          unless @$('[name="daily_rate"]').val()
+            model = @organization.get('vehicles').get(@model.get('vehicle'))
+            @$('[name="daily_rate"]').val(model.get('dailyRate') or "50")
         else
           @hideDepositChoice()
 
@@ -198,7 +199,6 @@ define [
           @showAgreementDetails()
         else
           @hideAgreementDetails()
-
 
       showVehicleChoice: ->
         @$('.vehicle-portlet').removeClass('hidden')
@@ -219,8 +219,5 @@ define [
 
       hideAgreementDetails: ->
         @$('.agreement-details-portlet').removeClass('hidden').addClass('hidden')
-
-      organizationLoaded:->
-        @$('[name="daily_rate"]').val() unless @$('[name="daily_rate"]').val()
 
   App.CarRentAgreement.RentAgreement
