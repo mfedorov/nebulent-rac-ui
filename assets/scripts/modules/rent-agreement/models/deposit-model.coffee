@@ -1,4 +1,6 @@
-define [],  ->
+define [
+  './payment-model'
+],  (PaymentModel)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -11,7 +13,7 @@ define [],  ->
         purchaseDetails:null
         customer:       null
         location:       null
-        payment:        null
+        payment:        new PaymentModel()
         credit:         null
         notes:          []
         properties:     []
@@ -20,5 +22,13 @@ define [],  ->
         returnedOn:     null
         takenOn:        null
         status:         "ACTIVE"
+
+      parse: (response, options)->
+        @set('payment', new PaymentModel()) unless @get('payment')
+        @get 'payment'
+        .set response.payment
+
+        response.payment = @get 'payment'
+        response
 
   App.CarRentAgreement.DepositModel
