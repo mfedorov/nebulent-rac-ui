@@ -121,6 +121,7 @@ define [
         @$('select[name="customer_search"]').select2
           data: @organization.get('customers').toArray()
           minimumInputLength: 1
+        $('select[name="customer_search"]').select2('open')
 
       vehiclesToArray: ->
         result = _.map @organization.get('vehicles').models, (vehicle)->
@@ -148,15 +149,35 @@ define [
           minimumInputLength: 1
 
       customerChoiceChange: (e)->
-        if $(e.currentTarget).val() is "new"
+        if e.currentTarget.value == "new"
           $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
-          if @customer_region.currentView?
-            @currentCustomer = new CustomerModel()
-            @$('select[name="customer_search"]').select2 'val', ''
-            @customer_region.show new CustomerView model: @currentCustomer
+          @$('select[name="customer_search"]').select2 'val', ''
+          @currentCustomer = new CustomerModel()
+          @customer_region.show new CustomerView model: @currentCustomer
+          if $('.rent-agreement-portlet .portlet-title .tools a:first').hasClass('expand') 
+            $('.rent-agreement-portlet .portlet-title .tools a').click()
         else
           $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().show()
           @customer_region.reset()
+          $('.rent-agreement-portlet .portlet-title .tools a').click()
+          setTimeout (-> $('select[name="customer_search"]').select2('open')),100
+
+      depositChoiceChange: (e)->
+        console.log 'deposit change choise'
+        if e.currentTarget.value == "new"
+          id = $(e.currentTarget).val()
+          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
+          @$('select[name="deposit_search"]').select2 'val', ''
+          @currentDeposit = @organization.get('deposits').get(id)
+           
+          @deposit_region.show new DepositView model: @currentDeposit, organization: @organization
+          if $('.deposit-portlet .portlet-title .tools a:first').hasClass('expand') 
+            $('.deposit-portlet .portlet-title .tools a').click()
+        else
+          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().show()
+          @deposit_region.reset()
+          $('.deposit-portlet .portlet-title .tools a').click()
+          setTimeout (-> $('select[name="deposit_search"]').select2('open')),100
 
       onCustomerChange: ->
         if @model.get('customer').length
@@ -181,12 +202,14 @@ define [
 
       showVehicleChoice: ->
         @$('.vehicle-portlet').removeClass('hidden')
+        $('select[name="vehicle_search"]').select2('open')
 
       hideVehicleChoice: ->
         @$('.vehicle-portlet').removeClass('hidden').addClass('hidden')
 
       showDepositChoice: ->
         @$('.deposit-portlet').removeClass('hidden')
+        $('select[name="deposit_search"]').select2('open')
 
       hideDepositChoice: ->
         @$('.deposit-portlet').removeClass('hidden').addClass('hidden')
