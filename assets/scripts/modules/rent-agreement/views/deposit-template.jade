@@ -1,11 +1,9 @@
 form#deposit-form
   .row
-    .form-group.col-md-3.col-sm-6.col-xs-12
+    .form-group.col-md-3.col-sm-6.col-xs-12.customer-input
       label.col-md-12.control-label
         | Customer
         span.required(aria-required='true') *
       .col-md-12
-        .input-group
-          .input-icon.right
-            i.fa.fa-info-circle.tooltips(data-original-title='Customer that made deposit', data-container='body')
-            select.form-control.width-150(type='text', name='deposit_customer', placeholder='search...')
+        select.form-control.width-150(type='text', name='deposit_customer', placeholder='search...')
+  #deposit-payment-region
