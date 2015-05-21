@@ -1,0 +1,37 @@
+.row
+  form-group.col-md-3.col-sm-6.col-xs-12
+    label.col-md-12.control-label
+      | Amout
+      span.required(aria-required='true') *
+    .col-md-12
+      .input-group
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Deposit Amount', data-container='body')
+          input.form-control(type='text' name='deposit_amout')
+  form-group.col-md-3.col-sm-6.col-xs-12
+    label.col-md-12.control-label
+      | invoice ID
+      span.required(aria-required='true') *
+    .col-md-12
+      .input-group
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Deposit Invoice ID', data-container='body')
+          input.form-control(type='text' name='deposit_invoice_id')
+  form-group.col-md-3.col-sm-6.col-xs-12
+    label.col-md-12.control-label
+      | Payment Type
+      span.required(aria-required='true') *
+    .col-md-12
+      .input-group
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Payment Type', data-container='body')
+          input.form-control(type='text' name='deposit_payment_type')
+  form-group.col-md-3.col-sm-6.col-xs-12
+    label.col-md-12.control-label
+      | Reference
+      span.required(aria-required='true') *
+    .col-md-12
+      .input-group
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Payment Reference', data-container='body')
+          input.form-control(type='text' name='deposit_reference')

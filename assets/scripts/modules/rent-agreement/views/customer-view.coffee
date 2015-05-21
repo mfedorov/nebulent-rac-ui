@@ -28,7 +28,12 @@ define [
           observe: "driverLicenseExpirationDate"
           onGet: (value)-> moment.unix(parseInt(value)/1000).format('DD/MM/YYYY')
           onSet: (value)-> moment(value, 'DD/MM/YYYY').unix()*1000
-        "[name=license_state]":            observe: "driverLicenseState"
+        "[name=license_state]":
+          observe: "driverLicenseState"
+          selectOptions:
+            collection: App.DataHelper.states
+            labelPath: 'name'
+            valuePath: 'abbreviation'
         "[name=email_address]":            observe: "emailAddress"
 
       regions:
@@ -46,13 +51,14 @@ define [
         @$('.usercreate-controlls').hide() if @model.get 'contactID'
         @$("[name=date_of_birth]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_expiration_date]").datetimepicker format:"DD/MM/YYYY"
-        @$("[name=license_state]").select2 data: App.DataHelper.states
+        @$("[name=license_state]").select2()
 
 
         @phones_region.show new PhonesView collection: @model.get 'phones'
         @addresses_region.show new AddressesView collection: @model.get 'addresses'
 
       onSubmit:->
+        return unless @model.get 'contactID'
         @model.save()
           .success (data)->
             toastr.success "Successfully Created user"

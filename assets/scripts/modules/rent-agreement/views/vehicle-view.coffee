@@ -4,7 +4,7 @@ define [
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
-    class Module.Vehicle extends Marionette.LayoutView
+    class Module.Vehicle extends Marionette.ItemView
       className:  "layout-view vehicle"
       template:   template
 
