@@ -2,7 +2,10 @@ define [
   './customer-template'
   './phones-view'
   './addresses-view'
-],  (template, PhonesView, AddressesView) ->
+  './../models/customer-model'
+  './../collections/phones-collection'
+  './../collections/addresses-collection'
+],  (template, PhonesView, AddressesView, CustomerView, PhonesCollection, AddressesCollection) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -40,8 +43,9 @@ define [
         phones_region:    "#phones-region"
         addresses_region: "#addresses-region"
 
-      initialize:(options)->
-        @config = options.config
+      initialize: (options)->
+        console.log 'customer model', @model.cid
+        @organization = options.organization
 
       onShow:->
         return unless @model
@@ -58,12 +62,16 @@ define [
         @addresses_region.show new AddressesView collection: @model.get 'addresses'
 
       onSubmit:->
-        return unless @model.get 'contactID'
         @model.save()
-          .success (data)->
-            toastr.success "Successfully Created user"
-        .error (data)->
-            toastr.error "Error Creating user"
+          .success (data)=>
+            model = new CustomerView(data)
+            debugger
+            @organization.get('customers').add model
+            toastr.success "Successfully Created customer"
+            console.log "successfully created customer", data
+          .error (data)->
+            toastr.error "Error Creating Customer"
+            console.log "error creating customer", data
 
 
   App.CarRentAgreement.Customer

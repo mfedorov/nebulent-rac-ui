@@ -4,13 +4,13 @@ define [],  ->
 
     class Module.PaymentModel extends Backbone.Model
       defaults:
-        amount:       ""
+        amount:       "200"
         invoiceID:    ""
         accountID:    ""
         reference:    ""
         currencyRate: ""
-        paymentType:  ""
-        status:       ""
+#        paymentType:  ""
+#        status:       ""
 
 
   App.CarRentAgreement.PaymentModel

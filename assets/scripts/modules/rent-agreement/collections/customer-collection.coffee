@@ -11,7 +11,10 @@ define [
       model: CustomerModel
 
       toArray:->
+        #TODO: get read of this 0 id model that was made for select2's empty value
         return [] unless @length
+        debugger
+        @get('0')?.destroy()
         activeCustomers = _.filter @models, (customer)-> customer.get('contactStatus') is "ACTIVE"
         result = _.map  activeCustomers , (customer)->
           id: customer.get('contactID'), text: customer.get('firstName') + ' ' + customer.get('lastName') + " (ID: #{customer.get('contactID')})"
