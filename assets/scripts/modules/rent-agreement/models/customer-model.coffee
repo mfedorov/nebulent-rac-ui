@@ -19,11 +19,14 @@ define [
         driverLicenseExpirationDate:  moment().unix()*1000
         driverLicenseState:           ""
         driverLicense:                ""
-        phones:                       new PhonesCollection()
-        addresses:                    new AddressesCollection()
         notes:                        []
         incidents:                    []
         properties:                   []
+        contactStatus:               "ACTIVE"
+
+      initialize:->
+        @set 'phones', new PhonesCollection()
+        @set 'addresses', new AddressesCollection()
 
       parse: (response, options) ->
         @set 'phones', new PhonesCollection() unless @get('phones')?

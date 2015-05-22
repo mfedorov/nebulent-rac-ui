@@ -37,6 +37,7 @@ define [
         'change @ui.vehicleSearch':                             "onVehicleSearch"
         'change @ui.customerSearch':                            "onCustomerSearch"
         'change @ui.depositSearch':                             "onDepositSearch"
+        'click #submit-rent-agreement':                         "onSubmit"
         'loaded':                                               "initViewElements"
 
       bindings:
@@ -44,10 +45,13 @@ define [
         'input[name="days"]'               : observe: 'days'
         'input[name="subtotal"]'           : observe: 'subTotal'
         'input[name="total"]'              : observe: 'total'
-        'input[name="currentMileage"]'     : observe: 'currentMileage'
+        'input[name="currentMileage"]'     : observe: 'startMileage'
         'input[name="fuelLevel"]'          : observe: 'fuelLevel'
         'input[name="totalTax"]'           : observe: 'totalTax'
         'input[name="discount_rate"]'      : observe: 'discountRate'
+#        'input[name="customer_search"]'    : observe: 'customer'
+#        'input[name="vehicle_search"]'     : observe: 'vehicle'
+#        'input[name="deposit_search"]'     : observe: 'deposit'
 
       regions:
         customer_region:  "#customer-region"
@@ -74,17 +78,19 @@ define [
         @initData()
 
       onCustomerCreated: (model)->
-        return unless @model.get('customer')
-        @initCustomerSelect2()
-        @$('select[name="customer_search"]').select2 'val', model.get 'contactID'
+        return if @$('#customer-existing-radio').prop('checked')
         @$('#customer-existing-radio').click()
         @$('.customer-portlet .portlet-title .tools a').click() if @$('.customer-portlet .portlet-title .tools a').hasClass('collapse')
+        @initCustomerSelect2()
+        @ui.customerSearch.select2 'val', model.get 'contactID'
+
         @customer_region.show new CustomerView model: model, organization: @organization
+        @ui.vehicleSearch.select2 'open'
 
       onDepositCreated: (model)->
         return unless @model.get('customer')
         @initDepositSelect2()
-        @$('select[name="deposit_search"]').select2 'val', model.get 'itemID'
+        @ui.depositSearch.select2 'val', model.get 'itemID'
         @$('#deposit-existing-radio').click()
         @$('.deposit-portlet .portlet-title .tools a').click() if @$('.deposit-portlet .portlet-title .tools a').hasClass('collapse')
         @deposit_region.show new DepositView model: model, organization: @organization
@@ -131,19 +137,20 @@ define [
       onCustomerSearch: (e)->
         id = $(e.currentTarget).val()
         if id
-          @model.set 'customer', id
+          debugger
+          @model.set 'customer', 'contactID': id
           @currentCustomer = @organization.get('customers').get(id)
           console.log @currentCustomer
-          @customer_region.show new CustomerView model:@currentCustomer
+          @customer_region.show new CustomerView model:@currentCustomer, organization: @organization
 
       onVehicleSearch: (e)->
         id = $(e.currentTarget).val()
         if id
-          @model.set 'vehicle', id
+          @model.set 'vehicle', "itemID": id
           console.log @model.get 'vehicle'
           @currentVehicle = @organization.get('vehicles').get(id)
-          @model.set 'currentMileage', @currentVehicle.get('currentMileage')
-          # debugger
+
+          @model.set 'startMileage', @currentVehicle.get('currentMileage')
           console.log @currentVehicle
           @vehicle_region.show new VehicleView model: @currentVehicle
 
@@ -152,18 +159,20 @@ define [
         id = $(e.currentTarget).val()
 
         if id
-          @model.set 'deposit', id
+          @model.set 'deposit', "itemID": id
           @currentDeposit = @organization.get('deposits').get(id)
           console.log @currentDeposit
           @deposit_region.show new DepositView model: @currentDeposit, organization: @organization
 
       initCustomerSelect2: ()->
-        @ui.customerSearch.parent().parent().toggleClass "loading-select2"
+        debugger
+        @ui.customerSearch.parent().parent().removeClass "loading-select2"
         @ui.customerSearch.select2('destroy') if @ui.customerSearch.data('select2')
         @ui.customerSearch.select2
           data: @organization.get('customers').toArray()
           minimumInputLength: 1
-        @ui.customerSearch.select2('open')
+        unless @ui.customerSearch.select2('val')?
+          @ui.customerSearch.select2('open')
 
       vehiclesToArray: ->
         result = _.map @organization.get('vehicles').models, (vehicle)->
@@ -192,29 +201,30 @@ define [
 
       customerChoiceChange: (e)->
         if e.currentTarget.value == "new"
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
+          $(e.currentTarget).closest('.portlet').find('input[name$="_search"]').val("").parent().hide()
           @ui.customerSearch.select2 'val', ''
           @currentCustomer = new CustomerModel()
-          @customer_region.show new CustomerView model: @currentCustomer
+          @customer_region.show new CustomerView model: @currentCustomer, organization: @organization
           if $('.customer-portlet .portlet-title .tools a:first').hasClass('expand')
             $('.customer-portlet .portlet-title .tools a').click()
         else
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').parent().show()
+          $(e.currentTarget).closest('.portlet').find('input[name$="_search"]').parent().show()
           @customer_region.reset()
           @$('.customer-portlet .portlet-title .tools a').click()
 
+          debugger
           unless @ui.customerSearch.select2('val')?
             setTimeout (=> @ui.customerSearch.select2('open')),100
 
       depositChoiceChange: (e)->
         if e.currentTarget.value == "new"
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
+          $(e.currentTarget).closest('.portlet').find('input[name$="_search"]').val("").parent().hide()
           @ui.depositSearch.select2 'val', ''
           @deposit_region.show new DepositView model: new DepositModel(), organization: @organization
           if @$('.deposit-portlet .portlet-title .tools a:first').hasClass('expand')
             @$('.deposit-portlet .portlet-title .tools a').click()
         else
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').parent().show()
+          $(e.currentTarget).closest('.portlet').find('input[name$="_search"]').parent().show()
           @deposit_region.reset()
           @$('.deposit-portlet .portlet-title .tools a').click()
 
@@ -222,23 +232,21 @@ define [
             setTimeout (=> @ui.depositSearch.select2('open')),100
 
       onCustomerChange: ->
-        if @model.get('customer').length
+        if @model.get('customer')?.contactID?.length
           @showVehicleChoice()
         else
           @hideVehicleChoice()
 
       onVehicleChange: ->
-        if @model.get('vehicle').length
+        if @model.get('vehicle')?.itemID?.length
           @showDepositChoice()
-          # unless @$('[name="daily_rate"]').val()
-          model = @organization.get('vehicles').get(@model.get('vehicle'))
+          model = @organization.get('vehicles').get(@model.get('vehicle')?.itemID)
           @model.set 'dailyRate', model.get('dailyRate') or "50"
-            # @model.recalc
         else
           @hideDepositChoice()
 
       onDepositChange: ->
-        if @model.get('deposit').length
+        if @model.get('deposit')?.itemID?.length
           @showAgreementDetails()
         else
           @hideAgreementDetails()
@@ -265,5 +273,19 @@ define [
 
       onRecalc: ->
         @model.recalc()
+
+      onSubmit: (e)->
+        e.preventDefault()
+        @model.save()
+          .success (data)=>
+            debugger
+            @ui.vehicleSearch.select2 'close'
+            @ui.depositSearch.select2 'close'
+            toastr.success "Successfully Created Rent Agreement"
+            console.log "successfully created rental", data
+          .error (data)->
+            toastr.error "Error Creating Rent Agreement"
+            console.log "error creating rental", data
+
 
   App.CarRentAgreement.RentAgreement
