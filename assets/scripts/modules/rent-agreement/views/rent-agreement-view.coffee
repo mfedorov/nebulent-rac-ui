@@ -25,14 +25,24 @@ define [
         customers:    false
         deposits:     false
 
+      ui:
+        vehicleSearch: 'select[name="vehicle_search"]'
+        customerSearch: 'select[name="customer_search"]'
+        depositSearch: 'select[name="deposit_search"]'
+
+
       events:
         'change input:radio[name="customerChoiceRadios"]':      "customerChoiceChange"
         'change input:radio[name="depositChoiceRadios"]':       "depositChoiceChange"
-        'change select[name="vehicle_search"]':                 "onVehicleSearch"
-        'change select[name="customer_search"]':                "onCustomerSearch"
-        'change select[name="deposit_search"]':                 "onDepositSearch"
+        'change @ui.vehicleSearch':                             "onVehicleSearch"
+        'change @ui.customerSearch':                            "onCustomerSearch"
+        'change @ui.depositSearch':                             "onDepositSearch"
         'loaded':                                               "initViewElements"
 
+      bindings:
+        'input[name="daily_rate"]': observe: 'dailyRate'
+        'input[name="days"]'      : observe: 'days'
+        'input[name="subtotal"]'  : observe: 'subTotal'
 
       regions:
         customer_region:  "#customer-region"
@@ -40,11 +50,14 @@ define [
         deposit_region:   "#deposit-region"
 
       initialize:->
+        window.model = @model
         @organization ?= new OrganizationModel()
         window.organization = @organization
-        @listenTo @model, 'change:customer', @onCustomerChange
-        @listenTo @model, 'change:vehicle', @onVehicleChange
-        @listenTo @model, 'change:deposit', @onDepositChange
+        @listenTo @model, 'change:customer',  @onCustomerChange
+        @listenTo @model, 'change:vehicle',   @onVehicleChange
+        @listenTo @model, 'change:deposit',   @onDepositChange
+        @listenTo @model, 'change:days',      @onRecalc
+        @listenTo @model, 'change:dailyRate', @onRecalc
 
         @listenTo @organization, 'sync', _.partial(@loaded, 'organization')
         @listenTo @organization.get('customers'), 'sync',  _.partial(@loaded, 'customers')
@@ -69,6 +82,7 @@ define [
           @$el.trigger "loaded"
 
       onShow:->
+        @stickit()
         @customer_region.show new CustomerView( model: new CustomerModel(), config: @model.get('config'))
 
       initData: ->
@@ -112,12 +126,16 @@ define [
         id = $(e.currentTarget).val()
         if id
           @model.set 'vehicle', id
+          console.log @model.get 'vehicle'
           @currentVehicle = @organization.get('vehicles').get(id)
+          # debugger
           console.log @currentVehicle
           @vehicle_region.show new VehicleView model: @currentVehicle
 
+
       onDepositSearch: (e)->
         id = $(e.currentTarget).val()
+
         if id
           @model.set 'deposit', id
           @currentDeposit = @organization.get('deposits').get(id)
@@ -125,12 +143,12 @@ define [
           @deposit_region.show new DepositView model: @currentDeposit, organization: @organization
 
       initCustomerSelect2: ()->
-        @$('select[name="customer_search"]').parent().parent().toggleClass "loading-select2"
-        @$('select[name="customer_search"]').select2('destroy') if @$('select[name="customer_search"]').data('select2')
-        @$('select[name="customer_search"]').select2
+        @ui.customerSearch.parent().parent().toggleClass "loading-select2"
+        @ui.customerSearch.select2('destroy') if @ui.customerSearch.data('select2')
+        @ui.customerSearch.select2
           data: @organization.get('customers').toArray()
           minimumInputLength: 1
-        @$('select[name="customer_search"]').select2('open')
+        @ui.customerSearch.select2('open')
 
       vehiclesToArray: ->
         result = _.map @organization.get('vehicles').models, (vehicle)->
@@ -139,8 +157,8 @@ define [
         result
 
       initVehicleSelect2: ()->
-        @$('select[name="vehicle_search"]').select2('destroy') if @$('select[name="vehicle_search"]').data('select2')
-        @$('select[name="vehicle_search"]').select2
+        @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
+        @ui.vehicleSearch.select2
           data: @vehiclesToArray()
           minimumInputLength: 1
 
@@ -152,15 +170,15 @@ define [
         result
 
       initDepositSelect2: ()->
-        @$('select[name="deposit_search"]').select2('destroy') if @$('select[name="deposit_search"]').data('select2')
-        @$('select[name="deposit_search"]').select2
+        @ui.depositSearch.select2('destroy') if @ui.depositSearch.data('select2')
+        @ui.depositSearch.select2
           data: @depositsToArray()
           minimumInputLength: 1
 
       customerChoiceChange: (e)->
         if e.currentTarget.value == "new"
           $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
-          @$('select[name="customer_search"]').select2 'val', ''
+          @ui.customerSearch.select2 'val', ''
           @currentCustomer = new CustomerModel()
           @customer_region.show new CustomerView model: @currentCustomer
           if $('.customer-portlet .portlet-title .tools a:first').hasClass('expand')
@@ -168,17 +186,16 @@ define [
         else
           $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').parent().show()
           @customer_region.reset()
-          $('.customer-portlet .portlet-title .tools a').click()
+          @$('.customer-portlet .portlet-title .tools a').click()
 
-          unless @$('select[name="customer_search"]').select2('val')?
-            setTimeout (=> @$('select[name="customer_search"]').select2('open')),100
+          unless @ui.customerSearch.select2('val')?
+            setTimeout (=> @ui.customerSearch.select2('open')),100
 
       depositChoiceChange: (e)->
-        debugger
         console.log 'deposit change choise'
         if e.currentTarget.value == "new"
           $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
-          @$('select[name="deposit_search"]').select2 'val', ''
+          @ui.depositSearch.select2 'val', ''
           @deposit_region.show new DepositView model: new DepositModel(), organization: @organization
           if @$('.deposit-portlet .portlet-title .tools a:first').hasClass('expand')
             @$('.deposit-portlet .portlet-title .tools a').click()
@@ -187,9 +204,8 @@ define [
           @deposit_region.reset()
           @$('.deposit-portlet .portlet-title .tools a').click()
 
-#          console.log @$('select[name="deposit_search"]').select2 'val',(not @$('select[name="deposit_search"]').select2 'val')
-          if not @$('select[name="deposit_search"]').select2('val')?
-            setTimeout (=> @$('select[name="deposit_search"]').select2('open')),100
+          unless @ui.depositSearch.select2('val')?
+            setTimeout (=> @ui.depositSearch.select2('open')),100
 
       onCustomerChange: ->
         if @model.get('customer').length
@@ -202,7 +218,7 @@ define [
           @showDepositChoice()
           unless @$('[name="daily_rate"]').val()
             model = @organization.get('vehicles').get(@model.get('vehicle'))
-            @$('[name="daily_rate"]').val(model.get('dailyRate') or "50")
+            @model.set 'dailyRate', model.get('dailyRate') or "50"
         else
           @hideDepositChoice()
 
@@ -214,23 +230,25 @@ define [
 
       showVehicleChoice: ->
         @$('.vehicle-portlet').removeClass('hidden')
-        @$('select[name="vehicle_search"]').select2('open')
+        @ui.vehicleSearch.select2('open')
 
       hideVehicleChoice: ->
         @$('.vehicle-portlet').removeClass('hidden').addClass('hidden')
 
       showDepositChoice: ->
         @$('.deposit-portlet').removeClass('hidden')
-        @$('select[name="deposit_search"]').select2('open')
+        @ui.depositSearch.select2('open')
 
       hideDepositChoice: ->
         @$('.deposit-portlet').removeClass('hidden').addClass('hidden')
 
       showAgreementDetails: ->
-        debugger
         @$('.agreement-details-portlet').removeClass('hidden')
 
       hideAgreementDetails: ->
         @$('.agreement-details-portlet').removeClass('hidden').addClass('hidden')
+
+      onRecalc: ->
+        @model.recalc()
 
   App.CarRentAgreement.RentAgreement
