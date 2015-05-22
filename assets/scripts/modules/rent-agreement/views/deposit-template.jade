@@ -5,5 +5,24 @@ form#deposit-form
         | Customer
         span.required(aria-required='true') *
       .col-md-12
-        select.form-control.width-150(type='text', name='deposit_customer', placeholder='search...')
-  #deposit-payment-region
+        input.form-control.width-150(type='text', name='deposit_customer', placeholder='search...')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Code
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          input.form-control(type='text' name='deposit_code')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Description
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          input.form-control(type='text' name='deposit_description')
+  #deposit-payment-region.row
+  .row.deposit-controls
+    .form-actions
+      .col-md-12.right
+        .col-md-12
+          button.btn.green(type='submit' name='submit_deposit') Create New Deposit

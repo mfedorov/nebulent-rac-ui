@@ -9,11 +9,16 @@ define [
       template: template
 
       bindings:
-        '[name="deposit_amount"]': "amount"
-        '[name="deposit_invoice_id"]': "invoiceID"
+        '[name="deposit_amout"]':      observe:"amount"
+        '[name="deposit_invoice_id"]':  observe:"invoiceID"
 #        '[name="deposit_account_id"]': "accountID"
-        '[name="deposit_reference"]': "reference"
-        '[name="deposit_payment_type"]': "paymentType"
+        '[name="deposit_reference"]':   observe: "reference"
+        '[name="deposit_payment_type"]':
+          observe: "paymentType"
+          selectOptions:
+            collection: [{name:"ACCPAYPAYMENT"}, {name:"ACCRECPAYMENT"}]
+            labelPath: 'name'
+            valuePath: 'name'
 
       onShow:->
         @stickit()

@@ -2,11 +2,12 @@ define [
     './rent-agreement-template'
     './customer-view'
     './../models/customer-model'
+    './../models/deposit-model'
     './vehicle-view'
     './deposit-view'
     './../models/vehicle-model'
     './../models/organization-model'
-],  (template, CustomerView, CustomerModel, VehicleView, DepositView
+],  (template, CustomerView, CustomerModel, DepositModel,  VehicleView, DepositView
      VehicleModel, OrganizationModel) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
@@ -47,9 +48,20 @@ define [
 
         @listenTo @organization, 'sync', _.partial(@loaded, 'organization')
         @listenTo @organization.get('customers'), 'sync',  _.partial(@loaded, 'customers')
+        @listenTo @organization.get('deposits'), 'add',  @onDepositCreated
         @listenTo @organization.get('deposits'), 'sync',  _.partial(@loaded, 'deposits')
 
         @initData()
+
+      onDepositCreated:(model)->
+        return unless @model.get('customer')
+        @initDepositSelect2()
+        debugger
+        @$('select[name="deposit_search"]').select2 'val', model.get 'itemID'
+        @$('#deposit-new-radio').click()
+        @$('.deposit-portlet .portlet-title .tools a').click() if @$('.deposit-portlet .portlet-title .tools a').hasClass('collapse')
+        @deposit_region.show new DepositView model: model, organization: @organization
+
 
       loaded:(target)->
         @dataCollection[target] = true
@@ -58,8 +70,6 @@ define [
 
       onShow:->
         @customer_region.show new CustomerView( model: new CustomerModel(), config: @model.get('config'))
-
-        @deposit_region.show  new DepositView(organization: @organization)
 
       initData: ->
         @fetchOrganization()
@@ -71,7 +81,7 @@ define [
         @initVehicleSelect2()
         @initDepositSelect2()
 
-      showFetchError: (target)->
+      showFetchError: (target, data)->
         toastr.error "Error getting #{target} data"
         console.error "error fetching #{target} data", data
 
@@ -88,7 +98,7 @@ define [
       fetchDeposits: ->
         @organization.get('deposits').fetch()
           .success (data)-> console.log "deposits loaded"
-          .error   (data)=> @showFetchError 'Deposits'
+          .error   (data)=> @showFetchError 'Deposits', data
 
       onCustomerSearch: (e)->
         id = $(e.currentTarget).val()
@@ -108,7 +118,6 @@ define [
 
       onDepositSearch: (e)->
         id = $(e.currentTarget).val()
-        debugger
         if id
           @model.set 'deposit', id
           @currentDeposit = @organization.get('deposits').get(id)
@@ -121,7 +130,7 @@ define [
         @$('select[name="customer_search"]').select2
           data: @organization.get('customers').toArray()
           minimumInputLength: 1
-        $('select[name="customer_search"]').select2('open')
+        @$('select[name="customer_search"]').select2('open')
 
       vehiclesToArray: ->
         result = _.map @organization.get('vehicles').models, (vehicle)->
@@ -154,30 +163,33 @@ define [
           @$('select[name="customer_search"]').select2 'val', ''
           @currentCustomer = new CustomerModel()
           @customer_region.show new CustomerView model: @currentCustomer
-          if $('.rent-agreement-portlet .portlet-title .tools a:first').hasClass('expand') 
-            $('.rent-agreement-portlet .portlet-title .tools a').click()
+          if $('.customer-portlet .portlet-title .tools a:first').hasClass('expand')
+            $('.customer-portlet .portlet-title .tools a').click()
         else
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().show()
+          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').parent().show()
           @customer_region.reset()
-          $('.rent-agreement-portlet .portlet-title .tools a').click()
-          setTimeout (-> $('select[name="customer_search"]').select2('open')),100
+          $('.customer-portlet .portlet-title .tools a').click()
+
+          unless @$('select[name="customer_search"]').select2('val')?
+            setTimeout (=> @$('select[name="customer_search"]').select2('open')),100
 
       depositChoiceChange: (e)->
+        debugger
         console.log 'deposit change choise'
         if e.currentTarget.value == "new"
-          id = $(e.currentTarget).val()
           $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
           @$('select[name="deposit_search"]').select2 'val', ''
-          @currentDeposit = @organization.get('deposits').get(id)
-           
-          @deposit_region.show new DepositView model: @currentDeposit, organization: @organization
-          if $('.deposit-portlet .portlet-title .tools a:first').hasClass('expand') 
-            $('.deposit-portlet .portlet-title .tools a').click()
+          @deposit_region.show new DepositView model: new DepositModel(), organization: @organization
+          if @$('.deposit-portlet .portlet-title .tools a:first').hasClass('expand')
+            @$('.deposit-portlet .portlet-title .tools a').click()
         else
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().show()
+          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').parent().show()
           @deposit_region.reset()
-          $('.deposit-portlet .portlet-title .tools a').click()
-          setTimeout (-> $('select[name="deposit_search"]').select2('open')),100
+          @$('.deposit-portlet .portlet-title .tools a').click()
+
+#          console.log @$('select[name="deposit_search"]').select2 'val',(not @$('select[name="deposit_search"]').select2 'val')
+          if not @$('select[name="deposit_search"]').select2('val')?
+            setTimeout (=> @$('select[name="deposit_search"]').select2('open')),100
 
       onCustomerChange: ->
         if @model.get('customer').length
@@ -202,19 +214,20 @@ define [
 
       showVehicleChoice: ->
         @$('.vehicle-portlet').removeClass('hidden')
-        $('select[name="vehicle_search"]').select2('open')
+        @$('select[name="vehicle_search"]').select2('open')
 
       hideVehicleChoice: ->
         @$('.vehicle-portlet').removeClass('hidden').addClass('hidden')
 
       showDepositChoice: ->
         @$('.deposit-portlet').removeClass('hidden')
-        $('select[name="deposit_search"]').select2('open')
+        @$('select[name="deposit_search"]').select2('open')
 
       hideDepositChoice: ->
         @$('.deposit-portlet').removeClass('hidden').addClass('hidden')
 
       showAgreementDetails: ->
+        debugger
         @$('.agreement-details-portlet').removeClass('hidden')
 
       hideAgreementDetails: ->
