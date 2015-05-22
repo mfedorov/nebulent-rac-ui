@@ -6,5 +6,10 @@ define [],  ->
       defaults:
         customer: ""
         vehicle: ""
+        dailyRate: 50
+        days: 2
+      recalc: ->
+        console.log 'Recalc'
+        @set 'subtotal', @get('days')*@get('dailyRate')
 
   App.CarRentAgreement.RentAgreement
