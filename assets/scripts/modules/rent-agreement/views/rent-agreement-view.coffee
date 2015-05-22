@@ -37,6 +37,7 @@ define [
         'change @ui.vehicleSearch':                             "onVehicleSearch"
         'change @ui.customerSearch':                            "onCustomerSearch"
         'change @ui.depositSearch':                             "onDepositSearch"
+        'click #submit-rent-agreement':                         "onSubmit"
         'loaded':                                               "initViewElements"
 
       bindings:
@@ -68,17 +69,19 @@ define [
         @initData()
 
       onCustomerCreated: (model)->
-        return unless @model.get('customer')
-        @initCustomerSelect2()
-        @$('select[name="customer_search"]').select2 'val', model.get 'contactID'
+        return if @$('#customer-existing-radio').prop('checked')
         @$('#customer-existing-radio').click()
         @$('.customer-portlet .portlet-title .tools a').click() if @$('.customer-portlet .portlet-title .tools a').hasClass('collapse')
+        @initCustomerSelect2()
+        @ui.customerSearch.select2 'val', model.get 'contactID'
+
         @customer_region.show new CustomerView model: model, organization: @organization
+        @ui.vehicleSearch.select2 'open'
 
       onDepositCreated: (model)->
         return unless @model.get('customer')
         @initDepositSelect2()
-        @$('select[name="deposit_search"]').select2 'val', model.get 'itemID'
+        @ui.depositSearch.select2 'val', model.get 'itemID'
         @$('#deposit-existing-radio').click()
         @$('.deposit-portlet .portlet-title .tools a').click() if @$('.deposit-portlet .portlet-title .tools a').hasClass('collapse')
         @deposit_region.show new DepositView model: model, organization: @organization
@@ -128,7 +131,7 @@ define [
           @model.set 'customer', id
           @currentCustomer = @organization.get('customers').get(id)
           console.log @currentCustomer
-          @customer_region.show new CustomerView model:@currentCustomer
+          @customer_region.show new CustomerView model:@currentCustomer, organization: @organization
 
       onVehicleSearch: (e)->
         id = $(e.currentTarget).val()
@@ -136,7 +139,6 @@ define [
           @model.set 'vehicle', id
           console.log @model.get 'vehicle'
           @currentVehicle = @organization.get('vehicles').get(id)
-          # debugger
           console.log @currentVehicle
           @vehicle_region.show new VehicleView model: @currentVehicle
 
@@ -151,12 +153,14 @@ define [
           @deposit_region.show new DepositView model: @currentDeposit, organization: @organization
 
       initCustomerSelect2: ()->
-        @ui.customerSearch.parent().parent().toggleClass "loading-select2"
+        debugger
+        @ui.customerSearch.parent().parent().removeClass "loading-select2"
         @ui.customerSearch.select2('destroy') if @ui.customerSearch.data('select2')
         @ui.customerSearch.select2
           data: @organization.get('customers').toArray()
           minimumInputLength: 1
-        @ui.customerSearch.select2('open')
+        unless @ui.customerSearch.select2('val')?
+          @ui.customerSearch.select2('open')
 
       vehiclesToArray: ->
         result = _.map @organization.get('vehicles').models, (vehicle)->
@@ -185,29 +189,30 @@ define [
 
       customerChoiceChange: (e)->
         if e.currentTarget.value == "new"
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
+          $(e.currentTarget).closest('.portlet').find('input[name$="_search"]').val("").parent().hide()
           @ui.customerSearch.select2 'val', ''
           @currentCustomer = new CustomerModel()
-          @customer_region.show new CustomerView model: @currentCustomer
+          @customer_region.show new CustomerView model: @currentCustomer, organization: @organization
           if $('.customer-portlet .portlet-title .tools a:first').hasClass('expand')
             $('.customer-portlet .portlet-title .tools a').click()
         else
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').parent().show()
+          $(e.currentTarget).closest('.portlet').find('input[name$="_search"]').parent().show()
           @customer_region.reset()
           @$('.customer-portlet .portlet-title .tools a').click()
 
+          debugger
           unless @ui.customerSearch.select2('val')?
             setTimeout (=> @ui.customerSearch.select2('open')),100
 
       depositChoiceChange: (e)->
         if e.currentTarget.value == "new"
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
+          $(e.currentTarget).closest('.portlet').find('input[name$="_search"]').val("").parent().hide()
           @ui.depositSearch.select2 'val', ''
           @deposit_region.show new DepositView model: new DepositModel(), organization: @organization
           if @$('.deposit-portlet .portlet-title .tools a:first').hasClass('expand')
             @$('.deposit-portlet .portlet-title .tools a').click()
         else
-          $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').parent().show()
+          $(e.currentTarget).closest('.portlet').find('input[name$="_search"]').parent().show()
           @deposit_region.reset()
           @$('.deposit-portlet .portlet-title .tools a').click()
 
@@ -257,5 +262,10 @@ define [
 
       onRecalc: ->
         @model.recalc()
+
+      onSubmit: (e)->
+        e.preventDefault()
+        debugger
+
 
   App.CarRentAgreement.RentAgreement

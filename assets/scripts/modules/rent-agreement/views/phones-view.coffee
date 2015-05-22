@@ -16,7 +16,6 @@ define [
 
       initialize:(options)->
         @collection.add( new PhoneModel()) unless @collection.length
-        @collection.on 'change', -> console.log "changed"
 
       onAddClick: ->
         @collection.add new PhoneModel()
