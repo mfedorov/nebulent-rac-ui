@@ -7,8 +7,7 @@ define [
 
     class Module.CustomerModel extends Backbone.Model
 
-      url: ->
-        "api/#{Module.model.get('config').get('orgId')}/customers"
+      url: -> "api/#{Module.model.get('config').get('orgId')}/customers"
       idAttribute: "contactID"
 
       defaults:

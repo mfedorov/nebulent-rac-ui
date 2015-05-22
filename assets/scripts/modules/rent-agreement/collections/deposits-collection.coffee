@@ -6,7 +6,7 @@ define [
 
     class Module.DepositCollection extends Backbone.Collection
       url:->
-        "api/#{Module.model?.get('config').get('orgId')}/deposits?api_key=#{Module.model?.get('config').get('apiKey')}"
+        "api/#{Module.model?.get('config').get('orgId')}/deposits?asc=false&api_key=#{Module.model?.get('config').get('apiKey')}"
 
       model: DepositModel
 

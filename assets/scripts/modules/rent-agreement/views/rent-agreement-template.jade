@@ -1,5 +1,5 @@
 .row
-  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.customer-portlet
     .portlet.light
       .portlet-title
           .col-md-4.caption
@@ -59,12 +59,12 @@
               label.radio-inline
                 #uniform-optionsRadios4.radio
                   span.checked
-                    input#optionsRadios4(type='radio', name='depositChoiceRadios', value='new')
+                    input#deposit-existing-radio(type='radio', name='depositChoiceRadios', value='new')
                 |  New Deposit
               label.radio-inline
                 #uniform-optionsRadios5.radio
                   span
-                    input#optionsRadios5(type='radio', name='depositChoiceRadios', value='existing', checked='')
+                    input#deposit-new-radio(type='radio', name='depositChoiceRadios', value='existing', checked='')
                 |  Existing Deposit
         .inputs.col-md-3.left
           .portlet-input.input-inline.input-small
