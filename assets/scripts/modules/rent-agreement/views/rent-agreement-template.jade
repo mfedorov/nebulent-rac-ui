@@ -78,6 +78,27 @@
       .row
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
+            | Start mileage
+            span.required(aria-required='true') *
+          .col-md-12
+            .input-group
+              .input-icon.right
+                i.fa.fa-info-circle.tooltips(data-original-title='Start mileage', data-container='body')
+                input.form-control(type='text' name='currentMileage')
+        .form-group.col-md-3.col-sm-6.col-xs-12
+            label.col-md-12.control-label
+              | Start fuel level
+              span.required(aria-required='true') *
+            .col-md-12
+              select.form-control(type='text' name='fuelLevel')
+                option(value="FULL") FULL
+                option(value="THREE_QTRS") THREE_QTRS
+                option(value="HALF") HALF
+                option(value="QUARTER") QUARTER
+                option(value="EMPTY") EMPTY
+      .row
+        .form-group.col-md-3.col-sm-6.col-xs-12
+          label.col-md-12.control-label
             | Daily rate
             span.required(aria-required='true') *
           .col-md-12
@@ -129,7 +150,7 @@
             .input-group
               .input-icon.right
                 i.fa.fa-info-circle.tooltips(data-original-title='Total Taxes', data-container='body')
-                input.form-control(type='text' name='days')
+                input.form-control(type='text' name='totalTax' disabled=true)
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Subtotal
@@ -138,7 +159,7 @@
             .input-group
               .input-icon.right
                 i.fa.fa-info-circle.tooltips(data-original-title='Subtotal', data-container='body')
-                input.form-control(type='text' name='subtotal')
+                input.form-control(type='text' name='subtotal' disabled=true)
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Total
@@ -147,7 +168,7 @@
             .input-group
               .input-icon.right
                 i.fa.fa-info-circle.tooltips(data-original-title='Total', data-container='body')
-                input.form-control(type='text' name='total')
+                input.form-control(type='text' name='total' disabled=true)
       .form-actions
         .row
           .col-md-offset-3.col-md-9.right

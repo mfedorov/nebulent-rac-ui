@@ -40,9 +40,14 @@ define [
         'loaded':                                               "initViewElements"
 
       bindings:
-        'input[name="daily_rate"]': observe: 'dailyRate'
-        'input[name="days"]'      : observe: 'days'
-        'input[name="subtotal"]'  : observe: 'subTotal'
+        'input[name="daily_rate"]'         : observe: 'dailyRate'
+        'input[name="days"]'               : observe: 'days'
+        'input[name="subtotal"]'           : observe: 'subTotal'
+        'input[name="total"]'              : observe: 'total'
+        'input[name="currentMileage"]'     : observe: 'currentMileage'
+        'input[name="fuelLevel"]'          : observe: 'fuelLevel'
+        'input[name="totalTax"]'           : observe: 'totalTax'
+        'input[name="discount_rate"]'      : observe: 'discountRate'
 
       regions:
         customer_region:  "#customer-region"
@@ -52,6 +57,7 @@ define [
       initialize:->
         window.model = @model
         @organization ?= new OrganizationModel()
+        Module.organization = @organization
         window.organization = @organization
         @listenTo @model, 'change:customer',  @onCustomerChange
         @listenTo @model, 'change:vehicle',   @onVehicleChange
@@ -69,7 +75,6 @@ define [
       onDepositCreated:(model)->
         return unless @model.get('customer')
         @initDepositSelect2()
-        debugger
         @$('select[name="deposit_search"]').select2 'val', model.get 'itemID'
         @$('#deposit-new-radio').click()
         @$('.deposit-portlet .portlet-title .tools a').click() if @$('.deposit-portlet .portlet-title .tools a').hasClass('collapse')
@@ -128,6 +133,7 @@ define [
           @model.set 'vehicle', id
           console.log @model.get 'vehicle'
           @currentVehicle = @organization.get('vehicles').get(id)
+          @model.set 'currentMileage', @currentVehicle.get('currentMileage')
           # debugger
           console.log @currentVehicle
           @vehicle_region.show new VehicleView model: @currentVehicle
@@ -216,9 +222,10 @@ define [
       onVehicleChange: ->
         if @model.get('vehicle').length
           @showDepositChoice()
-          unless @$('[name="daily_rate"]').val()
-            model = @organization.get('vehicles').get(@model.get('vehicle'))
-            @model.set 'dailyRate', model.get('dailyRate') or "50"
+          # unless @$('[name="daily_rate"]').val()
+          model = @organization.get('vehicles').get(@model.get('vehicle'))
+          @model.set 'dailyRate', model.get('dailyRate') or "50"
+            # @model.recalc
         else
           @hideDepositChoice()
 
