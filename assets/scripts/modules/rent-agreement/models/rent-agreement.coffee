@@ -3,6 +3,7 @@ define [],  ->
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.RentAgreement extends Backbone.Model
+      url:-> "api/#{Module.model.get('config').get('orgId')}/rentals"
       defaults:
         customer: ""
         vehicle: ""
@@ -10,10 +11,13 @@ define [],  ->
         days: 2
         subTotal: ""
         total: ""
-        currentMileage: ""
+        startMileage: ""
         fuelLevel: "FULL"
         totalTax: ""
         discountRate: ""
+
+      blacklist: ['dailyRate', 'fuelLevel']
+      toJSON: (options)-> _.omit @attributes, @blacklist
 
       recalc: ->
         TAX      = Module.organization.get('stateTax') + Module.organization.get('rentalTax')

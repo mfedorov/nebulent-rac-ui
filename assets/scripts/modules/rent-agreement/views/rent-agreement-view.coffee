@@ -45,10 +45,13 @@ define [
         'input[name="days"]'               : observe: 'days'
         'input[name="subtotal"]'           : observe: 'subTotal'
         'input[name="total"]'              : observe: 'total'
-        'input[name="currentMileage"]'     : observe: 'currentMileage'
+        'input[name="currentMileage"]'     : observe: 'startMileage'
         'input[name="fuelLevel"]'          : observe: 'fuelLevel'
         'input[name="totalTax"]'           : observe: 'totalTax'
         'input[name="discount_rate"]'      : observe: 'discountRate'
+#        'input[name="customer_search"]'    : observe: 'customer'
+#        'input[name="vehicle_search"]'     : observe: 'vehicle'
+#        'input[name="deposit_search"]'     : observe: 'deposit'
 
       regions:
         customer_region:  "#customer-region"
@@ -134,7 +137,8 @@ define [
       onCustomerSearch: (e)->
         id = $(e.currentTarget).val()
         if id
-          @model.set 'customer', id
+          debugger
+          @model.set 'customer', 'contactID': id
           @currentCustomer = @organization.get('customers').get(id)
           console.log @currentCustomer
           @customer_region.show new CustomerView model:@currentCustomer, organization: @organization
@@ -142,11 +146,11 @@ define [
       onVehicleSearch: (e)->
         id = $(e.currentTarget).val()
         if id
-          @model.set 'vehicle', id
+          @model.set 'vehicle', "itemID": id
           console.log @model.get 'vehicle'
           @currentVehicle = @organization.get('vehicles').get(id)
 
-          @model.set 'currentMileage', @currentVehicle.get('currentMileage')
+          @model.set 'startMileage', @currentVehicle.get('currentMileage')
           console.log @currentVehicle
           @vehicle_region.show new VehicleView model: @currentVehicle
 
@@ -155,7 +159,7 @@ define [
         id = $(e.currentTarget).val()
 
         if id
-          @model.set 'deposit', id
+          @model.set 'deposit', "itemID": id
           @currentDeposit = @organization.get('deposits').get(id)
           console.log @currentDeposit
           @deposit_region.show new DepositView model: @currentDeposit, organization: @organization
@@ -228,23 +232,21 @@ define [
             setTimeout (=> @ui.depositSearch.select2('open')),100
 
       onCustomerChange: ->
-        if @model.get('customer').length
+        if @model.get('customer')?.contactID?.length
           @showVehicleChoice()
         else
           @hideVehicleChoice()
 
       onVehicleChange: ->
-        if @model.get('vehicle').length
+        if @model.get('vehicle')?.itemID?.length
           @showDepositChoice()
-          # unless @$('[name="daily_rate"]').val()
-          model = @organization.get('vehicles').get(@model.get('vehicle'))
+          model = @organization.get('vehicles').get(@model.get('vehicle')?.itemID)
           @model.set 'dailyRate', model.get('dailyRate') or "50"
-            # @model.recalc
         else
           @hideDepositChoice()
 
       onDepositChange: ->
-        if @model.get('deposit').length
+        if @model.get('deposit')?.itemID?.length
           @showAgreementDetails()
         else
           @hideAgreementDetails()
@@ -274,7 +276,16 @@ define [
 
       onSubmit: (e)->
         e.preventDefault()
-        debugger
+        @model.save()
+          .success (data)=>
+            debugger
+            @ui.vehicleSearch.select2 'close'
+            @ui.depositSearch.select2 'close'
+            toastr.success "Successfully Created Rent Agreement"
+            console.log "successfully created rental", data
+          .error (data)->
+            toastr.error "Error Creating Rent Agreement"
+            console.log "error creating rental", data
 
 
   App.CarRentAgreement.RentAgreement
