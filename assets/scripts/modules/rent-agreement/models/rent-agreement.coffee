@@ -8,8 +8,19 @@ define [],  ->
         vehicle: ""
         dailyRate: 50
         days: 2
+        subTotal: ""
+        total: ""
+        currentMileage: ""
+        fuelLevel: "FULL"
+        totalTax: ""
+        discountRate: ""
+
       recalc: ->
-        console.log 'Recalc'
-        @set 'subtotal', @get('days')*@get('dailyRate')
+        TAX      = Module.organization.get('stateTax') + Module.organization.get('rentalTax')
+        subtotal = @get('days')*@get('dailyRate')
+        tax      = subtotal * TAX / 100 + Module.organization.get('rentalDailyFee') * @get('days')
+        @set 'subTotal', subtotal
+        @set 'total', subtotal + tax
+        @set 'totalTax', tax
 
   App.CarRentAgreement.RentAgreement
