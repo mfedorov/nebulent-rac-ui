@@ -5,6 +5,9 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.DepositModel extends Backbone.Model
+      url:->
+        debugger
+        "api/#{Module.model.get('config').get('orgId')}/customers/#{@get('customer').contactID}/deposits"
       idAttribute: "itemID"
       defaults:
         description:    "RENTAL DEPOSIT"
@@ -20,7 +23,7 @@ define [
         incidentIds:    []
         orgId:          null
         returnedOn:     null
-        takenOn:        null
+        takenOn:        moment().unix()*1000
         status:         "ACTIVE"
 
       parse: (response, options)->
