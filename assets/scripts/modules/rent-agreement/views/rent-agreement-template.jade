@@ -13,18 +13,18 @@
                 label.radio-inline
                   #uniform-optionsRadios4.radio
                     span.checked
-                      input#optionsRadios4(type='radio', name='customerChoiceRadios', value='new')
+                      input#customer-new-radio(type='radio', name='customerChoiceRadios', value='new')
                   |  New Customer
                 label.radio-inline
                   #uniform-optionsRadios5.radio
                     span
-                      input#optionsRadios5(type='radio', name='customerChoiceRadios', value='existing', checked='')
+                      input#customer-existing-radio(type='radio', name='customerChoiceRadios', value='existing', checked='')
                   |  Existing Customer
           .inputs.col-md-3.left
             .portlet-input.input-inline.input-small.contains-select2.loading-select2
               i.spinner.fa.fa-spinner.fa-pulse
               .select2-container-div
-                select.form-control.width-150(type='text', name='customer_search', placeholder='search...')
+                input.form-control.width-150(type='text', name='customer_search', placeholder='search...')
           .tools.col-md-1.right
             a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
@@ -40,7 +40,7 @@
         .col-md-4
         .inputs.col-md-3.left
           .portlet-input.input-inline.input-small
-            select.form-control.width-150(type='text', name='vehicle_search', placeholder='search...')
+            input.form-control.width-150(type='text', name='vehicle_search', placeholder='search...')
         .tools.col-md-1.right
           a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
@@ -68,7 +68,7 @@
                 |  Existing Deposit
         .inputs.col-md-3.left
           .portlet-input.input-inline.input-small
-            select.form-control.width-150(type='text', name='deposit_search', placeholder='search...')
+            input.form-control.width-150(type='text', name='deposit_search', placeholder='search...')
         .tools.col-md-1.right
           a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide

@@ -37,11 +37,9 @@ define [
         @organization = options.organization
 
       onShow:->
-        debugger
         @stickit()
         @payment_region.show new PaymentView model: @model.get('payment'), deposit: @model
 
-#        @$("[name=deposits_returned_on]").datetimepicker format:"DD/MM/YYYY"
         @ui.formControls.show()
         if @model.get 'itemID'
           @ui.customerInput.hide()
@@ -52,14 +50,10 @@ define [
 
       onSubmit:(e)->
         e.preventDefault()
-        debugger
         @model.save()
           .success (data)=>
-            debugger
-            console.log data.customer.contactID
             model = new DepositModel(data)
             @organization.get('deposits').add model
-
             toastr.success "Successfully Created Deposit"
             console.log "deposit creation successful:", data
           .error (data)->
