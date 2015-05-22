@@ -26,9 +26,9 @@ define [
         deposits:     false
 
       ui:
-        vehicleSearch: 'select[name="vehicle_search"]'
-        customerSearch: 'select[name="customer_search"]'
-        depositSearch: 'select[name="deposit_search"]'
+        vehicleSearch: 'input[name="vehicle_search"]'
+        customerSearch: 'input[name="customer_search"]'
+        depositSearch: 'input[name="deposit_search"]'
 
 
       events:
@@ -66,17 +66,26 @@ define [
         @listenTo @model, 'change:dailyRate', @onRecalc
 
         @listenTo @organization, 'sync', _.partial(@loaded, 'organization')
+        @listenTo @organization.get('customers'), 'add',  @onCustomerCreated
         @listenTo @organization.get('customers'), 'sync',  _.partial(@loaded, 'customers')
         @listenTo @organization.get('deposits'), 'add',  @onDepositCreated
         @listenTo @organization.get('deposits'), 'sync',  _.partial(@loaded, 'deposits')
 
         @initData()
 
-      onDepositCreated:(model)->
+      onCustomerCreated: (model)->
+        return unless @model.get('customer')
+        @initCustomerSelect2()
+        @$('select[name="customer_search"]').select2 'val', model.get 'contactID'
+        @$('#customer-existing-radio').click()
+        @$('.customer-portlet .portlet-title .tools a').click() if @$('.customer-portlet .portlet-title .tools a').hasClass('collapse')
+        @customer_region.show new CustomerView model: model, organization: @organization
+
+      onDepositCreated: (model)->
         return unless @model.get('customer')
         @initDepositSelect2()
         @$('select[name="deposit_search"]').select2 'val', model.get 'itemID'
-        @$('#deposit-new-radio').click()
+        @$('#deposit-existing-radio').click()
         @$('.deposit-portlet .portlet-title .tools a').click() if @$('.deposit-portlet .portlet-title .tools a').hasClass('collapse')
         @deposit_region.show new DepositView model: model, organization: @organization
 
@@ -88,7 +97,7 @@ define [
 
       onShow:->
         @stickit()
-        @customer_region.show new CustomerView( model: new CustomerModel(), config: @model.get('config'))
+        @customer_region.show new CustomerView model: new CustomerModel(), organization: @organization
 
       initData: ->
         @fetchOrganization()
@@ -198,7 +207,6 @@ define [
             setTimeout (=> @ui.customerSearch.select2('open')),100
 
       depositChoiceChange: (e)->
-        console.log 'deposit change choise'
         if e.currentTarget.value == "new"
           $(e.currentTarget).closest('.portlet').find('select[name$="_search"]').val("").parent().hide()
           @ui.depositSearch.select2 'val', ''
