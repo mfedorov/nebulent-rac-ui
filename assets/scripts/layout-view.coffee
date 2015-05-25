@@ -23,7 +23,8 @@ define [
       channel.on 'show:dashboard',@showDashboard, @
       channel.on 'show:sidebar-menu', @showSidebarMenu, @
       channel.on 'loggedin',((data)=> @updateLoginData(data)), @
-      channel.on 'rent-agreement', @showRentAgreement, @
+      channel.on 'show:rent-agreement', @showRentAgreement, @
+      channel.on 'show:vehicles', @showVehicles, @
 
     #config stores appkey and orgid needed to query rac api
     initConfig: ->
@@ -52,6 +53,10 @@ define [
         @views.dashboard_view = channel.request 'view'
         @views.dashboard_view.model.set 'config', @config
 
+        channel = Backbone.Radio.channel 'vehicles'
+        @views.vehicles_view = channel.request 'view'
+        @views.vehicles_view.model.set 'config', @config
+
         channel = Backbone.Radio.channel 'sidebar-menu'
         @views.sidebar_menu_view = channel.request 'view'
 
@@ -76,6 +81,14 @@ define [
     showSidebarMenu: ->
       @ensure ['sidebar_menu', 'top_menu']
       @sidebar_menu_view.show @views.sidebar_menu_view, preventDestroy: true
+
+    showVehicles: (id)->
+      @ensure ['sidebar_menu', 'top_menu']
+      @views.vehicles_view.vehicle_id = id
+      debugger
+      @main_region.show @views.vehicles_view,
+        preventDestroy: true
+        forceShow: true
 
     updateLoginData: (data)->
       @config.set "orgId", data.org.id

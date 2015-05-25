@@ -4,4 +4,5 @@ define ->
     appRoutes:
       '':                'index'
       'rent-agreement':  'newAgreement'
-
+      'vehicles':        'vehicles'
+      'vehicle(/)(:id)':     'vehicle'
