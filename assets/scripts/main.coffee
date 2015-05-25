@@ -33,6 +33,7 @@ require [
     "modules/top-menu/api"
     "modules/rent-agreement/api"
     "modules/sidebar-menu/api"
+    "modules/customers/api"
   ], ->
     window.App.start()
     return

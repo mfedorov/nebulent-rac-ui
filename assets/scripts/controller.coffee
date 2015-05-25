@@ -19,3 +19,13 @@ define ->
     newAgreement: ->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'rent-agreement'
+
+    listCustomers: ->
+      channel = Backbone.Radio.channel 'app'
+      channel.trigger 'customers', 'list'
+      channel.trigger 'set:sidebar:active', 'customers'
+
+    customer: (cust_id)->
+      channel = Backbone.Radio.channel 'app'
+      channel.trigger 'customers', cust_id
+      channel.trigger 'set:sidebar:active', 'customer'

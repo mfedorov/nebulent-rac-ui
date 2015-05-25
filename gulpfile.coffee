@@ -81,6 +81,7 @@ gulp.task "scripts", ["cleanScripts"], ->
       "demo":                     "./public/scripts/vendor/metronic/demo"
       "backstretch":              "./public/scripts/vendor/jquery.backstretch"
       "datatables":               "./public/scripts/vendor/jquery.dataTables"
+      "datatables-bootstrap":     "./public/scripts/vendor/metronic/dataTables.bootstrap"
       "amcharts":                 "./public/scripts/vendor/amcharts/amcharts"
       "pieChart":                 "./public/scripts/vendor/amcharts/pie"
       "select2":                  "./public/scripts/vendor/select2.full"
@@ -95,6 +96,8 @@ gulp.task "scripts", ["cleanScripts"], ->
         deps: ['bootstrap']
       "backbone.picky":
         deps: ['backbone']
+       "datatables-bootstrap":
+        deps: ['jquery','datatables']
 
   _.extend amdOptimize_options.paths, pjson.browser
 

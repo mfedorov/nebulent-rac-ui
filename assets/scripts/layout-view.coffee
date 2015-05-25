@@ -24,6 +24,8 @@ define [
       channel.on 'show:sidebar-menu', @showSidebarMenu, @
       channel.on 'loggedin',((data)=> @updateLoginData(data)), @
       channel.on 'rent-agreement', @showRentAgreement, @
+      channel.on 'customers', @showCustomers, @
+      # channel.on 'newCustomer', @showNewCustomer, @
 
     #config stores appkey and orgid needed to query rac api
     initConfig: ->
@@ -48,6 +50,10 @@ define [
         @views.rent_agreement_view = channel.request 'view'
         @views.rent_agreement_view.model.set 'config', @config
 
+        channel = Backbone.Radio.channel 'customers'
+        @views.customers_view = channel.request 'customers-view'
+        @views.customers_view.model.set 'config', @config
+
         channel = Backbone.Radio.channel 'dashboard'
         @views.dashboard_view = channel.request 'view'
         @views.dashboard_view.model.set 'config', @config
@@ -67,6 +73,16 @@ define [
     showRentAgreement: ->
       @ensure ['sidebar_menu', 'top_menu']
       @main_region.show @views.rent_agreement_view, preventDestroy: true
+
+    showCustomers: (id)->
+
+      @ensure ['sidebar_menu', 'top_menu']
+      @views.customers_view.cust_id = id
+      @main_region.show @views.customers_view, { forceShow: true, preventDestroy:  true }
+
+    # showCustomer: ->
+    #   @ensure ['sidebar_menu', 'top_menu']
+    #   @main_region.show @views.customer_view, preventDestroy: true
 
     showDashboard: ->
       @ensure ['sidebar_menu', 'top_menu']
