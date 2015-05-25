@@ -65,7 +65,7 @@ define [
         @model.save()
           .success (data)=>
             model = new CustomerView(data)
-            debugger
+            # debugger
             @organization.get('customers').add model
             toastr.success "Successfully Created customer"
             console.log "successfully created customer", data
