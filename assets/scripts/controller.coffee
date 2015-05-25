@@ -29,3 +29,11 @@ define ->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'customers', cust_id
       channel.trigger 'set:sidebar:active', 'customer'
+
+    vehicles: ->
+      channel = Backbone.Radio.channel 'app'
+      channel.trigger 'show:vehicles', 'list'
+
+    vehicle: (id)->
+      channel = Backbone.Radio.channel 'app'
+      channel.trigger 'show:vehicles', 'id'

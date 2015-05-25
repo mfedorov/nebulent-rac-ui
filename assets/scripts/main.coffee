@@ -34,6 +34,7 @@ require [
     "modules/rent-agreement/api"
     "modules/sidebar-menu/api"
     "modules/customers/api"
+    "modules/vehicles/api"
   ], ->
     window.App.start()
     return
