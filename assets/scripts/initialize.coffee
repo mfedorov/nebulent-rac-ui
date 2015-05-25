@@ -22,6 +22,7 @@ define [
   'jquery-ui'
   'jquery-cookie'
   'datatables'
+  'datatables-bootstrap'
   'backstretch'
   'amcharts'
   'pieChart'

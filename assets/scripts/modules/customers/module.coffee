@@ -1,10 +1,10 @@
 define ->
 
-  class TopMenu extends Marionette.Module
+  class Customers extends Marionette.Module
     startWithParent:  true
     getOption:        Marionette.proxyGetOption
     options:          {}
 
-  App.module "TopMenu", moduleClass: TopMenu
+  App.module "Customers", moduleClass: Customers
 
   return

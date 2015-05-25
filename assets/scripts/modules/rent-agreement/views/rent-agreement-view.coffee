@@ -137,7 +137,7 @@ define [
       onCustomerSearch: (e)->
         id = $(e.currentTarget).val()
         if id
-          debugger
+          # debugger
           @model.set 'customer', 'contactID': id
           @currentCustomer = @organization.get('customers').get(id)
           console.log @currentCustomer
@@ -165,7 +165,6 @@ define [
           @deposit_region.show new DepositView model: @currentDeposit, organization: @organization
 
       initCustomerSelect2: ()->
-        debugger
         @ui.customerSearch.parent().parent().removeClass "loading-select2"
         @ui.customerSearch.select2('destroy') if @ui.customerSearch.data('select2')
         @ui.customerSearch.select2
@@ -212,7 +211,6 @@ define [
           @customer_region.reset()
           @$('.customer-portlet .portlet-title .tools a').click()
 
-          debugger
           unless @ui.customerSearch.select2('val')?
             setTimeout (=> @ui.customerSearch.select2('open')),100
 
@@ -278,7 +276,7 @@ define [
         e.preventDefault()
         @model.save()
           .success (data)=>
-            debugger
+            # debugger
             @ui.vehicleSearch.select2 'close'
             @ui.depositSearch.select2 'close'
             toastr.success "Successfully Created Rent Agreement"

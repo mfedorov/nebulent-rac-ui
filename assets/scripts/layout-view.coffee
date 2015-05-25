@@ -24,6 +24,8 @@ define [
       channel.on 'show:sidebar-menu', @showSidebarMenu, @
       channel.on 'loggedin',((data)=> @updateLoginData(data)), @
       channel.on 'rent-agreement', @showRentAgreement, @
+      channel.on 'customers', @showCustomers, @
+      channel.on 'show:vehicles', @showVehicles, @
 
     #config stores appkey and orgid needed to query rac api
     initConfig: ->
@@ -48,9 +50,17 @@ define [
         @views.rent_agreement_view = channel.request 'view'
         @views.rent_agreement_view.model.set 'config', @config
 
+        channel = Backbone.Radio.channel 'customers'
+        @views.customers_view = channel.request 'customers-view'
+        @views.customers_view.model.set 'config', @config
+
         channel = Backbone.Radio.channel 'dashboard'
         @views.dashboard_view = channel.request 'view'
         @views.dashboard_view.model.set 'config', @config
+
+        channel = Backbone.Radio.channel 'vehicles'
+        @views.vehicles_view = channel.request 'view'
+        @views.vehicles_view.model.set 'config', @config
 
         channel = Backbone.Radio.channel 'sidebar-menu'
         @views.sidebar_menu_view = channel.request 'view'
@@ -68,6 +78,16 @@ define [
       @ensure ['sidebar_menu', 'top_menu']
       @main_region.show @views.rent_agreement_view, preventDestroy: true
 
+    showCustomers: (id)->
+
+      @ensure ['sidebar_menu', 'top_menu']
+      @views.customers_view.cust_id = id
+      @main_region.show @views.customers_view, { forceShow: true, preventDestroy:  true }
+
+    # showCustomer: ->
+    #   @ensure ['sidebar_menu', 'top_menu']
+    #   @main_region.show @views.customer_view, preventDestroy: true
+
     showDashboard: ->
       @ensure ['sidebar_menu', 'top_menu']
       @views.dashboard_view.refreshData()
@@ -76,6 +96,14 @@ define [
     showSidebarMenu: ->
       @ensure ['sidebar_menu', 'top_menu']
       @sidebar_menu_view.show @views.sidebar_menu_view, preventDestroy: true
+
+    showVehicles: (id)->
+      @ensure ['sidebar_menu', 'top_menu']
+      @views.vehicles_view.vehicle_id = id
+      debugger
+      @main_region.show @views.vehicles_view,
+        preventDestroy: true
+        forceShow: true
 
     updateLoginData: (data)->
       @config.set "orgId", data.org.id
