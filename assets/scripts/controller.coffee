@@ -19,6 +19,7 @@ define ->
     newAgreement: ->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'rent-agreement'
+      channel.trigger 'set:sidebar:active', 'rent-agreement'
 
     listCustomers: ->
       channel = Backbone.Radio.channel 'app'
@@ -33,7 +34,9 @@ define ->
     vehicles: ->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'show:vehicles', 'list'
+      channel.trigger 'set:sidebar:active', 'vehicles'
 
     vehicle: (id)->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'show:vehicles', 'id'
+      channel.trigger 'set:sidebar:active', 'vehicle'
