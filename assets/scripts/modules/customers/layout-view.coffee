@@ -5,7 +5,7 @@ define [
     './models/customer-model'
     './collections/customers-collection'
     # './module'
-],  (template, CustomersView, CustomerView, CustomersModel, CustomersCollection) ->
+],  (template, CustomersView, CustomerView, CustomerModel, CustomersCollection) ->
 
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
