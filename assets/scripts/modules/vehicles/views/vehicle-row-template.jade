@@ -1,0 +1,20 @@
+td
+  = modelIndex + 1
+td
+  = make
+td
+  = model || 'none'
+td
+  = color
+td
+  = plateNumber
+td
+  = lastOilChangeMileage||'none'
+td
+  = currentMileage||'none'
+td
+  a.btn.default.btn-xs.purple.edit-row(href="#vehicle/#{itemID}")
+    i.fa.fa-edit Edit
+  a.btn.default.btn-xs.black.delete-row(href="javascript:;")
+    i.fa.fa-trash-o Delete
+
