@@ -5,6 +5,5 @@ define ['./models/organization-model', './module'], (OrganizationModel)->
     class Module.Model extends Backbone.Model
       defaults:
         organization: new OrganizationModel()
-    return
 
   App.Vehicles.Model
