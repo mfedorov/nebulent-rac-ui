@@ -11,20 +11,21 @@ define [
       idAttribute: "contactID"
 
       defaults:
-        firstName:                    ""
-        lastName:                     ""
-        middleName:                   ""
-        dateOfBirth:                  moment().unix()*1000
-        emailAddress:                 ""
-        driverLicenseExpirationDate:  moment().unix()*1000
-        driverLicenseState:           ""
-        driverLicense:                ""
-        notes:                        []
-        incidents:                    []
-        properties:                   []
-        contactStatus:               "ACTIVE"
+        firstName:                              ""
+        lastName:                               ""
+        middleName:                          ""
+        dateOfBirth:                            moment().unix()*1000
+        emailAddress:                         ""
+        driverLicenseExpirationDate:   moment().unix()*1000
+        driverLicenseState:                 ""
+        driverLicense:                         ""
+        notes:                                     []
+        incidents:                                []
+        properties:                              []
+        contactStatus:                         "ACTIVE"
 
       initialize:->
+        console.log "initialize model"
         @set 'phones', new PhonesCollection()
         @set 'addresses', new AddressesCollection()
 
@@ -38,7 +39,7 @@ define [
         @get 'addresses'
         .set response.addresses
 
-        response.phones                   = @get 'phones'
+        response.phones                    = @get 'phones'
         response.addresses                = @get 'addresses'
 
         response

@@ -4,14 +4,14 @@ define [
 ], ( AppConfig) ->
 
   class AppLayoutView extends Marionette.LayoutView
-    el:       'body'
+    el:           'body'
     template: false
 
     regions:
-      top_menu_region:      '#top-menu-region'
-      main_region:          '#main-region'
-      sidebar_menu_region:  '#sidebar-menu-region'
-      login_region:         '#login-region'
+      top_menu_region:         '#top-menu-region'
+      main_region:                '#main-region'
+      sidebar_menu_region:   '#sidebar-menu-region'
+      login_region:                 '#login-region'
 
     initialize: ->
       #TODO: decide where  the main data storage should be
@@ -79,11 +79,10 @@ define [
       @main_region.show @views.rent_agreement_view, preventDestroy: true
 
     showCustomers: (id)->
-
+      console.log "Show customers func"
       @ensure ['sidebar_menu', 'top_menu']
       @views.customers_view.cust_id = id
       @main_region.show @views.customers_view, { forceShow: true, preventDestroy:  true }
-
     # showCustomer: ->
     #   @ensure ['sidebar_menu', 'top_menu']
     #   @main_region.show @views.customer_view, preventDestroy: true
