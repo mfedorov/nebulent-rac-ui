@@ -2,7 +2,7 @@ define [
     './layout-template'
     './views/customers-view'
     './views/customer-view'
-    './models/customers-model'
+    './models/customer-model'
     './collections/customers-collection'
     # './module'
 ],  (template, CustomersView, CustomerView, CustomersModel, CustomersCollection) ->

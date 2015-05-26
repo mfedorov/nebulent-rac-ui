@@ -1,5 +1,5 @@
 define [
-  './../models/customers-model'
+  './../models/customer-model'
 ],  (CustomersModel)->
 
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->

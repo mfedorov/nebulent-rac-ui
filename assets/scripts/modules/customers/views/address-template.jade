@@ -1,0 +1,58 @@
+.row
+  .form-group.col-md-12.col-sm-12.col-xs-12
+    label.col-md-12.control-label
+      | Address Line 1
+      span.required(aria-required='true') *
+    .col-md-12
+      .input-group
+        input.form-control(type='text' name='address_1')
+        span.input-group-addon.remove-address
+          i.fa.fa-times
+  .form-group.col-md-12.col-sm-12.col-xs-12
+    label.col-md-12.control-label
+      | Address Line 2
+    .col-md-12
+      .input-icon.right
+        i.fa.fa-info-circle.tooltips(data-original-title='Address 2', data-container='body')
+        input.form-control(type='text' name='address_2')
+.row
+  .form-group.col-md-6.col-sm-6.col-xs-12
+    label.col-md-12.control-label
+      | City
+      span.required(aria-required='true') *
+    .col-md-12
+      .input-icon.right
+        i.fa.fa-info-circle.tooltips(data-original-title='City', data-container='body')
+        input.form-control(type='text' name='city')
+  .form-group.col-md-6.col-sm-6.col-xs-12
+    label.control-label.col-md-12
+      | Country
+      span.required(aria-required='true') *
+    .col-md-12
+      select.form-control(name='country')
+        option(value='') Select...
+        option(value='USA') USA
+        option(value='Canada') Canada
+  .form-group.col-md-6.col-sm-6.col-xs-12
+    label.control-label.col-md-12
+      | Region
+      span.required(aria-required='true') *
+    .col-md-12
+      select.form-control(name='region')
+        option(value='') Select...
+        option(value='NY') NY
+        option(value='FL') FL
+  .form-group.col-md-6.col-sm-6.col-xs-12
+    label.col-md-12.control-label
+      | Postal Code
+      span.required(aria-required='true') *
+    .col-md-12
+      .input-group
+        span.input-group-addon
+          i.fa.fa-envelope
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Postal Code', data-container='body')
+          input.form-control(type='text' name='postal_code')
+  .col-md-12
+    .col-md-12
+      hr

@@ -24,12 +24,12 @@ define [
         index: index
 
       templateHelpers: ->
-        title:        @title
-        header:       @headerItems
+        title:              @title
+        header:         @headerItems
         dataTableId:  @dataTableId
-        count:        @collection.length
-        icon:         @icon
-        color:        @color
+        count:           @collection.length
+        icon:             @icon
+        color:            @color
 
       onShow:->
         @$("##{@dataTableId}").dataTable()
