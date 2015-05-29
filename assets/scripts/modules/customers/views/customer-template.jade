@@ -68,6 +68,40 @@ form#customer-form
           .input-icon.right
             i.fa.fa-info-circle.tooltips(data-original-title='Email', data-container='body')
             input.form-control(type='text' name='email_address')
+
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Skype user name
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-group
+          span.input-group-addon
+            i.fa.fa-skype
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Driving License', data-container='body')
+            input.form-control(type='text' name='skype_username')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Tax number
+      .col-md-12
+        .input-icon.right
+          input.form-control(type='text' name='tax_number')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        |  Supplier
+      .col-md-12
+        .input-icon.right
+          label.col-md-12.pointer(for="is_supplier")
+            input.icheck#is_supplier(type='checkbox' name="is_supplier")
+            |  Is supplier
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        |  Customer
+      .col-md-12
+        .input-icon.right
+          label.col-md-12.pointer(for="is_customer")
+            input.icheck#is_customer(type='checkbox' name="is_customer")
+            |  Is customer
     .col-md-12
       .col-md-12
         hr
@@ -76,6 +110,11 @@ form#customer-form
     #phones-region
   .col-md-6.col-xs-12.col-sm-12
     #addresses-region
+.row
+  .col-md-6.col-xs-12.col-sm-12
+    #incidents-region
+  .col-md-6.col-xs-12.col-sm-12
+    #notes-region
 
 .row.usercreate-controlls
   .form-actions

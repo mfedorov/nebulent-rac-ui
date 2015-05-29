@@ -38,8 +38,8 @@ define [
         if @cust_id is 'list'
           mainView = new CustomersView collection: @model.get('customers')
         else
-          model       = if @cust_id? then @model.get('customers').get(@cust_id) else new CustomerModel()
-          mainView = new CustomerView model:model
+          model       = if @cust_id? then @model.get('customers').get(@cust_id) else new CustomerModel({}, parse: true)
+          mainView = new CustomerView model:model, collection: @model.get('customers')
 
         @main_region.show mainView
 

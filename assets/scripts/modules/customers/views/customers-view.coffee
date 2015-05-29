@@ -10,8 +10,9 @@ define [
       childViewContainer:  ".row-container"
       class:                       'composite-view customers'
       template:                 template
-      headerItems:            ['#', 'First name', 'Last name', 'Email', 'Actions']
+      headerItems:            ['#', 'First name', 'Last name', 'Email', 'Status', 'Actions']
       dataTableId:             "customers"
+
 
       childViewOptions: (model, index) ->
         index: index
@@ -24,5 +25,12 @@ define [
       onShow:->
         console.log "Show table"
         @$("##{@dataTableId}").dataTable()
+        @listenTo @, "childview:customers:update", ->
+          @region.close()
+          @region.show @
+          @$("##{@dataTableId}").dataTable()
+
+
+
 
   App.Customers.CustomersView

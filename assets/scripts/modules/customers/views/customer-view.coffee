@@ -2,18 +2,22 @@ define [
   './customer-template'
   './phones-view'
   './addresses-view'
+  './incidents-view'
+  './notes-view'
   './../models/customer-model'
   './../collections/phones-collection'
   './../collections/addresses-collection'
-],  (template, PhonesView, AddressesView, CustomerView, PhonesCollection, AddressesCollection) ->
+],  (template, PhonesView, AddressesView, IncidentsView, NotesView, CustomerView, PhonesCollection, AddressesCollection) ->
 
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.Customer extends Marionette.LayoutView
       className:  "layout-view customer"
-      template:   template
-      phones:     null
-      address:    null
+      template:     template
+      phones:       null
+      address:      null
+      incidents:    null
+      notes:          null
 
       events:
         "click button[name='submit_customer']" :  'onSubmit'
@@ -21,7 +25,7 @@ define [
       bindings:
         "[name=first_name]":               observe: "firstName"
         "[name=last_name]":                observe: "lastName"
-        "[name=middle_name]":              observe: "middleName"
+        "[name=middle_name]":           observe: "middleName"
         "[name=date_of_birth]":
           observe: "dateOfBirth"
           onGet: (value)-> moment.unix(parseInt(value)/1000).format('DD/MM/YYYY')
@@ -37,39 +41,62 @@ define [
             collection: App.DataHelper.states
             labelPath: 'name'
             valuePath: 'abbreviation'
-        "[name=email_address]":            observe: "emailAddress"
+        "[name=email_address]":                 observe: "emailAddress"
+        "[name=skype_username]":             observe: "skypeUserName"
+        "[name=tax_number]":                    observe: "taxNumber"
+        "[name=is_customer]":                    observe: "isCustomer"
+        "[name=is_supplier]":                      observe: "isSupplier"
 
       regions:
-        list_region:           "#customer-region"
-        phones_region:     "#phones-region"
-        addresses_region: "#addresses-region"
+        list_region:            "#customer-region"
+        phones_region:      "#phones-region"
+        addresses_region:  "#addresses-region"
+        incidents_region:   "#incidents-region"
+        notes_region:        "#notes-region"
 
       initialize: (options)->
+        debugger
         # console.log 'customer model', @model.cid
-        @organization = options.organization
+        @organization        = options.organization
+        @collection            = options.collection
+        window.customer   = @model
 
       onShow:->
         return unless @model
         # debugger
         @stickit()
         @$('.usercreate-controlls').show()
-        @$('.usercreate-controlls').hide() if @model.get 'contactID'
+
+        if @model.get 'contactID'
+          $('button[name="submit_customer"]').text "Update User"
+        else
+          $('button[name="submit_customer"]').text "Create New User"
+
         @$("[name=date_of_birth]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_expiration_date]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_state]").select2()
 
-        # debugger
+        debugger
         @phones_region.show new PhonesView collection: @model.get 'phones'
         @addresses_region.show new AddressesView collection: @model.get 'addresses'
+        @incidents_region.show new IncidentsView collection: @model.get 'incidents'
+        @notes_region.show new NotesView collection: @model.get 'notes'
+        # $('.icheck').iCheck()
 
       onSubmit:->
+        debugger
+        unless @model.isValid()
+          toastr.error "Error Creating Customer. Check the required fields"
+          return
         @model.save()
           .success (data)=>
             model = new CustomerView(data)
             # debugger
-            @organization.get('customers').add model
+            @collection.add model
             toastr.success "Successfully Created customer"
             console.log "successfully created customer", data
+            #redirect to customer list
+            App.Router.navigate "#customers", trigger:true
           .error (data)->
             toastr.error "Error Creating Customer"
             console.log "error creating customer", data

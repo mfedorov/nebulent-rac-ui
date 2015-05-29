@@ -1,14 +1,14 @@
 define [
-  './../models/address-model'
-],  (AddressModel)->
+  './../models/phone-model'
+],  (PhoneModel)->
 
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.PhonesCollection extends Backbone.Collection
-      model: AddressModel
+      model: PhoneModel
 
       init:->
-        @add new AddressModel() unless @length
+        @add new PhoneModel() unless @length
 
 
   App.Customers.PhonesCollection
