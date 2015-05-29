@@ -6,20 +6,20 @@ define [
   App.module "Vehicles", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.VehiclesView extends Marionette.CompositeView
-      childView:          VehicleRow
-      childViewContainer: ".row-container"
-      class:              'composite-view vehicles'
-      template:           template
-      headerItems:        ['#', 'Make', 'Model', 'Color', 'Plate Number', 'Last Oil Change Mileage', 'Current Mileage', 'Actions']
-      dataTableId:        "vehicles"
+      childView:                VehicleRow
+      childViewContainer:  ".row-container"
+      class:                        'composite-view vehicles'
+      template:                  template
+      headerItems:            ['#', 'Make', 'Model', 'Color', 'Plate Number', 'Last Oil Change Mileage', 'Current Mileage', 'Actions']
+      dataTableId:              "vehicles"
 
       childViewOptions: (model, index) ->
         index: index
 
       templateHelpers: ->
-        header:       @headerItems
+        header:         @headerItems
         dataTableId:  @dataTableId
-        count:        @collection.length
+        count:           @collection.length
 
       onShow:->
         @$("##{@dataTableId}").dataTable()

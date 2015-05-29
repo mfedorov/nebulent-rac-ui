@@ -1,1 +1,112 @@
-h1 Vehicle
+h3#form-title New Vehicle
+form#vehicle-form
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Vehicle make
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Vehicle make', data-container='body')
+          input.form-control(type='text' name='make')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Vehicle model
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Vehicle model', data-container='body')
+          input.form-control(type='text' name='model')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Color
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Color', data-container='body')
+          input.form-control(type='text' name='color')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Plate number
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Plate number', data-container='body')
+          input.form-control(type='text' name='plate_number')
+
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Year
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Vehicle year', data-container='body')
+          input.form-control(type='text' name='year')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Vehicle vin
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Vehicle vin', data-container='body')
+          input.form-control(type='text' name='vin')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Registration date
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Registration Date', data-container='body')
+          input.form-control(type='text' name='registration_date')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Inspection date
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Inspection date', data-container='body')
+          input.form-control(type='text' name='inspection_date')
+
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label  Current mileage
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Current mileage', data-container='body')
+          input.form-control(type='text' name='current_mileage')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label  Daily rate
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Daily rate', data-container='body')
+          input.form-control(type='text' name='daily_rate')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Weekly rate
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Weekly rate', data-container='body')
+          input.form-control(type='text' name='weekly_rate')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Code
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Code', data-container='body')
+          input.form-control(type='text' name='code')
+
+  .row
+    .form-group.col-md-12.col-sm-12.col-xs-12
+      label.col-md-12.control-label
+        | Description
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Description', data-container='body')
+          textarea.form-control(name='description')
+
+.row
+  .form-actions
+    .col-md-12.right
+      .col-md-12
+        button.btn.green(type='submit' name='submit_vehicle') Create Vehicle

@@ -19,11 +19,18 @@ define [
       incidents:    null
       notes:          null
 
+      behaviors:
+        Validation: {}
+
       events:
         "click button[name='submit_customer']" :  'onSubmit'
 
       bindings:
-        "[name=first_name]":               observe: "firstName"
+        "[name=first_name]":
+          observe: "firstName"
+          setOptions:
+            validate: true
+
         "[name=last_name]":                observe: "lastName"
         "[name=middle_name]":           observe: "middleName"
         "[name=date_of_birth]":

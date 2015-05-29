@@ -99,7 +99,7 @@ define [
     showVehicles: (id)->
       @ensure ['sidebar_menu', 'top_menu']
       @views.vehicles_view.vehicle_id = id
-      debugger
+      # debugger
       @main_region.show @views.vehicles_view,
         preventDestroy: true
         forceShow: true
