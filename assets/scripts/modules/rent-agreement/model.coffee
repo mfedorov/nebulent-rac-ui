@@ -1,9 +1,9 @@
-define ['./module'], ->
+define ['./collections/rentals-collection', './module'], (RentalsCollection)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.Model extends Backbone.Model
-
-    return
+      defaults:
+        rentals: new RentalsCollection()
 
   App.CarRentAgreement.Model

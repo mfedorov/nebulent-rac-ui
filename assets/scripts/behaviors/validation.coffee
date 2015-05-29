@@ -13,6 +13,7 @@ define ['backbone.validation', './initialize'], ->
             .removeAttr 'data-original-title'
             .removeAttr 'title'
             .tooltip 'hide'
+
         invalid: (view, attr, error) ->
           view.$ ".form-group:has([name=#{attr}])"
             .addClass 'has-error'
@@ -24,3 +25,4 @@ define ['backbone.validation', './initialize'], ->
             .tooltip 'show'
 
   window.Behaviors.Validation = Validation
+

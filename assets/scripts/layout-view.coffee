@@ -23,8 +23,8 @@ define [
       channel.on 'show:dashboard',@showDashboard, @
       channel.on 'show:sidebar-menu', @showSidebarMenu, @
       channel.on 'loggedin',((data)=> @updateLoginData(data)), @
-      channel.on 'rent-agreement', @showRentAgreement, @
-      channel.on 'customers', @showCustomers, @
+      channel.on 'show:rent-agreements', @showRentAgreement, @
+      channel.on 'show:customers', @showCustomers, @
       channel.on 'show:vehicles', @showVehicles, @
 
     #config stores appkey and orgid needed to query rac api
@@ -37,7 +37,6 @@ define [
 
       @config = new AppConfig data
 
-
     onRender: ->
       unless @views.main_view
         channel = Backbone.Radio.channel 'authentication'
@@ -46,7 +45,7 @@ define [
         channel = Backbone.Radio.channel 'top-menu'
         @views.top_menu_view = channel.request 'view'
 
-        channel = Backbone.Radio.channel 'rent-agreement'
+        channel = Backbone.Radio.channel 'rent-agreements'
         @views.rent_agreement_view = channel.request 'view'
         @views.rent_agreement_view.model.set 'config', @config
 
@@ -74,12 +73,14 @@ define [
       if 'sidebar_menu'in array
         @sidebar_menu_region.show @views.sidebar_menu_view, preventDestroy: true
 
-    showRentAgreement: ->
+    showRentAgreement: (id)->
       @ensure ['sidebar_menu', 'top_menu']
-      @main_region.show @views.rent_agreement_view, preventDestroy: true
+      @views.rent_agreement_view.agreement_id = id
+      @main_region.show @views.rent_agreement_view,
+        preventDestroy: true
+        forceShow: true
 
     showCustomers: (id)->
-
       @ensure ['sidebar_menu', 'top_menu']
       @views.customers_view.cust_id = id
       @main_region.show @views.customers_view, { forceShow: true, preventDestroy:  true }
@@ -100,7 +101,6 @@ define [
     showVehicles: (id)->
       @ensure ['sidebar_menu', 'top_menu']
       @views.vehicles_view.vehicle_id = id
-      debugger
       @main_region.show @views.vehicles_view,
         preventDestroy: true
         forceShow: true
@@ -109,5 +109,3 @@ define [
       @config.set "orgId", data.org.id
       @config.set "apiKey", data.org.apikey
       @showDashboard()
-
-    rentAgreement: ->

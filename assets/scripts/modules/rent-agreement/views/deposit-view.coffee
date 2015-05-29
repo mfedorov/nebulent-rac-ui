@@ -2,7 +2,8 @@ define [
   './deposit-template'
   './payment-view'
   './../models/deposit-model'
-],  (template, PaymentView, DepositModel) ->
+  './../models/payment-model'
+],  (template, PaymentView, DepositModel, PaymentModel) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -22,7 +23,9 @@ define [
             if value?.contactID?
               return value?.contactID
             value
-          onSet: (value)-> contactID: value
+          onSet: (value)->
+            debugger
+            @organization.get('customers').get(value)
         '[name="deposit_location"]' :     "location"
 
       regions:
@@ -38,6 +41,7 @@ define [
 
       onShow:->
         @stickit()
+        #TODO get rid of this check, make sure payment model is initialized in deposit model
         @payment_region.show new PaymentView model: @model.get('payment'), deposit: @model
 
         @ui.formControls.show()

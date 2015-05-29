@@ -24,12 +24,12 @@
             .portlet-input.input-inline.input-small.contains-select2.loading-select2
               i.spinner.fa.fa-spinner.fa-pulse
               .select2-container-div
-                input.form-control.width-150(type='text', name='customer_search', placeholder='search...')
+                input.form-control.width-150(type='text', name='customer_search', placeholder='search...', value="#{customer.get('contactID')}")
           .tools.col-md-1.right
             a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
         #customer-region
-  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.vehicle-portlet.hidden
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.vehicle-portlet
     .portlet.light
       .portlet-title
         .col-md-4.caption
@@ -40,12 +40,12 @@
         .col-md-4
         .inputs.col-md-3.left
           .portlet-input.input-inline.input-small
-            input.form-control.width-150(type='text', name='vehicle_search', placeholder='search...')
+            input.form-control.width-150(type='text', name='vehicle_search', placeholder='search...' value="#{vehicle.get('itemID')}")
         .tools.col-md-1.right
           a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
         #vehicle-region
-  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.deposit-portlet.hidden
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.deposit-portlet
     .portlet.light
       .portlet-title
         .col-md-4.caption
@@ -68,12 +68,12 @@
                 |  Existing Deposit
         .inputs.col-md-3.left
           .portlet-input.input-inline.input-small
-            input.form-control.width-150(type='text', name='deposit_search', placeholder='search...')
+            input.form-control.width-150(type='text', name='deposit_search', placeholder='search...', value="#{deposit.get('itemID')}")
         .tools.col-md-1.right
           a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
         #deposit-region
-  .col-md-12.col-sm-12.col-xs-12.rental-details.agreement-details-portlet.hidden
+  .col-md-12.col-sm-12.col-xs-12.rental-details.agreement-details-portlet
     form#rental-details-form.form
       .row
         .form-group.col-md-3.col-sm-6.col-xs-12

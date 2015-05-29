@@ -21,6 +21,7 @@ define [
             valuePath: 'name'
 
       onShow:->
+
         @stickit()
 
 

@@ -1,11 +1,14 @@
 define [
   './payment-model'
-],  (PaymentModel)->
+  './customer-model'
+],  (PaymentModel, CustomerModel)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.DepositModel extends Backbone.Model
-      url:-> "api/#{Module.model.get('config').get('orgId')}/customers/#{@get('customer').contactID}/deposits"
+      url:->
+        debugger
+        "api/#{Module.model.get('config').get('orgId')}/customers/#{@get('customer').get('contactID')}/deposits"
       idAttribute: "itemID"
       defaults:
         description:    "RENTAL DEPOSIT"
@@ -14,22 +17,27 @@ define [
         purchaseDetails:null
         customer:       null
         location:       null
-        payment:        new PaymentModel()
+        payment:        null
         credit:         null
         notes:          []
         properties:     []
         incidentIds:    []
         orgId:          null
-        returnedOn:     null
         takenOn:        moment().unix()*1000
         status:         "ACTIVE"
 
-      parse: (response, options)->
-        @set('payment', new PaymentModel()) unless @get('payment')
-        @get 'payment'
-        .set response.payment
+      initialize:->
+        @set "customer", new CustomerModel(), silent: true
+        @set "payment", new PaymentModel(), silent: true
+        super
 
-        response.payment = @get 'payment'
+      parse: (response, options)->
+        @set 'payment', new PaymentModel(response.payment)
+        @set 'customer', new CustomerModel(response.customer)
+
+        response.payment  = @get 'payment'
+        response.customer = @get 'customer'
         response
+
 
   App.CarRentAgreement.DepositModel

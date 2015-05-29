@@ -17,6 +17,7 @@ define [
 
       onShow:->
         return unless @model
+        debugger
         @stickit()
 
 

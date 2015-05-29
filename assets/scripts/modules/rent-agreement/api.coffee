@@ -16,7 +16,7 @@ define [
 
 
     Module.on 'start', ->
-      channel = Backbone.Radio.channel 'rent-agreement'
+      channel = Backbone.Radio.channel 'rent-agreements'
       channel.reply 'view', API.getView
       return
 

@@ -1,0 +1,23 @@
+td
+  = modelIndex + 1
+td
+  = invoiceNumber
+td
+  = customer.get('lastName') || customer.get('contactID')
+td
+  = vehicle.get('plateNumber') || vehicle.get('itemID')
+td
+  = days
+td
+  = moment(dueDate).format('DD/MM/YYYY')
+td
+  = total
+td
+  a.btn.default.btn-xs.purple.preview-row(href="javascript:;" data-toggle="tooltip" title="Preview")
+    i.fa.fa-eye
+  a.btn.default.btn-xs.green.download-row(href="#{externalDocUrl}" data-toggle="tooltip" title="Download")
+    i.fa.fa-download
+  a.btn.default.btn-xs.blue.edit-row(href="#rent-agreement/#{invoiceID}" data-toggle="tooltip" title="Edit")
+    i.fa.fa-edit
+  a.btn.default.btn-xs.red.delete-row(href="javascript:;" data-toggle="tooltip" title="Delete")
+    i.fa.fa-trash-o

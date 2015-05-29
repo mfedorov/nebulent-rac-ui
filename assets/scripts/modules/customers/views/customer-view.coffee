@@ -13,7 +13,4 @@ define [
       initialize: (options)->
         @cust_id = options.cust_id
 
-      onShow:->
-
-
   App.Customers.CustomerView

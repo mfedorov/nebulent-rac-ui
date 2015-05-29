@@ -44,19 +44,17 @@ define [
         addresses_region: "#addresses-region"
 
       initialize: (options)->
-        console.log 'customer model', @model.cid
+        console.log 'customer model', @model
         @organization = options.organization
 
       onShow:->
         return unless @model
-
         @stickit()
         @$('.usercreate-controlls').show()
         @$('.usercreate-controlls').hide() if @model.get 'contactID'
         @$("[name=date_of_birth]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_expiration_date]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_state]").select2()
-
 
         @phones_region.show new PhonesView collection: @model.get 'phones'
         @addresses_region.show new AddressesView collection: @model.get 'addresses'
@@ -65,7 +63,6 @@ define [
         @model.save()
           .success (data)=>
             model = new CustomerView(data)
-            # debugger
             @organization.get('customers').add model
             toastr.success "Successfully Created customer"
             console.log "successfully created customer", data
