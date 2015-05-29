@@ -10,6 +10,7 @@ define [
   'quick-sidebar'
   'demo'
   'moment'
+  'iCheck'
   'bootstrap-datetimepicker'
   'backbone.radio'
   'backbone.stickit'
@@ -29,7 +30,8 @@ define [
   './behaviors/validation'
   './behaviors/textarea-supporting-tabs'
 ], (Backbone, Marionette, $, _, toastr, select2, metronic, layout,
-    quickSidebar, demo, moment) ->
+    quickSidebar, demo, moment, iCheck) ->
+    # quickSidebar, demo, moment) ->
 
   window.toastr = toastr
   window.moment = moment
@@ -39,6 +41,7 @@ define [
     Metronic.init()
     Layout.init()
     Demo.init()
+
 
   Backbone.Marionette.Renderer.render = (template, data) ->
     Marionette.TemplateCache.get(template)(data)
