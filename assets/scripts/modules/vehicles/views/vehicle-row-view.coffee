@@ -5,7 +5,7 @@ define ['./vehicle-row-template'], (template)->
     class Module.VehicleRowView extends Marionette.ItemView
       className:  "item-view vehicle-row"
       tagName:    "tr"
-      template: template
+      template:     template
 
       initialize: (options)->
         @index = options.index

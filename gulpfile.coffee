@@ -87,6 +87,7 @@ gulp.task "scripts", ["cleanScripts"], ->
       "select2":                  "./public/scripts/vendor/select2.full"
       "moment":                   "./public/scripts/vendor/moment"
       "bootstrap-datetimepicker": "./public/scripts/vendor/metronic/bootstrap-datetimepicker"
+      "iCheck":                  "./public/scripts/vendor/icheck.min"
     shim:
       "jquery-ui":
         deps: ['jquery']

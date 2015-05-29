@@ -1,2 +1,123 @@
-h1 Customer View
-  #customer-region
+form#customer-form
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | First Name
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-group
+          span.input-group-addon
+            i.fa.fa-user
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='First Name', data-container='body')
+            input.form-control(type='text' name='first_name')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label  Middle Name
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Middle Name', data-container='body')
+          input.form-control(type='text' name='middle_name')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Last Name
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Last Name', data-container='body')
+          input.form-control(type='text' name='last_name')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | DOB
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Date of Birth', data-container='body')
+          input.form-control(type='text' name='date_of_birth')
+  .row
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | License Number
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-group
+          span.input-group-addon
+            i.fa.fa-list-alt
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Driving License', data-container='body')
+            input.form-control(type='text' name='license_number')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | License State
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-icon.right
+          select.form-control(type='text' name='license_state')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Expiration Date
+        span.required(aria-required='true') *
+      .col-md-12
+        input.form-control(type='text' name='license_expiration_date')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Email
+      .col-md-12
+        .input-group
+          span.input-group-addon
+            i.fa.fa-envelope
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Email', data-container='body')
+            input.form-control(type='text' name='email_address')
+
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Skype user name
+        span.required(aria-required='true') *
+      .col-md-12
+        .input-group
+          span.input-group-addon
+            i.fa.fa-skype
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Driving License', data-container='body')
+            input.form-control(type='text' name='skype_username')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        | Tax number
+      .col-md-12
+        .input-icon.right
+          input.form-control(type='text' name='tax_number')
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        |  Supplier
+      .col-md-12
+        .input-icon.right
+          label.col-md-12.pointer(for="is_supplier")
+            input.icheck#is_supplier(type='checkbox' name="is_supplier")
+            |  Is supplier
+    .form-group.col-md-3.col-sm-6.col-xs-12
+      label.col-md-12.control-label
+        |  Customer
+      .col-md-12
+        .input-icon.right
+          label.col-md-12.pointer(for="is_customer")
+            input.icheck#is_customer(type='checkbox' name="is_customer")
+            |  Is customer
+    .col-md-12
+      .col-md-12
+        hr
+.row
+  .col-md-6.col-xs-12.col-sm-12
+    #phones-region
+  .col-md-6.col-xs-12.col-sm-12
+    #addresses-region
+.row
+  .col-md-6.col-xs-12.col-sm-12
+    #incidents-region
+  .col-md-6.col-xs-12.col-sm-12
+    #notes-region
+
+.row.usercreate-controlls
+  .form-actions
+    .col-md-12.right
+      .col-md-12
+        button.btn.green(type='submit' name='submit_customer') Create New User
