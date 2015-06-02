@@ -12,5 +12,9 @@ define [],  ->
 #        paymentType:  ""
 #        status:       ""
 
+      validation:
+        amount:
+          required: true
+
 
   App.CarRentAgreement.PaymentModel

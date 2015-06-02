@@ -8,9 +8,15 @@ define [
       className: "item-view deposit-payment-view"
       template: template
 
+      behavior:
+        Validation: {}
+
       bindings:
-        '[name="deposit_amout"]':      observe:"amount"
-        '[name="deposit_invoice_id"]':  observe:"invoiceID"
+        '[name="deposit_amout"]':
+          observe:"amount"
+          setOptions:
+            validate: true
+#        '[name="deposit_invoice_id"]':  observe:"invoiceID"
 #        '[name="deposit_account_id"]': "accountID"
         '[name="deposit_reference"]':   observe: "reference"
         '[name="deposit_payment_type"]':

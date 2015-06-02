@@ -5,6 +5,7 @@ define ['backbone.validation', './initialize'], ->
     onRender: ->
       Backbone.Validation.bind @view,
         valid: (view, attr) ->
+          console.log "valid"
           view.$ ".form-group:has([name=#{attr}])"
             .addClass 'has-success'
             .removeClass 'has-error'
@@ -13,7 +14,10 @@ define ['backbone.validation', './initialize'], ->
             .removeAttr 'data-original-title'
             .removeAttr 'title'
             .tooltip 'hide'
+
         invalid: (view, attr, error) ->
+          console.log "invalid"
+
           view.$ ".form-group:has([name=#{attr}])"
             .addClass 'has-error'
             .removeClass 'has-success'
@@ -24,3 +28,4 @@ define ['backbone.validation', './initialize'], ->
             .tooltip 'show'
 
   window.Behaviors.Validation = Validation
+

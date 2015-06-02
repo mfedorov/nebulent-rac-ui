@@ -7,18 +7,16 @@ define [],  ->
       idAttribute: "itemID"
 
       defaults:
-        make:                        ""
-        model:                       ""
-        plateNumber:             ""
-        year:                          ""
-        vin:                            ""
+        make:                     ""
+        model:                    ""
+        plateNumber:              ""
+        year:                     ""
+        vin:                      ""
         registrationDate:         ""
         inspectionDate:           ""
         currentMileage:           ""
-        dailyRate:                   ""
-        weeklyRate:                ""
-        Code:                         ""
-        Description:                ""
-        status:                        "ACTIVE"
+        dailyRate:                ""
+        weeklyRate:               ""
+        status:                   "ACTIVE"
 
   App.CarRentAgreement.VehicleModel

@@ -16,19 +16,26 @@ define ->
         channel.trigger 'loggedin', org: data
 
 
-    newAgreement: ->
+    rentAgreement: (id)->
+
+      console.log id
       channel = Backbone.Radio.channel 'app'
-      channel.trigger 'rent-agreement'
+      channel.trigger 'show:rent-agreements', id
       channel.trigger 'set:sidebar:active', 'rent-agreement'
+
+    rentAgreements: ->
+      channel = Backbone.Radio.channel 'app'
+      channel.trigger 'show:rent-agreements', "list"
+      channel.trigger 'set:sidebar:active', 'rent-agreements'
 
     listCustomers: ->
       channel = Backbone.Radio.channel 'app'
-      channel.trigger 'customers', 'list'
+      channel.trigger 'show:customers', 'list'
       channel.trigger 'set:sidebar:active', 'customers'
 
     customer: (cust_id)->
       channel = Backbone.Radio.channel 'app'
-      channel.trigger 'customers', cust_id
+      channel.trigger 'show:customers', cust_id
       channel.trigger 'set:sidebar:active', 'customer'
 
     vehicles: ->
