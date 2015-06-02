@@ -44,8 +44,7 @@ define [
         addresses_region: "#addresses-region"
 
       initialize: (options)->
-        console.log 'customer model', @model
-        @organization = options.organization
+        @parent = options.parent
 
       onShow:->
         return unless @model
@@ -62,8 +61,7 @@ define [
       onSubmit:->
         @model.save()
           .success (data)=>
-            model = new CustomerView(data)
-            @organization.get('customers').add model
+            @parent.$el.trigger "customer:created",  new CustomerView(data)
             toastr.success "Successfully Created customer"
             console.log "successfully created customer", data
           .error (data)->

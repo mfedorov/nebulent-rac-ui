@@ -4,6 +4,12 @@ define [
   './module'
 ], (LayoutView) ->
 
+  #adding custom validator for nested payment in deposit
+  _.extend Backbone.Validation.validators,
+    depositPaymentAmount: (value, attr, customValue, model)->
+      console.log "in deposit payment amount custom validator"
+      "error" unless value.get('amount')
+
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     API =

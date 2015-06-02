@@ -1,0 +1,47 @@
+.modal-content
+  .modal-header
+    button.close(type='button', data-dismiss='modal', aria-hidden='true')
+    h4.modal-title Close Rent Agreement
+  .modal-body
+    .row
+      .form-group.col-md-6.col-sm-6.col-xs-12
+        label.col-md-12.control-label
+          | Start Fuel Level
+          span.required(aria-required='true') *
+        .col-md-12
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Start Fuel Level', data-container='body')
+            input.form-control(type='text', name='start-fuel-level', disabled="true")
+      .form-group.col-md-6.col-sm-6.col-xs-12
+        label.col-md-12.control-label
+          | Start Mileage
+          span.required(aria-required='true') *
+        .col-md-12
+          .input-group
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Start Mileage', data-container='body')
+              input.form-control(type='text', name='start-mileage', disabled="true")
+    .row
+      .form-group.col-md-6.col-sm-6.col-xs-12
+        label.col-md-12.control-label
+          | End Fuel Level
+          span.required(aria-required='true') *
+        .col-md-12
+          select.form-control(type='text' name='end-fuel-level')
+            option(value="FULL") FULL
+            option(value="THREE_QTRS") THREE_QTRS
+            option(value="HALF") HALF
+            option(value="QUARTER") QUARTER
+            option(value="EMPTY") EMPTY
+      .form-group.col-md-6.col-sm-6.col-xs-12
+        label.col-md-12.control-label
+          | End Mileage
+          span.required(aria-required='true') *
+        .col-md-12
+          .input-group
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='End Mileage', data-container='body')
+              input.form-control(type='number', name='end-mileage', min="#{startMileage}")
+  .modal-footer
+    button.btn.default(type='button', data-dismiss='modal') Cancel
+    button.btn.red.close-agreement(type='button') Close Agreement

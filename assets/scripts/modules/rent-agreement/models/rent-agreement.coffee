@@ -40,9 +40,9 @@ define [
 #        response.vehicles  = @get 'vehicle'
 #        response.customer  = @get 'customer'
 
-        response.vehicle  = new VehicleModel(response.vehicle)
-        response.customer  = new CustomerModel(response.customer)
-        response.deposit  = new DepositModel(response.deposit)
+        response.vehicle    = new VehicleModel(response.vehicle)
+        response.customer   = new CustomerModel(response.customer)
+        response.deposit    = new DepositModel(response.deposit)
 
         response
 

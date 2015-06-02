@@ -3,8 +3,13 @@ define [
     './views/rent-agreement-view'
     './models/rent-agreement'
     './views/rent-agreements-view'
+    './views/close-agreement-modal'
+    './views/extend-agreement-modal'
     './module'
-],  (template, RentAgreementView, RentAgreement, RentAgreementsView) ->
+],  (template, RentAgreementView, RentAgreement, RentAgreementsView
+      CloseAgreementView, ExtendAgreementView) ->
+
+    Backbone.Radio.DEBUG = true
 
     App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -16,6 +21,12 @@ define [
 
         regions:
           main_region: "#main"
+          modal_region: "#modal"
+
+        initialize:->
+          channel = Backbone.Radio.channel 'rent-agreements'
+          channel.comply "rent:agreement:close", @closeAgreement, @
+          channel.comply "rent:agreement:extend", @extendAgreement, @
 
         onShow:->
           if @fetched
@@ -40,5 +51,15 @@ define [
             model = if @agreement_id? then @model.get('rentals').get(@agreement_id) else new RentAgreement(orgId: Module.model.get('config').get('orgId'))
             mainView = new RentAgreementView model: model
           @main_region.show mainView
+
+        closeAgreement: (model)->
+          console.log "close agreement for", model
+          @modal_region.show new CloseAgreementView( model: model)
+          @$('#modal').modal()
+
+        extendAgreement: (model)->
+          console.log "extend agreement for", model
+          @modal_region.show new ExtendAgreementView( model: model)
+          @$('#modal').modal()
 
     App.CarRentAgreement.LayoutView

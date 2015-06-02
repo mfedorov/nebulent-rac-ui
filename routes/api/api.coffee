@@ -10,9 +10,11 @@ proxy.on 'proxyReq', (proxyReq, req, res, options)->
 #  proxyReq.setHeader('rac-apikey', 'ZP524DwHgBLxB9BcCQsVidWJp0r6uXCZ')
   proxyReq.end JSON.stringify req.body
 
+proxy.on 'error', (e)-> console.log e
 
 router.all '/:orgId*', (req, res, next) ->
   proxy.web req, res, { target: "#{process.env.API_URL}/rac/orgs/"}
+
 
 module.exports = router
 

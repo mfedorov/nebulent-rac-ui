@@ -68,9 +68,6 @@ define [
         @collection            = options.collection
         window.customer   = @model
 
-<<<<<<< HEAD
-  App.Customers.CustomerView
-=======
       onShow:->
         return unless @model
         # debugger
@@ -113,4 +110,3 @@ define [
 
 
   App.Customers.Customer
->>>>>>> b2338c4bd77d43200aa6dfeaa63b42092e9e58a6

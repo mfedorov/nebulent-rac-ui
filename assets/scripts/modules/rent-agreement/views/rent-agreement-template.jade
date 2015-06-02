@@ -21,10 +21,10 @@
                       input#customer-existing-radio(type='radio', name='customerChoiceRadios', value='existing', checked='')
                   |  Existing Customer
           .inputs.col-md-3.left
-            .portlet-input.input-inline.input-small.contains-select2.loading-select2
+            .portlet-input.input-inline.input-small.contains-select2
               i.spinner.fa.fa-spinner.fa-pulse
               .select2-container-div
-                input.form-control.width-150(type='text', name='customer_search', placeholder='search...', value="#{customer.get('contactID')}")
+                select.form-control.width-150(type='text', name='customer_search', placeholder='search...')
           .tools.col-md-1.right
             a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
@@ -53,7 +53,8 @@
           span.caption-subject.bold.font-purple-plum.uppercase
             | Deposit
           span.caption-helper (id)
-        .col-md-4
+
+        //.col-md-4
           .form-group
             .radio-list
               label.radio-inline
@@ -68,10 +69,11 @@
                 |  Existing Deposit
         .inputs.col-md-3.left
           .portlet-input.input-inline.input-small
-            input.form-control.width-150(type='text', name='deposit_search', placeholder='search...', value="#{deposit.get('itemID')}")
+            //select.form-control.width-150(type='hidden', name='deposit_search', placeholder='search...', value="#{deposit.get('itemID')}")
+            input.form-control(type='hidden', name='deposit_search')
         .tools.col-md-1.right
-          a.expand(href='javascript:;', data-original-title='', title='')
-      .portlet-body.display-hide
+          a.collapse(href='javascript:;', data-original-title='', title='')
+      .portlet-body
         #deposit-region
   .col-md-12.col-sm-12.col-xs-12.rental-details.agreement-details-portlet
     form#rental-details-form.form

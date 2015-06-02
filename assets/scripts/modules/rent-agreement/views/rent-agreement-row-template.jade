@@ -13,11 +13,18 @@ td
 td
   = total
 td
-  a.btn.default.btn-xs.purple.preview-row(href="javascript:;" data-toggle="tooltip" title="Preview")
-    i.fa.fa-eye
+  span(class="#{status.toLowerCase()} agreement_status")
+    = status
+td
+  //a.btn.default.btn-xs.purple.preview-row(href="javascript:;" data-toggle="tooltip" title="Preview")
+  //  i.fa.fa-eye
   a.btn.default.btn-xs.green.download-row(href="#{externalDocUrl}" data-toggle="tooltip" title="Download")
     i.fa.fa-download
-  a.btn.default.btn-xs.blue.edit-row(href="#rent-agreement/#{invoiceID}" data-toggle="tooltip" title="Edit")
-    i.fa.fa-edit
-  a.btn.default.btn-xs.red.delete-row(href="javascript:;" data-toggle="tooltip" title="Delete")
-    i.fa.fa-trash-o
+  a.btn.default.btn-xs.blue.extend-row(href="#" data-toggle="tooltip" title="Extend rent agreement")
+    i.fa.fa-angle-double-right Extend
+  a.btn.default.btn-xs.red.close-row(href="#" data-toggle="tooltip" title="Close rent agreement")
+    i.fa.fa-times Close
+  //a.btn.default.btn-xs.blue.edit-row(href="#rent-agreement/#{invoiceID}" data-toggle="tooltip" title="Edit")
+  //  i.fa.fa-edit
+  //a.btn.default.btn-xs.red.delete-row(href="javascript:;" data-toggle="tooltip" title="Delete")
+  //  i.fa.fa-trash-o
