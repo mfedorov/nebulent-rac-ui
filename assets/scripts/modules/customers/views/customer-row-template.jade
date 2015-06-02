@@ -1,0 +1,20 @@
+td
+  = modelIndex + 1
+td
+  = firstName
+td
+  = lastName
+td
+  = emailAddress ||'none'
+td
+  if contactStatus == 'DELETED'
+    span(class="label label-sm label-danger")
+      = contactStatus
+  else
+    span(class="label label-sm label-success")
+      = contactStatus
+td
+  a.btn.default.btn-xs.yellow.edit-row(href="#customer/#{contactID}")
+    i.fa.fa-edit Edit
+  a.btn.default.btn-xs.red.delete-row(href="javascript:;")
+    i.fa.fa-trash-o Delete

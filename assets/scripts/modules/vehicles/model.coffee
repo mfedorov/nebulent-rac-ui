@@ -1,4 +1,6 @@
-define ['./models/organization-model', './module'], (OrganizationModel)->
+define [
+  './models/organization-model',
+  './module'], (OrganizationModel)->
 
   App.module "Vehicles", (Module, App, Backbone, Marionette, $, _) ->
 

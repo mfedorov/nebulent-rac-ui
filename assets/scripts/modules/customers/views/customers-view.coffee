@@ -1,19 +1,36 @@
 define [
- './customers-template'
-], (template)->
+  './customers-template'
+  './customer-row-view'
+],  (template, CustomerRow) ->
 
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
-    class Module.CustomersView extends Marionette.LayoutView
-      className:  "layout-view customers-view"
-      template: template
-      regions:
-        list_region:  "#customers-list-region"
+    class Module.CustomersView extends Marionette.CompositeView
+      childView:                CustomerRow
+      childViewContainer:  ".row-container"
+      class:                       'composite-view customers'
+      template:                 template
+      headerItems:            ['#', 'First name', 'Last name', 'Email', 'Status', 'Actions']
+      dataTableId:             "customers"
 
-      initialize: (options)->
-        @cust_id = options.cust_id
+
+      childViewOptions: (model, index) ->
+        index: index
+
+      templateHelpers: ->
+        header:         @headerItems
+        dataTableId:  @dataTableId
+        count:           @collection.length
 
       onShow:->
+        console.log "Show table"
+        @$("##{@dataTableId}").dataTable()
+        @listenTo @, "childview:customers:update", ->
+          @region.close()
+          @region.show @
+          @$("##{@dataTableId}").dataTable()
+
+
 
 
   App.Customers.CustomersView

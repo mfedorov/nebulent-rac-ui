@@ -133,3 +133,21 @@ span.select2-selection__arrow {
 #deposit-payment-region {
   margin-bottom: 15px;
 }
+
+.rent-agreement-row:hover {
+  cursor: pointer;
+}
+
+//agreements list
+.agreement_status {
+  &.extended {
+    color: #3598dc;
+  }
+  &.new {
+    color: #26a69a;
+  }
+  &.closed {
+    color: #cb5a5e;
+  }
+}
+//agreements list

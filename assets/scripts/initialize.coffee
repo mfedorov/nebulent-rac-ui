@@ -10,6 +10,7 @@ define [
   'quick-sidebar'
   'demo'
   'moment'
+  'iCheck'
   'bootstrap-datetimepicker'
   'backbone.radio'
   'backbone.stickit'
@@ -29,7 +30,8 @@ define [
   './behaviors/validation'
   './behaviors/textarea-supporting-tabs'
 ], (Backbone, Marionette, $, _, toastr, select2, metronic, layout,
-    quickSidebar, demo, moment) ->
+    quickSidebar, demo, moment, iCheck) ->
+    # quickSidebar, demo, moment) ->
 
   window.toastr = toastr
   window.moment = moment
@@ -39,6 +41,7 @@ define [
     Metronic.init()
     Layout.init()
     Demo.init()
+
 
   Backbone.Marionette.Renderer.render = (template, data) ->
     Marionette.TemplateCache.get(template)(data)
@@ -51,34 +54,34 @@ define [
 
   _.extend Backbone.Model.prototype, Backbone.Validation.mixin
 
-  _.extend Backbone.Validation.validators,
-    extension: (value, attr, custom_value, model) ->
-      if custom_value isnt "folder"
-        arr = custom_value.split ", "
-        arr = _.map arr, (item, key, list) ->
-          "." + item
-
-        found = _.find arr, (item) ->
-          value.indexOf(item, value.length - item.length) isnt -1
-
-        if value.length and not found
-          return "It should be a *#{custom_value} file."
-      return
-
-    areValid: (value, attr, custom_value, model) ->
-      errors = []
-      custom_value.each (value, key, list) ->
-        unless value.isValid true
-          errors.push value.validate()
-      unless _.isEmpty errors
-        return errors
-      return
-
-    propagate: (value, attr, custom_value, model) ->
-      value.each (item) ->
-        item.isValid true
-        item.validate()
-      return
+#  _.extend Backbone.Validation.validators,
+#    extension: (value, attr, custom_value, model) ->
+#      if custom_value isnt "folder"
+#        arr = custom_value.split ", "
+#        arr = _.map arr, (item, key, list) ->
+#          "." + item
+#
+#        found = _.find arr, (item) ->
+#          value.indexOf(item, value.length - item.length) isnt -1
+#
+#        if value.length and not found
+#          return "It should be a *#{custom_value} file."
+#      return
+#
+#    areValid: (value, attr, custom_value, model) ->
+#      errors = []
+#      custom_value.each (value, key, list) ->
+#        unless value.isValid true
+#          errors.push value.validate()
+#      unless _.isEmpty errors
+#        return errors
+#      return
+#
+#    propagate: (value, attr, custom_value, model) ->
+#      value.each (item) ->
+#        item.isValid true
+#        item.validate()
+#      return
 
   Backbone.Validation.configure forceUpdate: true
 
