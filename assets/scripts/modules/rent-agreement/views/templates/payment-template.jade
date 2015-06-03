@@ -3,10 +3,9 @@ form-group.col-md-3.col-sm-6.col-xs-12
     | Amount
     span.required(aria-required='true') *
   .col-md-12
-    .input-group
-      .input-icon.right
-        i.fa.fa-info-circle.tooltips(data-original-title='Deposit Amount', data-container='body')
-        input.form-control(type='text' name='deposit_amout')
+    .input-icon.right
+      i.fa.fa-info-circle.tooltips(data-original-title='Deposit Amount', data-container='body')
+      input.form-control(type='text' name='deposit_amout')
 //form-group.col-md-3.col-sm-6.col-xs-12
   label.col-md-12.control-label
     | invoice ID
@@ -21,7 +20,7 @@ form-group.col-md-3.col-sm-6.col-xs-12
     | Payment Type
     span.required(aria-required='true') *
   .col-md-12
-    .input-group
+    .input-icon.right
       select.form-control(type='text' name='deposit_payment_type')
         option(val= "ACCPAYPAYMENT") ACCPAYPAYMENT
         option(val= "ACCRECPAYMENT") ACCRECPAYMENT
@@ -30,7 +29,6 @@ form-group.col-md-3.col-sm-6.col-xs-12
     | Reference
     span.required(aria-required='true') *
   .col-md-12
-    .input-group
-      .input-icon.right
-        i.fa.fa-info-circle.tooltips(data-original-title='Payment Reference', data-container='body')
-        input.form-control(type='text' name='deposit_reference')
+    .input-icon.right
+      i.fa.fa-info-circle.tooltips(data-original-title='Payment Reference', data-container='body')
+      input.form-control(type='text' name='deposit_reference')

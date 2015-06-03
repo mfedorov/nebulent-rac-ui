@@ -1,0 +1,13 @@
+td
+  = modelIndex + 1
+td
+  = vehicle.make || vehicle.model
+td
+  = vehicle.plateNumber
+td
+  = address.city
+td
+  = moment(this.trackedOn).format("D MMMM YYYY")
+td
+  if address.lat && address.lon
+    a.view-tracking(href="") Show on the Map

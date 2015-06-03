@@ -150,4 +150,23 @@ span.select2-selection__arrow {
     color: #cb5a5e;
   }
 }
-//agreements list
+
+.no-right-padding {
+  padding-right: 0;
+}
+
+.no-left-padding {
+  padding-left: 0;
+}
+
+#toolbar {
+  margin-bottom: 15px
+}
+//agreements list end
+
+//google maps
+#gmaps {
+  height: 550px;
+}
+#map-canvas { height: 100%; margin: 0; padding: 0;}
+//google maps end

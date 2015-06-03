@@ -1,5 +1,5 @@
 define [
-  './phone-template'
+  './templates/phone-template'
 ],  (template) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->

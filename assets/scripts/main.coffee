@@ -35,6 +35,7 @@ require [
     "modules/sidebar-menu/api"
     "modules/customers/api"
     "modules/vehicles/api"
+    "modules/gps-trackings/api"
   ], ->
     window.App.start()
     return

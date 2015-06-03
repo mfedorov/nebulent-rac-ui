@@ -6,9 +6,11 @@ define [
   './views/last-call-logs-widget'
   './views/rental-dues-widget'
   './views/utilization-widget'
+  './views/gps-tracking-widget'
+  './views/gps-tracking-modal-view'
 ], (template, VehiclesNeedInpsectionsWidget,
     VehiclesNeedOilChangeWidget, DepositsDueWidget, LastCallLogsWidget, RentalDuesWidget,
-    UtilizationWidget) ->
+    UtilizationWidget, GpsTrackingWidget, GpsTrackingModal) ->
 
     App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -23,21 +25,12 @@ define [
           last_call_logs:               '#last-call-logs'
           rental_dues:                  '#rental-dues'
           utilization:                  '#utilization-chart'
+          gps_tracking:                 '#gps-tracking'
+          modal:                        '#modal .modal-dialog'
 
         initialize:->
-          super
-          @collection = new Backbone.Collection()
-
-          @views = {}
-
-          @views.vehicles_need_inspections =  new VehiclesNeedInpsectionsWidget()
-          @views.vehicles_need_oil_change =   new VehiclesNeedOilChangeWidget()
-          @views.deposits_due =               new DepositsDueWidget()
-          @views.last_call_logs =             new LastCallLogsWidget()
-          @views.rental_dues =                new RentalDuesWidget()
-          @views.utilization =                new UtilizationWidget()
-
-        onRender:->
+          channel = Backbone.Radio.channel "dashboard"
+          channel.comply "view:tracking", @viewTracking, @
 
         onRefresh:->
           @render()
@@ -56,8 +49,10 @@ define [
           @rental_dues.show new RentalDuesWidget
             collection: @model.get('rentalDues')
 
-
           @utilization.show new UtilizationWidget()
+
+          @gps_tracking.show new GpsTrackingWidget
+            collection: @model.get('gpsTrackings')
 
         refreshData: ->
           config = @model.get('config')
@@ -70,6 +65,10 @@ define [
                 @onRefresh()
               .error (data)->
                 console.log 'error fetching', data
+
+        viewTracking: (model)->
+          @modal.show new GpsTrackingModal(model)
+          @$('#modal').modal()
 
 
     App.Dashboard.LayoutView

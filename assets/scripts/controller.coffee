@@ -47,3 +47,8 @@ define ->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'show:vehicles', 'id'
       channel.trigger 'set:sidebar:active', 'vehicle'
+
+    gpsTrackings: ->
+      channel = Backbone.Radio.channel 'app'
+      channel.trigger 'show:gps-trackings'
+      channel.trigger 'set:sidebar:active', 'gps-trackings'
