@@ -9,3 +9,4 @@ define ->
       'customer(/)(:cust_id)':    'customer'
       'vehicles':                 'vehicles'
       'vehicle(/)(:id)':          'vehicle'
+      'gps-trackings':            'gpsTrackings'

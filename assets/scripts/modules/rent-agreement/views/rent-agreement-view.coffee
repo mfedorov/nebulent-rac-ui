@@ -1,5 +1,5 @@
 define [
-    './rent-agreement-template'
+    './templates/rent-agreement-template'
     './customer-view'
     './../models/customer-model'
     './../models/deposit-model'
@@ -82,6 +82,7 @@ define [
 
       onCustomerCreated: (e, model)->
         debugger
+        @organization.get('customers').add model, silent: true
         return if @$('#customer-existing-radio').prop('checked')
         @ui.customerSearch.empty()
           .append("<option value=#{model.get('contactID')}>#{model.get('firstName')} #{model.get('lastName')}</option>")
@@ -159,7 +160,7 @@ define [
       renderDeposit: ->
         debugger
         customerDeposits = @organization.get('deposits').filter((deposit)-> deposit.get('customer').get('contactID') is @model.get('customer').get('contactID'))
-        deposit = if customerDeposits.length then customerDeposits[0] else new DepositModel(customer: @organization.get('customers').get(@model.get('customer')), orgId: @model.get('orgId'))
+        deposit = if customerDeposits.length then customerDeposits[0] else new DepositModel(customer: @organization.get('customers').get(@model.get('customer').get('contactID')), orgId: @model.get('orgId'))
         @model.set "deposit", new DepositModel(itemID: deposit.get("itemID"))
         @deposit_region.show new DepositView(model: deposit, parent: @)
 
@@ -291,11 +292,11 @@ define [
           .success (data)=>
             @ui.vehicleSearch.select2 'close'
             @showModelMessage "success", "Successfully Created Rent Agreement", data
+            channel = Backbone.Radio.channel "rent-agreements"
+            channel.command "rent:agreement:created", @model
             debugger
             App.Router.navigate "#rent-agreements", trigger: true
           .error (data)=>
             @showModelMessage "error", "Error Creating Rent Agreement", data
-
-
 
   App.CarRentAgreement.RentAgreement

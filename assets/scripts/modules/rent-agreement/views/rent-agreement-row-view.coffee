@@ -1,4 +1,4 @@
-define ['./rent-agreement-row-template'], (template)->
+define ['./templates/rent-agreement-row-template'], (template)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 

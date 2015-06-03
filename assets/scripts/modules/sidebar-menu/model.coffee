@@ -4,6 +4,4 @@ define ['./module'], ->
 
     class Module.Model extends Backbone.Model
 
-    return
-
   App.SidebarMenu.Model

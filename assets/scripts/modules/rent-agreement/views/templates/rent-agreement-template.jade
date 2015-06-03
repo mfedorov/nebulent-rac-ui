@@ -83,94 +83,86 @@
             | Start mileage
             span.required(aria-required='true') *
           .col-md-12
-            .input-group
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Start mileage', data-container='body')
-                input.form-control(type='text' name='currentMileage')
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Start mileage', data-container='body')
+              input.form-control(type='text' name='currentMileage')
         .form-group.col-md-3.col-sm-6.col-xs-12
             label.col-md-12.control-label
               | Start fuel level
               span.required(aria-required='true') *
             .col-md-12
-              select.form-control(type='text' name='fuelLevel')
-                option(value="FULL") FULL
-                option(value="THREE_QTRS") THREE_QTRS
-                option(value="HALF") HALF
-                option(value="QUARTER") QUARTER
-                option(value="EMPTY") EMPTY
+              .input-icon.right
+                select.form-control(type='text' name='fuelLevel')
+                  option(value="FULL") FULL
+                  option(value="THREE_QTRS") THREE_QTRS
+                  option(value="HALF") HALF
+                  option(value="QUARTER") QUARTER
+                  option(value="EMPTY") EMPTY
       .row
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Daily rate
             span.required(aria-required='true') *
           .col-md-12
-            .input-group
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Daily Rate', data-container='body')
-                input.form-control(type='text' name='daily_rate')
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Daily Rate', data-container='body')
+              input.form-control(type='text' name='daily_rate')
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Days
             span.required(aria-required='true') *
           .col-md-12
-            .input-group
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Count of days car is being rented for', data-container='body')
-                input.form-control(type='text' name='days' value='2')
-
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Count of days car is being rented for', data-container='body')
+              input.form-control(type='text' name='days' value='2')
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Type
             span.required(aria-required='true') *
           .col-md-12
-            select.form-control(type='text' name='type')
-              option(value="ACCPAY") ACCPAY
-              option(value="ACCREC") ACCREC
-
+            .input-icon.right
+              select.form-control(type='text' name='type')
+                option(value="ACCPAY") ACCPAY
+                option(value="ACCREC") ACCREC
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Discount Rate
             span.required(aria-required='true') *
           .col-md-12
-            .input-group
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
-                input.form-control(type='text' name='discount_rate' value='2')
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
+              input.form-control(type='text' name='discount_rate' value='2')
       .row
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Total Discount
           .col-md-12
-            .input-group
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Total Discount', data-container='body')
-                input.form-control(type='text' name='total_discount')
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Total Discount', data-container='body')
+              input.form-control(type='text' name='total_discount')
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Total Tax
           .col-md-12
-            .input-group
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Total Taxes', data-container='body')
-                input.form-control(type='text' name='totalTax' disabled=true)
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Total Taxes', data-container='body')
+              input.form-control(type='text' name='totalTax' disabled=true)
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Subtotal
             span.required(aria-required='true') *
           .col-md-12
-            .input-group
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Subtotal', data-container='body')
-                input.form-control(type='text' name='subtotal' disabled=true)
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Subtotal', data-container='body')
+              input.form-control(type='text' name='subtotal' disabled=true)
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Total
             span.required(aria-required='true') *
           .col-md-12
-            .input-group
-              .input-icon.right
-                i.fa.fa-info-circle.tooltips(data-original-title='Total', data-container='body')
-                input.form-control(type='text' name='total' disabled=true)
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Total', data-container='body')
+              input.form-control(type='text' name='total' disabled=true)
       .form-actions
         .row
           .col-md-offset-3.col-md-9.right
