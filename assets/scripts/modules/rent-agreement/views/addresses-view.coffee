@@ -1,5 +1,5 @@
 define [
-  './addresses-template'
+  './templates/addresses-template'
   './address-view'
   './../models/address-model'
 ],  (template, AddressView, AddressModel) ->

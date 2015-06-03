@@ -5,8 +5,10 @@ define [
   './collections/utilization'
   './collections/vehicles-need-inspections'
   './collections/vehicles-need-oil-change'
+  './collections/gps-trackings-collection'
   './module'
-], (DepositsDue, LastCallLogs, RentalDues, Utilization, VehiclesNeedInspections, VehiclesNeedOilChange)->
+], (DepositsDue, LastCallLogs, RentalDues, Utilization, VehiclesNeedInspections,
+    VehiclesNeedOilChange, GpsTrackingCollection)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -19,6 +21,7 @@ define [
         lastCallLogs:             new LastCallLogs()
         rentalDues:               new RentalDues()
         utilization:              new Utilization()
+        gpsTrackings:             new GpsTrackingCollection()
 
       parse: (response, options) ->
         @get 'vehiclesNeedInspections'
@@ -36,11 +39,15 @@ define [
         @get 'rentalDues'
           .set response.activeRentals
 
+        @get 'gpsTrackings'
+          .set response.gpsTrackings
+
         response.vehiclesNeedInspections  = @get 'vehiclesNeedInspections'
         response.vehiclesNeedOilChange    = @get 'vehiclesNeedOilChange'
         response.depositsDue              = @get 'depositsDue'
         response.lastCallLogs             = @get 'lastCallLogs'
         response.rentalDues               = @get 'rentalDues'
+        response.gpsTrackings             = @get 'gpsTrackings'
 
         response
 

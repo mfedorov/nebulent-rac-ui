@@ -1,5 +1,5 @@
 define [
-  './close-rent-agreement-modal-template'
+  './templates/close-rent-agreement-modal-template'
 ],  (template) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->

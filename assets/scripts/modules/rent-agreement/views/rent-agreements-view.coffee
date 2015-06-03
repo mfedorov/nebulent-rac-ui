@@ -1,5 +1,5 @@
 define [
-  './rent-agreements-template'
+  './templates/rent-agreements-template'
   './rent-agreement-row-view'
 ],  (template, RentAgreementRowView) ->
 
@@ -22,6 +22,6 @@ define [
         count:        @collection.length
 
       onShow:->
-        @$("##{@dataTableId}").dataTable()
+#        @$("##{@dataTableId}").dataTable()
 
   App.CarRentAgreement.RentAgreements

@@ -26,6 +26,7 @@ define [
       channel.on 'show:rent-agreements', @showRentAgreement, @
       channel.on 'show:customers', @showCustomers, @
       channel.on 'show:vehicles', @showVehicles, @
+      channel.on 'show:gps-trackings', @showGpsTrackings, @
 
     #config stores appkey and orgid needed to query rac api
     initConfig: ->
@@ -60,6 +61,9 @@ define [
         channel = Backbone.Radio.channel 'vehicles'
         @views.vehicles_view = channel.request 'view'
         @views.vehicles_view.model.set 'config', @config
+
+        channel = Backbone.Radio.channel 'gps-trackings'
+        @views.gps_tracking_view = channel.request 'view'
 
         channel = Backbone.Radio.channel 'sidebar-menu'
         @views.sidebar_menu_view = channel.request 'view'
@@ -100,6 +104,10 @@ define [
       @main_region.show @views.vehicles_view,
         preventDestroy: true
         forceShow: true
+
+    showGpsTrackings: ->
+      @ensure ['sidebar_menu', 'top_menu']
+      @main_region.show @views.gps_tracking_view, preventDestroy: true
 
     updateLoginData: (data)->
       @config.set "orgId", data.org.id

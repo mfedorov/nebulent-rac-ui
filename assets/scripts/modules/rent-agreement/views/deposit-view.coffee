@@ -1,5 +1,5 @@
 define [
-  './deposit-template'
+  './templates/deposit-template'
   './payment-view'
   './../models/deposit-model'
   './../models/payment-model'
@@ -50,6 +50,7 @@ define [
         @organization = options.organization
 
       onShow:->
+        debugger
         @stickit()
         debugger
         #TODO get rid of this check, make sure payment model is initialized in deposit model

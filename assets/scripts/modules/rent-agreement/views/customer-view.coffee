@@ -1,11 +1,11 @@
 define [
-  './customer-template'
+  './templates/customer-template'
   './phones-view'
   './addresses-view'
   './../models/customer-model'
   './../collections/phones-collection'
   './../collections/addresses-collection'
-],  (template, PhonesView, AddressesView, CustomerView, PhonesCollection, AddressesCollection) ->
+],  (template, PhonesView, AddressesView, CustomerModel, PhonesCollection, AddressesCollection) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -61,7 +61,7 @@ define [
       onSubmit:->
         @model.save()
           .success (data)=>
-            @parent.$el.trigger "customer:created",  new CustomerView(data)
+            @parent.$el.trigger "customer:created",  new CustomerModel(data)
             toastr.success "Successfully Created customer"
             console.log "successfully created customer", data
           .error (data)->

@@ -2,14 +2,12 @@ define [
     './layout-template'
     './views/rent-agreement-view'
     './models/rent-agreement'
-    './views/rent-agreements-view'
+    './views/rent-agreements-list-view'
     './views/close-agreement-modal'
     './views/extend-agreement-modal'
     './module'
-],  (template, RentAgreementView, RentAgreement, RentAgreementsView
+],  (template, RentAgreementView, RentAgreement, RentAgreementsListView
       CloseAgreementView, ExtendAgreementView) ->
-
-    Backbone.Radio.DEBUG = true
 
     App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -27,6 +25,10 @@ define [
           channel = Backbone.Radio.channel 'rent-agreements'
           channel.comply "rent:agreement:close", @closeAgreement, @
           channel.comply "rent:agreement:extend", @extendAgreement, @
+          channel.comply "rent:agreement:created", @onAgreemenetCreated, @
+
+        onAgreemenetCreated: (model)->
+          @fetched = false
 
         onShow:->
           if @fetched
@@ -46,7 +48,7 @@ define [
 
         showView:->
           if @agreement_id is 'list'
-            mainView = new RentAgreementsView collection: @model.get('rentals')
+            mainView = new RentAgreementsListView collection: @model.get('rentals')
           else
             model = if @agreement_id? then @model.get('rentals').get(@agreement_id) else new RentAgreement(orgId: Module.model.get('config').get('orgId'))
             mainView = new RentAgreementView model: model

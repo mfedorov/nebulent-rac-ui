@@ -1,10 +1,10 @@
 define ->
 
-  class SidebarMenu extends Marionette.Module
+  class GpsTrackings extends Marionette.Module
     startWithParent:  true
     getOption:        Marionette.proxyGetOption
     options:          {}
 
-  App.module "SidebarMenu", moduleClass: SidebarMenu
+  App.module "GpsTrackings", moduleClass: GpsTrackings
 
   return

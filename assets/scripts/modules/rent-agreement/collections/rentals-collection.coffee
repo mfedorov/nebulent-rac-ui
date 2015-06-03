@@ -4,8 +4,19 @@ define [
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
-    class Module.RentalsCollection extends Backbone.Collection
-      url:-> "api/#{Module.model?.get('config').get('orgId')}/rentals?asc=false"
+    class Module.RentalsCollection extends Backbone.PageableCollection
+      url:-> "api/#{Module.model?.get('config').get('orgId')}/rentals"
       model: RentAgreement
+
+      state:
+        firstPage:    1
+        currentPage:  1
+        pageSize:     10
+
+      queryParams:
+        currentPage: 'start'
+        pageSize:    'size'
+        asc:         'false'
+        search:      ''
 
   App.CarRentAgreement.RentalsCollection
