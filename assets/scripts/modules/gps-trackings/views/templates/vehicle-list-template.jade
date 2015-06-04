@@ -1,0 +1,11 @@
+table#vehicles-table.table.table-striped.table-bordered.table-hover.dataTable.no-footer(role='grid')
+  thead
+    tr(role='row')
+      th.table-checkbox.sorting_disabled(rowspan='1', colspan='1', aria-label='\
+          ', style='width: 25px;')
+        .checker
+          span
+            input.group-checkable(type='checkbox', data-set='#sample_3 .checkboxes')
+      th.sorting_asc(tabindex='0', aria-controls='sample_3', rowspan='1', colspan='1')
+        | Vehicles
+  tbody

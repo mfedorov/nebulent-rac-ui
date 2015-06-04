@@ -30,6 +30,6 @@ define [
             @model.collection.trigger('change')
             @$('.close').click()
           .error   (data)->
-            toastr.success "Error Extending Agreement"
+            toastr.error "Error Extending Agreement"
 
   App.CarRentAgreement.ExtendRentAgreementModal
