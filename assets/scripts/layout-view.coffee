@@ -64,6 +64,7 @@ define [
 
         channel = Backbone.Radio.channel 'gps-trackings'
         @views.gps_tracking_view = channel.request 'view'
+        @views.gps_tracking_view.model.set 'config', @config
 
         channel = Backbone.Radio.channel 'sidebar-menu'
         @views.sidebar_menu_view = channel.request 'view'

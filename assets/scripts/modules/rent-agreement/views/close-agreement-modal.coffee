@@ -39,6 +39,6 @@ define [
           @model.collection.trigger('change')
           @$('.close').click()
         .error   (data)->
-          toastr.success "Error Closing Agreement"
+          toastr.error "Error Closing Agreement"
 
   App.CarRentAgreement.CloseRentAgreementModal
