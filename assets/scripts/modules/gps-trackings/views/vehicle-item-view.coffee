@@ -23,7 +23,6 @@ define [
         @model.deselect()
 
       selected:->
-        console.log @model, "selected"
         @$('input').prop 'checked', @model.selected
 
 

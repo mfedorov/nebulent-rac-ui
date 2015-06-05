@@ -1,8 +1,9 @@
 define [
     './layout-template'
     './views/vehicle-list-view'
+    './views/gmap-infowindow-view'
     './module'
-], (template, VehicleList) ->
+], (template, VehicleList, GpsInfoView) ->
 
     App.module "GpsTrackings", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -13,9 +14,7 @@ define [
         trackings: {}
 
         regions:
-          vehicles_region: "#vehicles_region"
-
-        initialize: ->
+          vehicles_region: "#gps-tracking-vehicles_region"
 
         onShow:->
           if @fetched
@@ -29,7 +28,6 @@ define [
               toastr.error "Error fetching trackings data"
 
         renderElements: ->
-          console.log @model
           @renderVehicles()
           @renderMap()
           @model.get('gpsTrackings').on "select:some", => @onSelectSome()
@@ -43,8 +41,13 @@ define [
             center: lat: 40.986, lng: -103.059
             zoom: 4
 
+          @map.setOptions styles: gmapStyles
+
+          google.maps.event.addListener @map, 'tilesloaded', ->
+            document.getElementById('gmaps').style.position = 'static'
+            document.getElementById('gmaps').style.background = 'none'
+
         onSelectSome: ->
-          console.log @model.get('gpsTrackings').selected
           @showTrackings()
 
         clearTrackings:->
@@ -56,16 +59,27 @@ define [
           @clearTrackings()
           _.each @model.get('gpsTrackings').selected, (tracking)=>
               unless tracking.id in _.keys(@trackings)
-                latlng = new google.maps.LatLng(tracking.get('address').get('lat'), tracking.get('address').get('lon'))
-                marker = new google.maps.Marker
-                  position: latlng
-                  title: tracking.get('vehicle').get('plateNumber')
-                @trackings[tracking.id] = marker
+                marker = @createMarker tracking
               else
                 marker = @trackings[tracking.id]
-
               marker.setMap @map
           @centerMap()
+
+        createMarker: (tracking)->
+          latlng = new google.maps.LatLng(tracking.get('address').get('lat'), tracking.get('address').get('lon'))
+          info   = new GpsInfoView model: tracking
+          info.render()
+          infowindow = new google.maps.InfoWindow content: info.el
+
+          marker = new google.maps.Marker
+            position: latlng
+            animation: google.maps.Animation.DROP
+            title: tracking.get('vehicle').get('plateNumber')
+            icon: "http://icons.iconarchive.com/icons/icons-land/transporter/64/Car-Front-Red-icon.png"
+
+          google.maps.event.addListener marker, 'click', -> infowindow.open(@map,marker)
+          @trackings[tracking.id] = marker
+          marker
 
         centerMap:->
           latlngArray = _.map _.values(@trackings), (marker)-> marker.position
@@ -73,6 +87,5 @@ define [
           latlngbounds = new google.maps.LatLngBounds()
           latlngbounds.extend(latlng) for latlng in latlngArray
           @map.fitBounds latlngbounds
-
 
     App.GpsTrackings.LayoutView

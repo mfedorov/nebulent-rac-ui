@@ -165,8 +165,20 @@ span.select2-selection__arrow {
 //agreements list end
 
 //google maps
-#gmaps {
-  height: 550px;
+.gpstrackings-wrapper {
+  height: 100%;
+}
+#gmaps, #gps-tracking-vehicles_region {
+  height: 80vh;
+  min-height: 550px;
+}
+#gps-tracking-vehicles_region {
+  overflow-y: auto;
 }
 #map-canvas { height: 100%; margin: 0; padding: 0;}
+
 //google maps end
+
+.margin-left-5px {
+  margin-left: 5px;
+}
