@@ -19,7 +19,6 @@ define [
         @listenTo @model, "deselected", => @selected()
 
       onInputChange: (e)->
-        debugger
         return @model.select() if $(e.currentTarget).is(":checked")
         @model.deselect()
 
