@@ -40,7 +40,7 @@ define [
           .set response.activeRentals
 
         @get 'gpsTrackings'
-          .set response.gpsTrackings
+          .set response.gpsTrackings, parse:true
 
         response.vehiclesNeedInspections  = @get 'vehiclesNeedInspections'
         response.vehiclesNeedOilChange    = @get 'vehiclesNeedOilChange'

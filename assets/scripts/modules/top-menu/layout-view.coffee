@@ -11,6 +11,11 @@ define ['./layout-template', './module'],
           'click #logout-toggle': 'onLogout'
           'click .page-logo a':   'onLogoClick'
 
+        initialize: ->
+            $(document)
+              .bind "ajaxSend", => @$(".loading").show()
+              .bind "ajaxComplete", => @$(".loading").hide()
+
         onLogoClick: (e)->
           e.preventDefault()
           App.Router.navigate '', trigger: true

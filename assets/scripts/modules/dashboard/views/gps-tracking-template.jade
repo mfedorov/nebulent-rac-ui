@@ -1,13 +1,13 @@
 td
   = modelIndex + 1
 td
-  = vehicle.make || vehicle.model
+  = vehicle.get('make') || vehicle.get('model')
 td
-  = vehicle.plateNumber
+  = vehicle.get('plateNumber')
 td
-  = address.city
+  = address.get('city')
 td
-  = moment(this.trackedOn).format("D MMMM YYYY")
+  = moment(trackedOn).format("D MMMM YYYY")
 td
-  if address.lat && address.lon
+  if address.get('lat') && address.get('lon')
     a.view-tracking(href="") Show on the Map

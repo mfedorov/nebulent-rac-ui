@@ -175,10 +175,19 @@ span.select2-selection__arrow {
 #gps-tracking-vehicles_region {
   overflow-y: auto;
 }
+
+#one-car-tracking-map {
+  height: 400px;
+}
+
 #map-canvas { height: 100%; margin: 0; padding: 0;}
 
 //google maps end
 
 .margin-left-5px {
   margin-left: 5px;
+}
+
+.loading {
+  margin-top: 7px;
 }

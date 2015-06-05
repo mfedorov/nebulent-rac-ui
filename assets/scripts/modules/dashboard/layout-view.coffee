@@ -26,7 +26,7 @@ define [
           rental_dues:                  '#rental-dues'
           utilization:                  '#utilization-chart'
           gps_tracking:                 '#gps-tracking'
-          modal:                        '#modal .modal-dialog'
+          modal:                        '#modal'
 
         initialize:->
           channel = Backbone.Radio.channel "dashboard"
@@ -67,8 +67,10 @@ define [
                 console.log 'error fetching', data
 
         viewTracking: (model)->
-          @modal.show new GpsTrackingModal(model)
-          @$('#modal').modal()
+          channel = Backbone.Radio.channel "gps-trackings"
+          mapView = channel.request "one:car:view", model
 
+          @modal.show new GpsTrackingModal(model: model, mapView: mapView)
+          @$('#modal').modal()
 
     App.Dashboard.LayoutView
