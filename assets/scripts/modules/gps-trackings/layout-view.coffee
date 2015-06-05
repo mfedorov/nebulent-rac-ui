@@ -34,18 +34,14 @@ define [
           @model.get('gpsTrackings').on "select:none", => @onSelectSome()
 
         renderVehicles: ->
-          @vehicles_region.show new VehicleList(collection:@model.get('gpsTrackings'))
+          @vehicles_region.show new VehicleList(collection: @model.get('gpsTrackings'))
 
         renderMap: ->
-          @map = window.mymap = new google.maps.Map document.getElementById('gmaps'),
+          @map = new google.maps.Map @$('#gmaps')[0],
             center: lat: 40.986, lng: -103.059
             zoom: 4
 
           @map.setOptions styles: gmapStyles
-
-          google.maps.event.addListener @map, 'tilesloaded', ->
-            document.getElementById('gmaps').style.position = 'static'
-            document.getElementById('gmaps').style.background = 'none'
 
         onSelectSome: ->
           @showTrackings()
