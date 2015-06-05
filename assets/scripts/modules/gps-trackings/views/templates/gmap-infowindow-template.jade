@@ -1,0 +1,22 @@
+p
+  b Make:
+  span.margin-left-5px
+    = vehicle.get('make')
+p
+  b Plate Number:
+  span.margin-left-5px
+    = vehicle.get('plateNumber')
+p
+  b Rental id:
+  span.margin-left-5px
+    = rentalId || "none"
+p
+  b Address:
+  span.margin-left-5px
+    = address.get('region') + ', ' + address.get('city') + ', ' + address.get('addressLine1')
+p
+  b Tracked On:
+  span.margin-left-5px
+    = moment(trackedOn).format('DD MMM YYYY')
+
+
