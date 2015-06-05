@@ -10,7 +10,7 @@ define [
         className:  "layout-view gps-trackings"
         template:   template
         fetched: false
-        trackings: []
+        trackings: {}
 
         regions:
           vehicles_region: "#vehicles_region"
@@ -32,7 +32,6 @@ define [
           console.log @model
           @renderVehicles()
           @renderMap()
-          window.trackings =  @model.get('gpsTrackings')
           @model.get('gpsTrackings').on "select:some", => @onSelectSome()
           @model.get('gpsTrackings').on "select:none", => @onSelectSome()
 
@@ -44,28 +43,20 @@ define [
             center: lat: 40.986, lng: -103.059
             zoom: 4
 
-        trackVehicle: (model)->
-          console.log "track", model
-
-        untrackVehicle: (model)->
-          console.log "untrack", model
-
         onSelectSome: ->
-          debugger
           console.log @model.get('gpsTrackings').selected
           @showTrackings()
 
-        clearTrackings:()->
-          return unless @trackings.length
-          for id, marker in @trackings
+        clearTrackings:->
+          return unless _.keys(@trackings).length
+          for id, marker of @trackings
             marker.setMap null
 
         showTrackings:->
           @clearTrackings()
           _.each @model.get('gpsTrackings').selected, (tracking)=>
-              unless tracking.id in _.keys(trackings)
+              unless tracking.id in _.keys(@trackings)
                 latlng = new google.maps.LatLng(tracking.get('address').get('lat'), tracking.get('address').get('lon'))
-                debugger
                 marker = new google.maps.Marker
                   position: latlng
                   title: tracking.get('vehicle').get('plateNumber')
@@ -74,5 +65,14 @@ define [
                 marker = @trackings[tracking.id]
 
               marker.setMap @map
+          @centerMap()
+
+        centerMap:->
+          latlngArray = _.map _.values(@trackings), (marker)-> marker.position
+          latlngArray.push(new google.maps.LatLng 40.986, -103.059) unless latlngArray.length
+          latlngbounds = new google.maps.LatLngBounds()
+          latlngbounds.extend(latlng) for latlng in latlngArray
+          @map.fitBounds latlngbounds
+
 
     App.GpsTrackings.LayoutView
