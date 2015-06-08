@@ -5,9 +5,10 @@ td
 td
   = vehicle.get('plateNumber')
 td
-  = address.get('city')
+  = address.get('city') + ', ' + address.get('region') + ', ' + address.get('postalCode')
 td
   = moment(trackedOn).format("D MMMM YYYY")
 td
   if address.get('lat') && address.get('lon')
-    a.view-tracking(href="") Show on the Map
+    a.btn.default.btn-xs.blue.view-tracking(href="#" data-toggle="tooltip" title="Show vehicle position on the Map")
+      i.fa.fa-compass  Show on Map
