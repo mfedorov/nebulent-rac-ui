@@ -7,5 +7,17 @@ define [
 
     class Module.RentalDuesWidgetItem extends WidgetItem
       template: template
+      events:
+        "click .view-tracking": "onViewTracking"
+      templateHelpers:->
+        tracking: @getGpsTracking()
+
+      getGpsTracking:->
+        @model.get('gpsTrackings').last()
+
+      onViewTracking:(e)->
+        e.preventDefault()
+        channel = Backbone.Radio.channel "dashboard"
+        channel.command "view:tracking", @getGpsTracking()
 
   App.Dashboard.RentalDuesWidgetItem

@@ -37,7 +37,7 @@ define [
           .set response.last24HCalls
 
         @get 'rentalDues'
-          .set response.activeRentals
+          .set response.activeRentals, parse:true
 
         @get 'gpsTrackings'
           .set response.gpsTrackings, parse:true
