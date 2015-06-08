@@ -1,6 +1,6 @@
 define [
   './widget-item'
-  './last-call-logs'
+  './templates/last-call-logs'
 ], (WidgetItem, template)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->

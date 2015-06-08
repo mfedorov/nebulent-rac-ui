@@ -1,6 +1,6 @@
 define [
   './widget'
-  './utilization'
+  './templates/utilization'
 ], (WidgetView, template)->
 
 

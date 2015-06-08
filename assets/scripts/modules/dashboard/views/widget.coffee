@@ -1,5 +1,5 @@
 define [
-  './widget-template'
+  './templates/widget-template'
 ], (template)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->

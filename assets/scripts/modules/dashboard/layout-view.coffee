@@ -8,9 +8,10 @@ define [
   './views/utilization-widget'
   './views/gps-tracking-widget'
   './views/gps-tracking-modal-view'
+  './views/vehicle-movements-modal-view'
 ], (template, VehiclesNeedInpsectionsWidget,
     VehiclesNeedOilChangeWidget, DepositsDueWidget, LastCallLogsWidget, RentalDuesWidget,
-    UtilizationWidget, GpsTrackingWidget, GpsTrackingModal) ->
+    UtilizationWidget, GpsTrackingWidget, GpsTrackingModal, VehicleMovementsModalView) ->
 
     App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -31,6 +32,7 @@ define [
         initialize:->
           channel = Backbone.Radio.channel "dashboard"
           channel.comply "view:tracking", @viewTracking, @
+          channel.comply "view:rental:movements", @viewVehicleMovements, @
 
         onRefresh:->
           @render()
@@ -71,6 +73,10 @@ define [
           mapView = channel.request "one:car:view", model
 
           @modal.show new GpsTrackingModal(model: model, mapView: mapView)
+          @$('#modal').modal()
+
+        viewVehicleMovements: (collection)->
+          @modal.show new VehicleMovementsModalView collection: collection
           @$('#modal').modal()
 
     App.Dashboard.LayoutView

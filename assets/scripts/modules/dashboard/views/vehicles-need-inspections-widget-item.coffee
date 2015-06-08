@@ -1,6 +1,6 @@
 define [
   './widget-item'
-  './vehicles-need-inspections'
+  './templates/vehicles-need-inspections'
 ], (WidgetItem, template)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
