@@ -1,6 +1,6 @@
 define [
   './widget-item'
-  './rental-dues'
+  './templates/rental-dues'
 ], (WidgetItem, template)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
@@ -9,15 +9,10 @@ define [
       template: template
       events:
         "click .view-tracking": "onViewTracking"
-      templateHelpers:->
-        tracking: @getGpsTracking()
-
-      getGpsTracking:->
-        @model.get('gpsTrackings').last()
 
       onViewTracking:(e)->
         e.preventDefault()
         channel = Backbone.Radio.channel "dashboard"
-        channel.command "view:tracking", @getGpsTracking()
+        channel.command "view:rental:movements", @model.get('gpsTrackings')
 
   App.Dashboard.RentalDuesWidgetItem

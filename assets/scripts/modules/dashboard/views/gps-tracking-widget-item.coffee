@@ -1,6 +1,6 @@
 define [
   './widget-item'
-  './gps-tracking-template'
+  './templates/gps-tracking-template'
 ], (WidgetItem, template)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->

@@ -1,5 +1,5 @@
 define [
-  './vehicles-need-oil-change'
+  './templates/vehicles-need-oil-change'
 ], (template)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
