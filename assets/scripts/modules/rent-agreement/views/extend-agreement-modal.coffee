@@ -8,6 +8,8 @@ define [
       className: "modal-dialog"
       template: template
       saving: false
+      maximumDays: 14
+      minimumDays: 1
 
       events:
         "[name='number-of-days]":   "onDaysCountChange"
@@ -17,12 +19,13 @@ define [
         @stickit()
 
       onExtendClick:->
-        unless @$("[name='number-of-days']").val()
-          return toastr.error "Enter amount of days to extend"
+        value = parseInt(@$("[name='number-of-days']").val())
         return if saving
+        unless 0 < value <= 14
+          return toastr.error "Amount of days should be minimum #{@minimumDays}, maximum #{@maximumDays}"
         saving = true
         debugger
-        @model.set "days", parseInt(@$("[name='number-of-days']").val())
+        @model.set "days", value
         @model.set "status", "EXTENDED"
         @model.save()
           .success (data)=>
