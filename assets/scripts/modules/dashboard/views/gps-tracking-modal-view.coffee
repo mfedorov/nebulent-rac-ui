@@ -1,5 +1,5 @@
 define [
-  './gps-tracking-modal-template'
+  './templates/gps-tracking-modal-template'
 ],  (template) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->

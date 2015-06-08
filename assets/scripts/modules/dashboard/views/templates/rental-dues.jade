@@ -1,0 +1,18 @@
+td
+  = modelIndex + 1
+td
+  = customer.firstName + ' ' + customer.lastName
+td
+  = vehicle.make
+td
+  = vehicle.model
+td
+  = vehicle.color
+td
+  = vehicle.plateNumber
+td
+  = vehicle.registrationDate
+td
+  if gpsTrackings.length
+    a.btn.default.btn-xs.blue.view-tracking(href="#" data-toggle="tooltip" title="Show vehicle movements")
+      i.fa.fa-compass  Show vehicle movements
