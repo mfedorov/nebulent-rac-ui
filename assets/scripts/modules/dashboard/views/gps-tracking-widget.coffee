@@ -9,7 +9,7 @@ define [
       childView:    GpsTrackingItem
       title:        'Gps Trackings'
       dataTableId:  'gps_trackings'
-      headerItems:  ['#', 'Vehicle', 'Plate Number', 'City','Taken On', 'Link']
+      headerItems:  ['#', 'Vehicle', 'Plate Number', 'Address','Taken On', 'Actions']
       icon:         'fa-compass'
 
   App.Dashboard.GpsTrackingWidget
