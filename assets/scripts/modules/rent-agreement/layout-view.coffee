@@ -56,7 +56,7 @@ define [
 
         closeAgreement: (model)->
           console.log "close agreement for", model
-          @modal_region.show new CloseAgreementView( model: model)
+          @modal_region.show new CloseAgreementView( model: model, collection:@model.get('rentals'))
           @$('#modal').modal()
 
         extendAgreement: (model)->

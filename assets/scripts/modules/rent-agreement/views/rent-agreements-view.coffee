@@ -21,7 +21,4 @@ define [
         dataTableId:  @dataTableId
         count:        @collection.length
 
-      onShow:->
-#        @$("##{@dataTableId}").dataTable()
-
   App.CarRentAgreement.RentAgreements

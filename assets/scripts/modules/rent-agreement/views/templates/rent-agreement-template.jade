@@ -80,6 +80,13 @@
       .row
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
+            | Location
+            span.required(aria-required='true') *
+          .col-md-12
+            .input-icon.right
+              select.form-control(type='text' name='location')
+        .form-group.col-md-3.col-sm-6.col-xs-12
+          label.col-md-12.control-label
             | Start mileage
             span.required(aria-required='true') *
           .col-md-12

@@ -20,6 +20,10 @@ define [
       events:
         "click .close-agreement": "onCloseAgreement"
 
+      initialize: (options)->
+        @collection = options.collection
+        @listenTo @collection, "sync", @updatePagination, @
+
       onShow: ->
         @stickit()
 
@@ -32,13 +36,15 @@ define [
         saving = true
         @model.set "endFuelLevel", @$("[name='end-fuel-level']").val()
         @model.set "endMileage", @$("[name='end-mileage']").val()
+        @previousStatus = @model.get "status"
         @model.set "status", "CLOSED"
         @model.save()
         .success (data)=>
           toastr.success "Successfully Closed Agreement"
           @model.collection.trigger('change')
           @$('.close').click()
-        .error   (data)->
+        .error   (data)=>
+          @model.set "status", previousStatus
           toastr.error "Error Closing Agreement"
 
   App.CarRentAgreement.CloseRentAgreementModal

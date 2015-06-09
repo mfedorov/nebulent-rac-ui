@@ -21,9 +21,13 @@ define [
         fuelLevel:    "FULL"
         totalTax:     ""
         discountRate: ""
+        location:     null
 
       blacklist: ['dailyRate', 'fuelLevel']
-      toJSON: (options)-> _.omit @attributes, @blacklist
+
+      toJSON: (options)->
+        attrs = _.clone @attributes
+        _.omit attrs, @blacklist
 
       recalc: ->
         TAX      = Module.organization.get('stateTax') + Module.organization.get('rentalTax')
