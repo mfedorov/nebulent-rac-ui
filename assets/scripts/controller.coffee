@@ -15,15 +15,12 @@ define ->
         data = $.parseJSON $orgData
         channel.trigger 'loggedin', org: data
 
-
-    rentAgreement: (id)->
-
-      console.log id
+    rentAgreement: (rentalId)->
       channel = Backbone.Radio.channel 'app'
-      channel.trigger 'show:rent-agreements', id
+      channel.trigger 'show:rent-agreements', rentalId
       channel.trigger 'set:sidebar:active', 'rent-agreement'
 
-    rentAgreements: ->
+    listRentAgreements: ->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'show:rent-agreements', "list"
       channel.trigger 'set:sidebar:active', 'rent-agreements'
@@ -33,19 +30,29 @@ define ->
       channel.trigger 'show:customers', 'list'
       channel.trigger 'set:sidebar:active', 'customers'
 
-    customer: (cust_id)->
+    customer: (customerId)->
       channel = Backbone.Radio.channel 'app'
-      channel.trigger 'show:customers', cust_id
+      channel.trigger 'show:customers', customerId
       channel.trigger 'set:sidebar:active', 'customer'
 
-    vehicles: ->
+    listDeposits: ->
+      channel = Backbone.Radio.channel 'app'
+      channel.trigger 'show:deposits', 'list'
+      channel.trigger 'set:sidebar:active', 'deposits'
+
+    deposit: (depositId)->
+      channel = Backbone.Radio.channel 'app'
+      channel.trigger 'show:deposits', depositId
+      channel.trigger 'set:sidebar:active', 'deposits'
+
+    listVehicles: ->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'show:vehicles', 'list'
       channel.trigger 'set:sidebar:active', 'vehicles'
 
-    vehicle: (id)->
+    vehicle: (vehicleId)->
       channel = Backbone.Radio.channel 'app'
-      channel.trigger 'show:vehicles', 'id'
+      channel.trigger 'show:vehicles', vehicleId
       channel.trigger 'set:sidebar:active', 'vehicle'
 
     gpsTrackings: ->

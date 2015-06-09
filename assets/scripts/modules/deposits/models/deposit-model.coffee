@@ -3,13 +3,12 @@ define [
   './customer-model'
 ],  (PaymentModel, CustomerModel)->
 
-  App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
+  App.module "Deposits", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.DepositModel extends Backbone.Model
-      url:->
-        debugger
-        "api/#{Module.model.get('config').get('orgId')}/customers/#{@get('customer').get('contactID')}/deposits"
+      url:-> "api/#{Module.model.get('config').get('orgId')}/customers/#{@get('customer').get('contactID')}/deposits"
       idAttribute: "itemID"
+
       defaults: ->
         description:    "RENTAL DEPOSIT"
         code:           "DEPOSIT"
@@ -34,12 +33,6 @@ define [
         code:
           required: true
 
-      toJSON: (options)->
-        attributes = _.clone @attributes
-        if @attributes.customer?.get('contactID')?
-          attributes.customer = contactID: @attributes.customer.get('contactID')
-        attributes
-
       parse: (response, options)->
         @set 'customer', new CustomerModel() unless @get('customer')?.constructor.name is "CustomerModel"
         @set 'payment', new PaymentModel() unless @get('payment')?.constructor.name is "PaymentModel"
@@ -52,4 +45,4 @@ define [
         response
 
 
-  App.CarRentAgreement.DepositModel
+  App.Deposits.DepositModel

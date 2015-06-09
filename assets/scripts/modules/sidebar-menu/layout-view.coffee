@@ -20,7 +20,6 @@ define [
           window.initMetronic()
 
         setActiveMenu: (menu) ->
-          debugger
           $('.page-sidebar-menu li').removeClass('open active')
           $menu = $("##{menu}")
           $menu.addClass('active')

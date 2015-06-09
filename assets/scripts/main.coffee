@@ -36,6 +36,7 @@ require [
     "modules/customers/api"
     "modules/vehicles/api"
     "modules/gps-trackings/api"
+    "modules/deposits/api"
   ], ->
     window.App.start()
     return

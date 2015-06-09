@@ -1,0 +1,12 @@
+td
+  = modelIndex + 1
+td
+  = customer.get('name') + " (" + customer.get('driverLicense') + ")"
+td
+  = payment.get('amount')
+td
+  = moment('takenOn').format('DD/MM/YYYY')
+td
+  if status == 'ACTIVE'
+    a.btn.default.btn-xs.green.return-deposit(href="#" data-toggle="tooltip" title="Download")
+      i.fa.fa-reply

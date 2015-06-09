@@ -30,6 +30,7 @@ define [
   'pieChart'
   './behaviors/validation'
   './behaviors/textarea-supporting-tabs'
+  './behaviors/pageable-table'
 ], (Backbone, Marionette, $, _, toastr, select2, metronic, layout,
     quickSidebar, demo, moment, iCheck) ->
 
