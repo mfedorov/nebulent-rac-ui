@@ -26,13 +26,15 @@ define [
         saving = true
         debugger
         @model.set "days", value
+        @previousStatus = @model.get "status"
         @model.set "status", "EXTENDED"
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
             @model.collection.trigger('change')
             @$('.close').click()
-          .error   (data)->
+          .error   (data)=>
+            @model.set "status", previousStatus
             toastr.error "Error Extending Agreement"
 
   App.CarRentAgreement.ExtendRentAgreementModal

@@ -52,6 +52,7 @@ define [
         'input[name="fuelLevel"]'          : observe: 'fuelLevel'
         'input[name="totalTax"]'           : observe: 'totalTax'
         'input[name="discount_rate"]'      : observe: 'discountRate'
+#        "[name=location]"                  : observe: "location"
 
       regions:
         customer_region:  "#customer-region"
@@ -60,8 +61,8 @@ define [
 
       initialize:->
         window.model = @model
-        window.organization = @organization
         @organization ?= new OrganizationModel()
+        window.organization = @organization
         Module.organization = @organization
         @listenTo @model, 'change:customer',  @onChange
         @listenTo @model, 'change:vehicle',   @onChange
@@ -136,7 +137,26 @@ define [
       initViewElements:->
         @initCustomerSelect2()
         @initVehicleSelect2()
+        @initLocations()
 #        @initDepositSelect2()
+
+      initLocations:->
+        @addBinding null, '[name="location"]',
+          observe: "location"
+#          onGet:(value)->
+#            console.log "get", value
+#            value
+          onSet:(value)->
+            console.log "Set", value
+            id: value
+          selectOptions:
+            collection: @organization.get('locations').toArray()
+            labelPath: 'abbreviation'
+            valuePath: 'name'
+
+#        @$('[name="location"]').html("<option></option>")
+#        _.each @organization.get('locations').toArray(), (item)=>
+#          @$('[name="location"]').append "<option value=#{item.name}>#{item.abbreviation}</option>"
 
       onCustomerSearch: (e)->
         id = $(e.currentTarget).val()
@@ -158,7 +178,6 @@ define [
           @vehicle_region.reset()
 
       renderDeposit: ->
-        debugger
         customerDeposits = @organization.get('deposits').filter((deposit)-> deposit.get('customer').get('contactID') is @model.get('customer').get('contactID'))
         deposit = if customerDeposits.length then customerDeposits[0] else new DepositModel(customer: @organization.get('customers').get(@model.get('customer').get('contactID')), orgId: @model.get('orgId'))
         @model.set "deposit", new DepositModel(itemID: deposit.get("itemID"))
@@ -271,6 +290,7 @@ define [
         console.log message, data
 
       onSubmit: (e)->
+        debugger
         unless @model.get('deposit').isValid(true)
           toastr.error "Make sure all required data in deposit is filled in"
           return false
