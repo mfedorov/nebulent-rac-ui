@@ -23,5 +23,7 @@ define [
 
       onShow:->
         @$("##{@dataTableId}").dataTable()
+        container = @$('.dataTables_length').parent()
+        container.prepend '<a href="#vehicle" class="btn left default purple-stripe input-inline new-item-datatables"><i class="fa fa-plus"></i><span class="hidden-480"> New Vehicle</span></a>'
 
   App.Vehicles.VehiclesView

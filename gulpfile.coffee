@@ -89,6 +89,7 @@ gulp.task "scripts", ["cleanScripts"], ->
       "bootstrap-datetimepicker": "./public/scripts/vendor/metronic/bootstrap-datetimepicker"
       "iCheck":                   "./public/scripts/vendor/icheck.min"
       "backbone.paginator":       "./public/scripts/vendor/backbone.paginator"
+      "bootbox":                  "./public/scripts/vendor/metronic/bootbox.min"
     shim:
       "jquery-ui":
         deps: ['jquery']

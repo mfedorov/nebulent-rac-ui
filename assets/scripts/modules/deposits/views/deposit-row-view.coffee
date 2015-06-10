@@ -23,6 +23,15 @@ define ['./templates/deposit-row-template'], (template)->
 
       onReturnClick: (e)->
         e.preventDefault()
-        debugger
+        bootbox.confirm "Are you sure you want to change status for the following deposit?", (result)=>
+          return unless result
+          previousStatus = @model.get 'status'
+          @model.set "status", "ARCHIVED"
+          @model.save()
+            .success (data)->
+              toastr.success "Successfully returned deposit"
+              debugger
+            .error   (data)=>
+              @model.set 'status', previousStatus
 
   App.Deposits.DepositsRowView
