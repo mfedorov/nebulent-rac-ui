@@ -23,10 +23,11 @@ define [
         count:           @collection.length
 
       onShow:->
-        console.log "Show table"
         @$("##{@dataTableId}").dataTable()
+        container = @$('.dataTables_length').parent()
+        container.prepend '<a href="#customer" class="btn left default purple-stripe input-inline new-item-datatables"><i class="fa fa-plus"></i><span class="hidden-480"> New Customer</span></a>'
+
         @listenTo @, "childview:customers:update", ->
-          @region.close()
           @region.show @
           @$("##{@dataTableId}").dataTable()
 

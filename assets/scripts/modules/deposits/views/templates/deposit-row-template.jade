@@ -5,7 +5,12 @@ td
 td
   = payment.get('amount')
 td
-  = moment('takenOn').format('DD/MM/YYYY')
+  = moment(takenOn).format('DD/MM/YYYY')
+td
+  = returnedOn ? moment(returnedOn).format('DD/MM/YYYY'): ""
+td
+  span(class="#{status.toLowerCase()} item_status")
+    = status
 td
   if status == 'ACTIVE'
     a.btn.default.btn-xs.green.return-deposit(href="#" data-toggle="tooltip" title="Download")
