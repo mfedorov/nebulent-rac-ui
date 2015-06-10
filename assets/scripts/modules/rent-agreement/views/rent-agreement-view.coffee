@@ -82,7 +82,6 @@ define [
           @$el.trigger "loaded"
 
       onCustomerCreated: (e, model)->
-        debugger
         @organization.get('customers').add model, silent: true
         return if @$('#customer-existing-radio').prop('checked')
         @ui.customerSearch.empty()
@@ -143,9 +142,6 @@ define [
       initLocations:->
         @addBinding null, '[name="location"]',
           observe: "location"
-#          onGet:(value)->
-#            console.log "get", value
-#            value
           onSet:(value)->
             console.log "Set", value
             id: value
@@ -153,10 +149,6 @@ define [
             collection: @organization.get('locations').toArray()
             labelPath: 'abbreviation'
             valuePath: 'name'
-
-#        @$('[name="location"]').html("<option></option>")
-#        _.each @organization.get('locations').toArray(), (item)=>
-#          @$('[name="location"]').append "<option value=#{item.name}>#{item.abbreviation}</option>"
 
       onCustomerSearch: (e)->
         id = $(e.currentTarget).val()
@@ -191,7 +183,6 @@ define [
 #        else
 #          @model.set 'deposit', null
 #          @deposit_region.reset()
-
 
       initCustomerSelect2: ()->
         @ui.customerSearch.select2
@@ -290,12 +281,12 @@ define [
         console.log message, data
 
       onSubmit: (e)->
-        debugger
+        e.preventDefault()
+        return false unless @isValid()
         unless @model.get('deposit').isValid(true)
           toastr.error "Make sure all required data in deposit is filled in"
           return false
 
-        e.preventDefault()
         unless @model.get('deposit').get('itemID')
           @deposit_region.currentView.model.save()
             .success (data)=>
@@ -314,9 +305,14 @@ define [
             @showModelMessage "success", "Successfully Created Rent Agreement", data
             channel = Backbone.Radio.channel "rent-agreements"
             channel.command "rent:agreement:created", @model
-            debugger
             App.Router.navigate "#rent-agreements", trigger: true
           .error (data)=>
             @showModelMessage "error", "Error Creating Rent Agreement", data
+
+      isValid:->
+        unless @model.get "location"
+          toastr.error "Please select a location"
+          return false
+        true
 
   App.CarRentAgreement.RentAgreement
