@@ -1,5 +1,5 @@
 define [
-  './vehicle-template'
+  './templates/vehicle-template'
   './../models/vehicle-model'
 ], (template)->
 
@@ -41,50 +41,62 @@ define [
 
         "[name=registration_date]":
           observe: "registrationDate"
+          onGet: (value)-> moment.unix(parseInt(value)/1000).format('DD/MM/YYYY')
+          onSet: (value)-> moment(value, 'DD/MM/YYYY').unix()*1000
           setOptions:
             validate: true
 
         "[name=inspection_date]":
           observe: "inspectionDate"
+          onGet: (value)-> moment.unix(parseInt(value)/1000).format('DD/MM/YYYY')
+          onSet: (value)-> moment(value, 'DD/MM/YYYY').unix()*1000
           setOptions:
             validate: true
 
-        "[name=current_mileage]":  observe: "currentMileage"
-        "[name=daily_rate]":           observe: "dailyRate"
-        "[name=weekly_rate]":        observe: "weeklyRate"
-        "[name=code]":                   observe: "Code"
-        "[name=description]":          observe: "Description"
+        "[name=current_mileage]":     observe: "currentMileage"
+        "[name=daily_rate]":          observe: "dailyRate"
+        "[name=weekly_rate]":         observe: "weeklyRate"
+
+      initialize: (options)->
+        @organization   = options.organization
+        @collection     = @organization.get 'vehicles'
+        window.vehicle  = @model
 
       onShow: ->
         @$("[name=registration_date]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=inspection_date]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=year]").datetimepicker format:"YYYY", viewMode: 'years', minViewMode: 'years'
         return unless @model
-        # debugger
         @stickit()
+        @initLocations()
         if @model.get 'itemID'
           $('button[name="submit_vehicle"]').text "Update Vehicle"
         else
           $('button[name="submit_vehicle"]').text "Create Vehicle"
 
-
-      initialize: (options)->
-        debugger
-        # console.log 'customer model', @model.cid
-        @collection            = options.collection
-        window.vehicle      = @model
+      initLocations: ->
+        @addBinding @model, '[name="location"]',
+          observe: "location"
+          onGet:(value)->
+            return value unless value
+            console.log "get", value
+            return value.id if value.id?
+            value
+          onSet:(value)->
+            console.log "Set", value
+            id: value
+          selectOptions:
+            collection: @organization.get('locations').toArray()
+            labelPath: 'abbreviation'
+            valuePath: 'name'
 
       onSubmit: ->
-        console.log "submit vehicle"
-        # debugger
         # unless @model.isValid()
         #   toastr.error "Error creating vehicle. Check the required fields"
         #   return
         @model.save()
           .success (data)=>
-            model = new VehicleView(data)
-            # debugger
-            @collection.add model
+            @collection.add @model
             toastr.success "Successfully created vehicle"
             console.log "successfully created vehicle", data
             #redirect to customer list

@@ -5,14 +5,14 @@ define ['./templates/deposit-row-template'], (template)->
     class Module.DepositsRowView extends Marionette.ItemView
       className:  "item-view rent-agreement-row"
       tagName:    "tr"
-      template: template
+      template:   template
 
       events:
         "click .return-deposit":  "onReturnClick"
 
       initialize: (options)->
-        @index = options.index
-        @channel = Backbone.Radio.channel 'deposits'
+        @index    = options.index
+        @channel  = Backbone.Radio.channel 'deposits'
         @listenTo @model, "change", @render, @
 
       templateHelpers: ->
@@ -30,7 +30,6 @@ define ['./templates/deposit-row-template'], (template)->
           @model.save()
             .success (data)->
               toastr.success "Successfully returned deposit"
-              debugger
             .error   (data)=>
               @model.set 'status', previousStatus
 

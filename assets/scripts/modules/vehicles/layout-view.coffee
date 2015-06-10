@@ -13,7 +13,7 @@ define [
         className:  "layout-view vehicles"
         template:   template
         vehicle_id: 'list'
-        fetched: false
+        fetched:    false
 
         regions:
           main_region: "#main"
@@ -39,7 +39,9 @@ define [
             mainView = new VehiclesView collection: @model.get('organization').get('vehicles')
           else
             model = if @vehicle_id? then @model.get('organization').get('vehicles').get(@vehicle_id) else new VehicleModel()
-            mainView = new VehicleView model: model
+            mainView = new VehicleView
+              model:        model
+              organization: @model.get('organization')
           @main_region.show mainView
 
     App.Vehicles.LayoutView

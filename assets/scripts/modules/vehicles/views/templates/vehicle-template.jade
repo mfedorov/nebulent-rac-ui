@@ -88,22 +88,28 @@ form#vehicle-form
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Weekly rate', data-container='body')
           input.form-control(type='text' name='weekly_rate')
+    //.form-group.col-md-3.col-sm-6.col-xs-12
+    //  label.col-md-12.control-label
+    //    | Code
+    //  .col-md-12
+    //    .input-icon.right
+    //      i.fa.fa-info-circle.tooltips(data-original-title='Code', data-container='body')
+    //      input.form-control(type='text' name='code')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
-        | Code
+        | Location
+        span.required(aria-required='true') *
       .col-md-12
         .input-icon.right
-          i.fa.fa-info-circle.tooltips(data-original-title='Code', data-container='body')
-          input.form-control(type='text' name='code')
-
-  .row
-    .form-group.col-md-12.col-sm-12.col-xs-12
-      label.col-md-12.control-label
-        | Description
-      .col-md-12
-        .input-icon.right
-          i.fa.fa-info-circle.tooltips(data-original-title='Description', data-container='body')
-          textarea.form-control(name='description')
+          select.form-control(type='text' name='location')
+  //.row
+  //  .form-group.col-md-12.col-sm-12.col-xs-12
+  //    label.col-md-12.control-label
+  //      | Description
+  //    .col-md-12
+  //      .input-icon.right
+  //        i.fa.fa-info-circle.tooltips(data-original-title='Description', data-container='body')
+  //        textarea.form-control(name='description')
 
 .row
   .form-actions
