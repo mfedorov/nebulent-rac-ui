@@ -18,7 +18,7 @@ define ->
     rentAgreement: (rentalId)->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'show:rent-agreements', rentalId
-      channel.trigger 'set:sidebar:active', 'rent-agreement'
+      channel.trigger 'set:sidebar:active', 'rent-agreements'
 
     listRentAgreements: ->
       channel = Backbone.Radio.channel 'app'
@@ -33,7 +33,7 @@ define ->
     customer: (customerId)->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'show:customers', customerId
-      channel.trigger 'set:sidebar:active', 'customer'
+      channel.trigger 'set:sidebar:active', 'customers'
 
     listDeposits: ->
       channel = Backbone.Radio.channel 'app'
@@ -53,7 +53,7 @@ define ->
     vehicle: (vehicleId)->
       channel = Backbone.Radio.channel 'app'
       channel.trigger 'show:vehicles', vehicleId
-      channel.trigger 'set:sidebar:active', 'vehicle'
+      channel.trigger 'set:sidebar:active', 'vehicles'
 
     gpsTrackings: ->
       channel = Backbone.Radio.channel 'app'

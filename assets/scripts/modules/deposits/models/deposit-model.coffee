@@ -6,7 +6,6 @@ define [
   App.module "Deposits", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.DepositModel extends Backbone.Model
-      url:-> "api/#{Module.model.get('config').get('orgId')}/customers/#{@get('customer').get('contactID')}/deposits"
       idAttribute: "itemID"
 
       defaults: ->

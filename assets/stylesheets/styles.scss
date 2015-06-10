@@ -139,14 +139,14 @@ span.select2-selection__arrow {
 }
 
 //agreements list
-.agreement_status {
+.agreement_status, .item_status {
   &.extended {
     color: #3598dc;
   }
-  &.new {
+  &.new, &.active {
     color: #26a69a;
   }
-  &.closed {
+  &.closed, &.archived {
     color: #cb5a5e;
   }
 }
@@ -194,4 +194,11 @@ span.select2-selection__arrow {
 
 .modal {
   margin-top: 50px;
+}
+
+.new-item-datatables {
+  float: left;
+//  height: 34px;
+//  padding-top: 8px;
+  margin-right: 5px;
 }

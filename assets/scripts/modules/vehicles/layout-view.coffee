@@ -3,8 +3,9 @@ define [
     './models/organization-model'
     './views/vehicle-view'
     './views/vehicles-view'
+    './models/vehicle-model'
     './module'
-], (template, OrganizationModel, VehicleView, VehiclesView) ->
+], (template, OrganizationModel, VehicleView, VehiclesView, VehicleModel) ->
 
     App.module "Vehicles", (Module, App, Backbone, Marionette, $, _) ->
 

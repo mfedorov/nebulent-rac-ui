@@ -10,7 +10,7 @@ define [
       template:           template
       childView:          DepositRowView
       childViewContainer: ".row-container"
-      headerItems:        ['#', 'Customer', 'Amount', 'Date', 'Actions']
+      headerItems:        ['#', 'Customer', 'Amount', 'Taken On', 'Returned On', 'Status', 'Actions']
       dataTableId:        "deposits"
 
       childViewOptions: (model, index) ->
