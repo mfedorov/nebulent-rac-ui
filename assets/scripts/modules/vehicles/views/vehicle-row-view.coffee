@@ -1,4 +1,4 @@
-define ['./vehicle-row-template'], (template)->
+define ['./templates/vehicle-row-template'], (template)->
 
   App.module "Vehicles", (Module, App, Backbone, Marionette, $, _) ->
 

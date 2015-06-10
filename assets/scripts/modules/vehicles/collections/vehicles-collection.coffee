@@ -6,5 +6,6 @@ define [
 
     class Module.VehicleCollection extends Backbone.Collection
       model: VehicleModel
+      comparator: (vehicle)-> -vehicle.get 'createdDateUTC'
 
   App.Vehicles.VehicleCollection
