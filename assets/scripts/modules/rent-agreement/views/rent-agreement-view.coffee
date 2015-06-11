@@ -291,6 +291,8 @@ define [
           @deposit_region.currentView.model.save()
             .success (data)=>
               @showModelMessage "success", "Successfully Created Deposit for Agreement", data
+              channel = Backbone.Radio.channel "deposits"
+              channel.command "deposit:created"
               @model.set "deposit", itemID: data.itemID
               @rentalSave()
             .error  (data)=>

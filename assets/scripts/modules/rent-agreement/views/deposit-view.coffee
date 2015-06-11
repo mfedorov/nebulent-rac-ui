@@ -50,9 +50,7 @@ define [
         @organization = options.organization
 
       onShow:->
-        debugger
         @stickit()
-        debugger
         #TODO get rid of this check, make sure payment model is initialized in deposit model
         @payment_region.show new PaymentView model: @model.get('payment'), deposit: @model
 
@@ -67,6 +65,5 @@ define [
           .error (data)->
             toastr.error "Errors occured whe creating Deposit"
             console.log "deposit creation error:", data
-
 
   App.CarRentAgreement.Deposit

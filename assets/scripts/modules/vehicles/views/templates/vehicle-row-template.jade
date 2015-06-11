@@ -13,8 +13,11 @@ td
 td
   = currentMileage||'none'
 td
-  a.btn.default.btn-xs.purple.edit-row(href="#vehicle/#{itemID}")
-    i.fa.fa-edit Edit
-  a.btn.default.btn-xs.black.delete-row(href="javascript:;")
-    i.fa.fa-trash-o Delete
+  if status
+    span(class="#{status.toLowerCase()} item_status")
+      = status
+td
+  if status != 'DELETED'
+    a.btn.default.btn-xs.red.delete-row(href="javascript:;" data-toggle="tooltip" title="Delete Vehicle")
+      i.fa.fa-trash-o
 

@@ -1,0 +1,16 @@
+td
+  = modelIndex + 1
+td
+  = firstName
+td
+  = lastName
+td
+  = emailAddress ||'none'
+td
+  if contactStatus
+    span(class="#{contactStatus.toLowerCase()} item_status")
+      = contactStatus
+td.actions
+  if contactStatus != "DELETED"
+    a.btn.default.btn-xs.red.delete-row(href="javascript:;" data-toggle="tooltip" title="Delete Customer")
+      i.fa.fa-trash-o
