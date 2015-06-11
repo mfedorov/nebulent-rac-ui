@@ -30,6 +30,7 @@ define ['./templates/deposit-row-template'], (template)->
           return unless result
           previousStatus = @model.get 'status'
           @model.set "status", "ARCHIVED"
+          @$el.addClass('deleted')
           @model.save()
             .success (data)->
               toastr.success "Successfully returned deposit"
