@@ -1,5 +1,5 @@
 define [
-  './customer-template'
+  './templates/customer-template'
   './phones-view'
   './addresses-view'
   './incidents-view'
@@ -62,7 +62,6 @@ define [
         notes_region:        "#notes-region"
 
       initialize: (options)->
-        debugger
         # console.log 'customer model', @model.cid
         @organization        = options.organization
         @collection            = options.collection
@@ -70,7 +69,6 @@ define [
 
       onShow:->
         return unless @model
-        # debugger
         @stickit()
         @$('.usercreate-controlls').show()
 
@@ -81,9 +79,7 @@ define [
 
         @$("[name=date_of_birth]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_expiration_date]").datetimepicker format:"DD/MM/YYYY"
-        @$("[name=license_state]").select2()
 
-        debugger
         @phones_region.show new PhonesView collection: @model.get 'phones'
         @addresses_region.show new AddressesView collection: @model.get 'addresses'
         @incidents_region.show new IncidentsView collection: @model.get 'incidents'
@@ -91,14 +87,12 @@ define [
         # $('.icheck').iCheck()
 
       onSubmit:->
-        debugger
         unless @model.isValid()
           toastr.error "Error Creating Customer. Check the required fields"
           return
         @model.save()
           .success (data)=>
             model = new CustomerView(data)
-            # debugger
             @collection.add model
             toastr.success "Successfully Created customer"
             console.log "successfully created customer", data

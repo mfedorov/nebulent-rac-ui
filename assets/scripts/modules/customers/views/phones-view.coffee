@@ -1,5 +1,5 @@
 define [
-  './phones-template'
+  './templates/phones-template'
   './phone-view'
   './../models/phone-model'
 ],  (template, PhoneView, PhoneModel) ->

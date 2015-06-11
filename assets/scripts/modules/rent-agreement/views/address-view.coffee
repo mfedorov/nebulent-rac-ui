@@ -17,7 +17,12 @@ define [
         ':input[name="city"]'           : observe:"city"
         ':input[name="country"]'        : observe:"country"
         ':input[name="postal_code"]'    : observe:"postalCode"
-        ':input[name="region"]'         : observe:"region"
+        ':input[name="region"]'         :
+          observe: "region"
+          selectOptions:
+            collection: App.DataHelper.states
+            labelPath: 'name'
+            valuePath: 'abbreviation'
 
       events:
         'click .remove-address': 'onRemove'

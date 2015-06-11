@@ -53,7 +53,6 @@ define [
         @$('.usercreate-controlls').hide() if @model.get 'contactID'
         @$("[name=date_of_birth]").datetimepicker format:"DD/MM/YYYY"
         @$("[name=license_expiration_date]").datetimepicker format:"DD/MM/YYYY"
-        @$("[name=license_state]").select2()
 
         @phones_region.show new PhonesView collection: @model.get 'phones'
         @addresses_region.show new AddressesView collection: @model.get 'addresses'
@@ -61,12 +60,15 @@ define [
       onSubmit:->
         @model.save()
           .success (data)=>
+            #notifying customer module that new customer was created
+            channel = Backbone.Radio.channel "customers"
+            channel.command "customer:created"
+
             @parent.$el.trigger "customer:created",  new CustomerModel(data)
             toastr.success "Successfully Created customer"
             console.log "successfully created customer", data
           .error (data)->
             toastr.error "Error Creating Customer"
             console.log "error creating customer", data
-
 
   App.CarRentAgreement.Customer

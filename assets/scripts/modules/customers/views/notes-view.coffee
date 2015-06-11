@@ -1,5 +1,5 @@
 define [
-  './notes-template'
+  './templates/notes-template'
   './note-view'
   './../models/note-model'
 ],  (template, NoteView, NoteModel) ->

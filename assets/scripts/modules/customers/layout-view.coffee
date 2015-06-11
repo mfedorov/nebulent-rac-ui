@@ -1,22 +1,25 @@
 define [
     './layout-template'
-    './views/customers-view'
     './views/customer-view'
+    './views/customers-list-view'
     './models/customer-model'
-    './collections/customers-collection'
-    # './module'
-],  (template, CustomersView, CustomerView, CustomerModel, CustomersCollection) ->
+    './module'
+],  (template, CustomerView, CustomerListView, CustomerModel) ->
 
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.LayoutView extends Marionette.LayoutView
       className:  "layout-view customers"
-      template:     template
-      cust_id:       'list'
-      fetched:       false
+      template:   template
+      cust_id:    'list'
+      fetched:    false
 
       regions:
         main_region: "#main-customers-region"
+
+      initialize: ->
+        channel = Backbone.Radio.channel "customers"
+        channel.comply "customer:created", => @fetched = false
 
       onShow:->
         if @fetched
@@ -34,11 +37,10 @@ define [
         @model.get('customers').fetch()
 
       showView:->
-        debugger
         if @cust_id is 'list'
-          mainView = new CustomersView collection: @model.get('customers')
+          mainView = new CustomerListView collection: @model.get('customers')
         else
-          model       = if @cust_id? then @model.get('customers').get(@cust_id) else new CustomerModel({}, parse: true)
+          model    = if @cust_id? then @model.get('customers').get(@cust_id) else new CustomerModel({}, parse: true)
           mainView = new CustomerView model:model, collection: @model.get('customers')
 
         @main_region.show mainView

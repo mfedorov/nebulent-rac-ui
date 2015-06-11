@@ -10,7 +10,7 @@ define [
       childViewContainer:  ".row-container"
       class:               'composite-view vehicles'
       template:            template
-      headerItems:         ['#', 'Make', 'Model', 'Color', 'Plate Number', 'Last Oil Change Mileage', 'Current Mileage', 'Actions']
+      headerItems:         ['#', 'Make', 'Model', 'Color', 'Plate Number', 'Last Oil Change Mileage', 'Current Mileage', 'Status', 'Actions']
       dataTableId:         "vehicles"
 
       childViewOptions: (model, index) ->
