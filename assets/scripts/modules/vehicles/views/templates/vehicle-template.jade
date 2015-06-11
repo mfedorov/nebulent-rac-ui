@@ -115,4 +115,8 @@ form#vehicle-form
   .form-actions
     .col-md-12.right
       .col-md-12
-        button.btn.green(type='submit' name='submit_vehicle') Create Vehicle
+        button.btn.green(type='submit' name='submit_vehicle')
+          unless itemID
+            = "Create Vehicle"
+          else
+            = "Update Vehicle"

@@ -21,6 +21,9 @@ define ['./templates/deposit-row-template'], (template)->
       onClick: (e)->
         return true if $(e.target).prop('tagName') in ["I", "A"]
 
+      onShow:->
+        @$el.addClass('deleted') if @model.get('status') is "ARCHIVED"
+
       onReturnClick: (e)->
         e.preventDefault()
         bootbox.confirm "Are you sure you want to change status for the following deposit?", (result)=>

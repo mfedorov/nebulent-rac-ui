@@ -69,10 +69,6 @@ define [
         return unless @model
         @stickit()
         @initLocations()
-        if @model.get 'itemID'
-          $('button[name="submit_vehicle"]').text "Update Vehicle"
-        else
-          $('button[name="submit_vehicle"]').text "Create Vehicle"
 
       initLocations: ->
         @addBinding @model, '[name="location"]',

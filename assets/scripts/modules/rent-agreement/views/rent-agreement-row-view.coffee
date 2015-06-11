@@ -20,6 +20,9 @@ define ['./templates/rent-agreement-row-template'], (template)->
       templateHelpers: ->
         modelIndex: @index
 
+      onShow:->
+        @$el.addClass('deleted') if @model.get('status') is "CLOSED"
+
       onClick: (e)->
         return true if $(e.target).prop('tagName') in ["I", "A"]
 #        App.Router.navigate "#rent-agreement/#{@model.get('invoiceID')}", trigger: true

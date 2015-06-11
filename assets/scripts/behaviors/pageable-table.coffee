@@ -3,9 +3,9 @@ define ['backbone.validation', './initialize'], ->
   class PageableTable extends Marionette.Behavior
 
     events:
-      "click .next":    "onNextClick"
-      "click .prev":    "onPrevClick"
-      "change input":   "onInputChange"
+      "click .next":                           "onNextClick"
+      "click .prev":                           "onPrevClick"
+      "change input.pagination-panel-input":   "onInputChange"
 
     collectionEvents:
       sync: "updatePagination"

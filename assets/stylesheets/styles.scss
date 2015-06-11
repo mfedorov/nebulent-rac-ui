@@ -146,7 +146,7 @@ span.select2-selection__arrow {
   &.new, &.active {
     color: #26a69a;
   }
-  &.closed, &.archived {
+  &.closed, &.archived, &.deleted {
     color: #cb5a5e;
   }
 }
@@ -201,4 +201,9 @@ span.select2-selection__arrow {
 //  height: 34px;
 //  padding-top: 8px;
   margin-right: 5px;
+}
+
+tr.deleted {
+  background-color: #eee;
+  color: #bbb;
 }

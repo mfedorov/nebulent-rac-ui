@@ -1,5 +1,5 @@
 define [
-  './incident-template'
+  './templates/incident-template'
 ],  (template) ->
 
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->

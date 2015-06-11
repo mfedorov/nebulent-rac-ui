@@ -21,6 +21,7 @@ define [
           @collection = new DepositsCollection()
           channel     = Backbone.Radio.channel 'deposits'
           channel.comply "deposit:return", @returnDeposit, @
+          channel.comply "deposit:created", => @fetched = false
 
         onShow:->
           if @fetched

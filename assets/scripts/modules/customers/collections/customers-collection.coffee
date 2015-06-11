@@ -4,8 +4,19 @@ define [
 
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
-    class Module.CustomersCollection extends Backbone.Collection
-      url: -> "api/#{Module.model.get('config').get('orgId')}/customers?asc=false"
+    class Module.CustomersCollection extends Backbone.PageableCollection
+      url: -> "api/#{Module.model.get('config').get('orgId')}/customers"
       model: CustomersModel
+
+      state:
+        firstPage:    1
+        currentPage:  1
+        pageSize:     10
+
+      queryParams:
+        currentPage: 'start'
+        pageSize:    'size'
+        asc:         'false'
+        search:      ''
 
   App.Customers.CustomersCollection

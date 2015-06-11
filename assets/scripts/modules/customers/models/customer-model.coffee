@@ -17,19 +17,17 @@ define [
           pattern: 'email'
           msg:     'Please enter a valid email'
 
-
-
       defaults:
-        firstName:                              ""
-        lastName:                               ""
-        middleName:                          ""
-        dateOfBirth:                            moment().unix()*1000
-        emailAddress:                         ""
+        firstName:                     ""
+        lastName:                      ""
+        middleName:                    ""
+        dateOfBirth:                   moment().unix()*1000
+        emailAddress:                  ""
         driverLicenseExpirationDate:   moment().unix()*1000
-        driverLicenseState:                 ""
-        driverLicense:                         ""
-        properties:                              []
-        contactStatus:                         "ACTIVE"
+        driverLicenseState:            ""
+        driverLicense:                 ""
+        properties:                    []
+        contactStatus:                 "ACTIVE"
 
       parse: (response, options) ->
         @set 'phones', new PhonesCollection() unless @get('phones')?
@@ -49,10 +47,10 @@ define [
         @get 'incidents'
         .set response.incidents
 
-        response.phones                    = @get 'phones'
-        response.addresses                = @get 'addresses'
-        response.notes                       = @get 'notes'
-        response.incidents                  = @get 'incidents'
+        response.phones     = @get 'phones'
+        response.addresses  = @get 'addresses'
+        response.notes      = @get 'notes'
+        response.incidents  = @get 'incidents'
 
         response
 

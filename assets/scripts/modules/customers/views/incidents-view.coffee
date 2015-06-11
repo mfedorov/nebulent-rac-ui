@@ -1,5 +1,5 @@
 define [
-  './incidents-template'
+  './templates/incidents-template'
   './incident-view'
   './../models/incident-model'
 ],  (template, IncidentView, IncidentModel) ->
