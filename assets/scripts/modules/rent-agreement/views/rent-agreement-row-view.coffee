@@ -12,20 +12,23 @@ define ['./templates/rent-agreement-row-template'], (template)->
         "click .close-row":   "onCloseClick"
         "click":              "onClick"
 
+      templateHelpers: ->
+        modelIndex: @index
+
       initialize: (options)->
         @index = options.index
         @channel = Backbone.Radio.channel 'rent-agreements'
-        @listenTo @model, "change", @render, @
+        @listenTo @model, "change", @onModelChanged, @
 
-      templateHelpers: ->
-        modelIndex: @index
+      onModelChanged:->
+        @render()
+        @onShow()
 
       onShow:->
         @$el.addClass('deleted') if @model.get('status') is "CLOSED"
 
       onClick: (e)->
         return true if $(e.target).prop('tagName') in ["I", "A"]
-#        App.Router.navigate "#rent-agreement/#{@model.get('invoiceID')}", trigger: true
 
       onExtendClick: (e)->
         e.preventDefault()

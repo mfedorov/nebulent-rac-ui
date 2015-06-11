@@ -26,7 +26,8 @@ define [
 
       onClick: (e)->
         return if $(e.target).prop('tagName') in ["I", "A"]
-        App.Router.navigate "#customer/#{@model.get('contactID')}", trigger: true
+        if @model.get('contactStatus') isnt "DELETED"
+          App.Router.navigate "#customer/#{@model.get('contactID')}", trigger: true
 
       onStatusChange: (value)->
         @$('.item_status').attr "class", "item_status #{value.toLowerCase()}"
