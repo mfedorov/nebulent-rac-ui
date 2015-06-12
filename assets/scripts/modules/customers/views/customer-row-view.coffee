@@ -12,6 +12,7 @@ define [
       events:
         "click":               'onClick'
         "click .delete-row" :  'onCustomerRemove'
+        "click .notes-row":   "onNotesClick"
 
       bindings:
         ".item_status":
@@ -23,6 +24,7 @@ define [
 
       initialize: (options)->
         @index = options.index
+        @channel = Backbone.Radio.channel "customers"
 
       onClick: (e)->
         return if $(e.target).prop('tagName') in ["I", "A"]
@@ -32,6 +34,10 @@ define [
       onStatusChange: (value)->
         @$('.item_status').attr "class", "item_status #{value.toLowerCase()}"
         value
+
+      onNotesClick: (e)->
+        e.preventDefault()
+        @channel.command "show:customer:notes", @model
 
       onShow:->
         @stickit()

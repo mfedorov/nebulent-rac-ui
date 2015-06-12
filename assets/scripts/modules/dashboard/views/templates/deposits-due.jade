@@ -7,4 +7,4 @@ td
 td
   = payment.amount
 td
-  = moment(this.takenOn).format("D MMMM YYYY")
+  = moment(this.takenOn).format(App.DataHelper.dateFormats.us)

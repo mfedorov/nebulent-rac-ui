@@ -1,0 +1,12 @@
+.modal-content
+  .modal-header
+    button.close(type='button', data-dismiss='modal', aria-hidden='true')
+    h4.modal-title= title ? title + " Notes": "Notes"
+  .modal-body
+    #notes
+    .row
+      .col-md-12
+        textarea.form-control.todo-taskbody-taskdesc(rows='3', name="note-text", placeholder='Note text...')
+  .modal-footer
+    button.btn.default(type='button', data-dismiss='modal') Cancel
+    button.btn.blue.submit.pull-right(type='button') Submit Note

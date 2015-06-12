@@ -17,7 +17,7 @@ define [
       phones:       null
       address:      null
       incidents:    null
-      notes:          null
+      notes:        null
 
       behaviors:
         Validation: {}
@@ -35,13 +35,13 @@ define [
         "[name=middle_name]":           observe: "middleName"
         "[name=date_of_birth]":
           observe: "dateOfBirth"
-          onGet: (value)-> moment.unix(parseInt(value)/1000).format('DD/MM/YYYY')
-          onSet: (value)-> moment(value, 'DD/MM/YYYY').unix()*1000
+          onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
+          onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
         "[name=license_number]":           observe: "driverLicense"
         "[name=license_expiration_date]":
           observe: "driverLicenseExpirationDate"
-          onGet: (value)-> moment.unix(parseInt(value)/1000).format('DD/MM/YYYY')
-          onSet: (value)-> moment(value, 'DD/MM/YYYY').unix()*1000
+          onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
+          onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
         "[name=license_state]":
           observe: "driverLicenseState"
           selectOptions:
@@ -77,8 +77,8 @@ define [
         else
           $('button[name="submit_customer"]').text "Create New User"
 
-        @$("[name=date_of_birth]").datetimepicker format:"DD/MM/YYYY"
-        @$("[name=license_expiration_date]").datetimepicker format:"DD/MM/YYYY"
+        @$("[name=date_of_birth]").datetimepicker format: App.DataHelper.dateFormats.us
+        @$("[name=license_expiration_date]").datetimepicker format: App.DataHelper.dateFormats.us
 
         @phones_region.show new PhonesView collection: @model.get 'phones'
         @addresses_region.show new AddressesView collection: @model.get 'addresses'

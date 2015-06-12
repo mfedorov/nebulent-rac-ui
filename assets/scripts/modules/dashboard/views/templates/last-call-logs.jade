@@ -1,7 +1,7 @@
 td
   = modelIndex + 1
 td
-  = moment(dateCreated).format("D MMMM YYYY")
+  = moment(dateCreated).format(App.DataHelper.dateFormats.us)
 td
   = from||'none'
 td

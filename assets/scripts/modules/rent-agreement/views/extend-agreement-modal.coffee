@@ -24,7 +24,6 @@ define [
         unless 0 < value <= 14
           return toastr.error "Amount of days should be minimum #{@minimumDays}, maximum #{@maximumDays}"
         saving = true
-        debugger
         @model.set "days", value
         @previousStatus = @model.get "status"
         @model.set "status", "EXTENDED"

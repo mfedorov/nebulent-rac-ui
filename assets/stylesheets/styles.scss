@@ -207,3 +207,9 @@ tr.deleted {
   background-color: #eee;
   color: #bbb;
 }
+
+#notes-list {
+  max-height: 400px;
+  overflow: auto;
+  margin-bottom: 15px;
+}

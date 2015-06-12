@@ -22,6 +22,7 @@ define [
           channel     = Backbone.Radio.channel 'deposits'
           channel.comply "deposit:return", @returnDeposit, @
           channel.comply "deposit:created", => @fetched = false
+          channel.comply "deposits:list:refresh", @onListRefresh, @
 
         onShow:->
           if @fetched
@@ -43,6 +44,8 @@ define [
           mainView = new DepositListView collection: @collection
           @main_region.show mainView
 
-        returnDeposit:->
+        onListRefresh: ->
+          @fetched = false
+          @onShow()
 
     App.Deposits.LayoutView
