@@ -10,6 +10,7 @@ define ['./templates/rent-agreement-row-template'], (template)->
       events:
         "click .extend-row":  "onExtendClick"
         "click .close-row":   "onCloseClick"
+        "click .notes-row":   "onNotesClick"
         "click":              "onClick"
 
       templateHelpers: ->
@@ -37,5 +38,9 @@ define ['./templates/rent-agreement-row-template'], (template)->
       onCloseClick: (e)->
         e.preventDefault()
         @channel.command "rent:agreement:close", @model
+
+      onNotesClick: (e)->
+        e.preventDefault()
+        @channel.command "rent:agreement:show:notes", @model
 
   App.CarRentAgreement.RentAgreementRowView

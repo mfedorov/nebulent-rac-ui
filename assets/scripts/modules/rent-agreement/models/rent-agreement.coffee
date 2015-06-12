@@ -2,17 +2,19 @@ define [
   './customer-model'
   './vehicle-model'
   './deposit-model'
-], (CustomerModel, VehicleModel, DepositModel)->
+  './../collections/notes-collection'
+], (CustomerModel, VehicleModel, DepositModel, NotesCollection)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.RentAgreement extends Backbone.Model
       url:-> "api/#{Module.model.get('config').get('orgId')}/rentals#{if @id then "/" + @id else ""}"
       idAttribute: "invoiceID"
-      defaults:
+      defaults:->
         customer:     new CustomerModel()
         vehicle:      new VehicleModel()
         deposit:      new DepositModel()
+        notes:        new NotesCollection()
         dailyRate:    50
         days:         2
         subTotal:     ""
@@ -38,15 +40,23 @@ define [
         @set 'totalTax', tax
 
       parse: (response, options) ->
-#        @set('customer', new CustomerModel(response.customer))
-#        @set('vehicle', new CustomerModel(response.vehicle))
-#
-#        response.vehicles  = @get 'vehicle'
-#        response.customer  = @get 'customer'
+        @set 'customer',  new CustomerModel() unless @get('customer')?
+        @set 'vehicle',   new VehicleModel() unless @get('vehicle')?
+        @set 'notes',     new NotesCollection() unless @get('notes')?
 
-        response.vehicle    = new VehicleModel(response.vehicle)
-        response.customer   = new CustomerModel(response.customer)
-        response.deposit    = new DepositModel(response.deposit)
+        @get('customer').set(response.customer)
+        @get('vehicle').set(response.vehicle)
+        @get('notes').set(response.notes, parse:true)
+
+        response.vehicle  = @get 'vehicle'
+        response.customer  = @get 'customer'
+        response.notes  = @get 'notes'
+
+        debugger
+#        response.vehicle    = new VehicleModel(response.vehicle)
+#        response.customer   = new CustomerModel(response.customer)
+#        response.deposit    = new DepositModel(response.deposit)
+#        response.notes      = new NotesCollection(response.notes, parse:true)
 
         response
 

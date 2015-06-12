@@ -7,7 +7,7 @@ td
 td
   = address.get('city') + ', ' + address.get('region') + ', ' + address.get('postalCode')
 td
-  = moment(trackedOn).format("D MMMM YYYY")
+  = moment(trackedOn).format(App.DataHelper.dateFormats.us)
 td
   if address.get('lat') && address.get('lon')
     a.btn.default.btn-xs.blue.view-tracking(href="#" data-toggle="tooltip" title="Show vehicle position on the Map")

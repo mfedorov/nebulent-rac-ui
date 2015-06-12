@@ -5,9 +5,9 @@ td
 td
   = payment.get('amount')
 td
-  = moment(takenOn).format('DD/MM/YYYY')
+  = moment(takenOn).format(App.DataHelper.dateFormats.us)
 td
-  = returnedOn ? moment(returnedOn).format('DD/MM/YYYY'): ""
+  = returnedOn ? moment(returnedOn).format(App.DataHelper.dateFormats.us): ""
 td
   span(class="#{status.toLowerCase()} item_status")
     = status

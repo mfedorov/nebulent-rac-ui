@@ -2,7 +2,7 @@ define [
   './../models/note-model'
 ],  (NoteModel)->
 
-  App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
+  App.module "Notes", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.NotesCollection extends Backbone.Collection
       model: NoteModel
@@ -14,10 +14,5 @@ define [
       init:->
         @add new NoteModel() unless @length
 
-      parse: (response)->
-        debugger
-        newResponce = []
-        newResponce.push(text: text) for text in response
-        newResponce
 
-  App.Customers.NotesCollection
+  App.Notes.NotesCollection

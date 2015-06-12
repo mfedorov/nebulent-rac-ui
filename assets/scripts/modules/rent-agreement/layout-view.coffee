@@ -21,11 +21,16 @@ define [
           main_region: "#main"
           modal_region: "#modal"
 
+        ui:
+          modal: "#modal"
+
         initialize:->
           channel = Backbone.Radio.channel 'rent-agreements'
           channel.comply "rent:agreement:close", @closeAgreement, @
           channel.comply "rent:agreement:extend", @extendAgreement, @
           channel.comply "rent:agreement:created", @onAgreemenetCreated, @
+          channel.comply "rent:agreement:show:notes", @onShowNotes, @
+          channel.comply "rentals:list:refresh", @onListRefresh, @
 
         onAgreemenetCreated: (model)->
           @fetched = false
@@ -57,11 +62,23 @@ define [
         closeAgreement: (model)->
           console.log "close agreement for", model
           @modal_region.show new CloseAgreementView( model: model, collection:@model.get('rentals'))
-          @$('#modal').modal()
+          @ui.modal.modal()
 
         extendAgreement: (model)->
           console.log "extend agreement for", model
-          @modal_region.show new ExtendAgreementView( model: model)
-          @$('#modal').modal()
+          @modal_region.show new ExtendAgreementView(model: model)
+          @ui.modal.modal()
+
+        onShowNotes: (model)->
+          channel = Backbone.Radio.channel "notes"
+          view = channel.request "notes:view",
+            model: model
+            title: "Rent Agreement"
+          @modal_region.show view
+          @ui.modal.modal()
+
+        onListRefresh: ->
+          @fetched = false
+          @onShow()
 
     App.CarRentAgreement.LayoutView
