@@ -37,7 +37,6 @@ define [
           @addBinding @newNote, '[name="note-text"]', observe: "text"
 
         onSubmitClick: (e)->
-          debugger
           e.preventDefault()
           unless @newNote.isValid(true)
             toastr.error "Message cannot be blank"

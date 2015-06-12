@@ -52,12 +52,6 @@ define [
         response.customer  = @get 'customer'
         response.notes  = @get 'notes'
 
-        debugger
-#        response.vehicle    = new VehicleModel(response.vehicle)
-#        response.customer   = new CustomerModel(response.customer)
-#        response.deposit    = new DepositModel(response.deposit)
-#        response.notes      = new NotesCollection(response.notes, parse:true)
-
         response
 
   App.CarRentAgreement.RentAgreement
