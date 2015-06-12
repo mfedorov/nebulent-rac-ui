@@ -36,7 +36,7 @@ define [
         subtotal = @get('days')*@get('dailyRate')
         tax      = subtotal * TAX / 100 + Module.organization.get('rentalDailyFee') * @get('days')
         @set 'subTotal', subtotal
-        @set 'total', subtotal + tax
+        @set 'total', subtotal + tax - (parseInt(@get('discountRate')) or 0)
         @set 'totalTax', tax
 
       parse: (response, options) ->
