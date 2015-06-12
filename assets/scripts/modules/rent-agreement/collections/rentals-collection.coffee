@@ -16,7 +16,7 @@ define [
       queryParams:
         currentPage: 'start'
         pageSize:    'size'
-        asc:         'true'
+        asc:         'false'
         search:      ''
 
   App.CarRentAgreement.RentalsCollection

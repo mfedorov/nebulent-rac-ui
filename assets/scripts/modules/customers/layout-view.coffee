@@ -16,10 +16,16 @@ define [
 
       regions:
         main_region: "#main-customers-region"
+        modal_region: "#modal"
+
+      ui:
+        modal: "#modal"
 
       initialize: ->
         channel = Backbone.Radio.channel "customers"
         channel.comply "customer:created", => @fetched = false
+        channel.comply "show:customer:notes", @onShowNotes, @
+        channel.comply "customers:list:refresh", @onListRefresh, @
 
       onShow:->
         if @fetched
@@ -44,5 +50,17 @@ define [
           mainView = new CustomerView model:model, collection: @model.get('customers')
 
         @main_region.show mainView
+
+      onShowNotes: (model)->
+        channel = Backbone.Radio.channel "notes"
+        view = channel.request "notes:view",
+          model: model
+          title: "Customer"
+        @modal_region.show view
+        @ui.modal.modal()
+
+      onListRefresh: ->
+        @fetched = false
+        @onShow()
 
   App.Customers.LayoutView

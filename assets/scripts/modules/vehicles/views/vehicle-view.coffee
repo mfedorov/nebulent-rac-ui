@@ -41,15 +41,15 @@ define [
 
         "[name=registration_date]":
           observe: "registrationDate"
-          onGet: (value)-> moment.unix(parseInt(value)/1000).format('DD/MM/YYYY')
-          onSet: (value)-> moment(value, 'DD/MM/YYYY').unix()*1000
+          onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
+          onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
           setOptions:
             validate: true
 
         "[name=inspection_date]":
           observe: "inspectionDate"
-          onGet: (value)-> moment.unix(parseInt(value)/1000).format('DD/MM/YYYY')
-          onSet: (value)-> moment(value, 'DD/MM/YYYY').unix()*1000
+          onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
+          onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
           setOptions:
             validate: true
 
@@ -63,8 +63,8 @@ define [
         window.vehicle  = @model
 
       onShow: ->
-        @$("[name=registration_date]").datetimepicker format:"DD/MM/YYYY"
-        @$("[name=inspection_date]").datetimepicker format:"DD/MM/YYYY"
+        @$("[name=registration_date]").datetimepicker format: App.DataHelper.dateFormats.us
+        @$("[name=inspection_date]").datetimepicker format: App.DataHelper.dateFormats.us
         @$("[name=year]").datetimepicker format:"YYYY", viewMode: 'years', minViewMode: 'years'
         return unless @model
         @stickit()

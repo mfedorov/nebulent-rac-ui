@@ -11,6 +11,8 @@ td
     span(class="#{contactStatus.toLowerCase()} item_status")
       = contactStatus
 td.actions
+  a.btn.default.btn-xs.purple.notes-row(href="#" data-toggle="tooltip" title="Customer2 Notes")
+    i.fa.fa-comments-o
   if contactStatus != "DELETED"
     a.btn.default.btn-xs.red.delete-row(href="javascript:;" data-toggle="tooltip" title="Delete Customer")
       i.fa.fa-trash-o

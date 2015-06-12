@@ -7,7 +7,8 @@ define ['./templates/list-toolbar-template'], (template)->
       template: template
 
       events:
-        "click #rental-search": "onSearch"
+        "click #rental-search":   "onSearch"
+        'click #list-refresh':    "onListRefresh"
 
       initialize: (options)->
         @collection = options.collection
@@ -15,5 +16,9 @@ define ['./templates/list-toolbar-template'], (template)->
       onSearch: ->
         @collection.queryParams.search = @$("#rental-query").val()
         @collection.getPage 1
+
+      onListRefresh: ->
+        channel = Backbone.Radio.channel "rent-agreements"
+        channel.command "rentals:list:refresh"
 
   App.CarRentAgreement.AgreementsListToolbarView

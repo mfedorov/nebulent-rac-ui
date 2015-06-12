@@ -243,3 +243,6 @@ define ['initialize'], ->
       'USA',
       'Canada'
     ]
+
+    dateFormats:
+      us: 'MM/DD/YYYY'

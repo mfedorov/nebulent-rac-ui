@@ -7,7 +7,8 @@ define ['./templates/customers-toolbar-template'], (template)->
       template: template
 
       events:
-        "click #customers-search": "onSearch"
+        "click #customers-search":  "onSearch"
+        'click #list-refresh':      "onListRefresh"
 
       initialize: (options)->
         @collection = options.collection
@@ -15,5 +16,9 @@ define ['./templates/customers-toolbar-template'], (template)->
       onSearch: ->
         @collection.queryParams.search = @$("#customers-query").val()
         @collection.getPage 1
+
+      onListRefresh: ->
+        channel = Backbone.Radio.channel "customers"
+        channel.command "customers:list:refresh"
 
   App.Customers.CustomersToolbarView

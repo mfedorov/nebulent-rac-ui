@@ -11,16 +11,17 @@ plan.target 'production', [
     agent: process.env.SSH_AUTH_SOCK
 ]
 
-# run commands on localhost
-plan.local (local) ->
-  # uncomment these if you need to run a build on your machine first
-  # local.log('Run build');
-  # local.exec('gulp build');
-  local.log 'Copy files to remote hosts'
-  filesToCopy = local.exec('git ls-files', silent: true)
-  # rsync files to all the destination's hosts
-  local.transfer filesToCopy, '/tmp/' + tmpDir
-  return
+## run commands on localhost
+#plan.local (local) ->
+#  # uncomment these if you need to run a build on your machine first
+#  # local.log('Run build');
+#  # local.exec('gulp build');
+#  local.log 'Copy files to remote hosts'
+#  filesToCopy = local.exec('git ls-files', silent: true)
+#  # rsync files to all the destination's hosts
+#  local.transfer filesToCopy, '/tmp/' + tmpDir
+#  return
+
 # run commands on remote hosts (destinations)
 plan.remote (remote) ->
   remote.log 'Move folder to root'
