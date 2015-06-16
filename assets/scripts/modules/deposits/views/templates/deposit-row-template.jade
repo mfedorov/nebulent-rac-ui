@@ -12,6 +12,8 @@ td
   span(class="#{status.toLowerCase()} item_status")
     = status
 td
+  a.btn.default.btn-xs.blue.show-rentals(href="#" data-toggle="tooltip" title="Rent Agreements of Deposit")
+    i.fa.fa-file-text-o
   if status == 'ACTIVE'
-    a.btn.default.btn-xs.green.return-deposit(href="#" data-toggle="tooltip" title="Download")
+    a.btn.default.btn-xs.green.return-deposit(href="#" data-toggle="tooltip" title="Return Deposit")
       i.fa.fa-reply

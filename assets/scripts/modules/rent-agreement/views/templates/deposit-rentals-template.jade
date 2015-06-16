@@ -1,0 +1,16 @@
+.modal-content
+  .modal-header
+    button.close(type='button', data-dismiss='modal', aria-hidden='true')
+    h4.modal-title Deposit Rent Agreements
+  .modal-body
+    .dataTables_wrapper.no-footer
+      table.table.table-bordered.table-hover(id="#{dataTableId}")
+        thead
+          tr
+            - for item in header
+              th
+                span
+                  b= item
+        tbody.row-container
+  .modal-footer
+    button.btn.default(type='button', data-dismiss='modal') Close

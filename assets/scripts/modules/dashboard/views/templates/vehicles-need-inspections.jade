@@ -9,5 +9,5 @@ td
 td
   = plateNumber
 td
-  = inspectionDate||'none'
+  = moment(inspectionDate).format(App.DataHelper.dateFormats.us)||""
 
