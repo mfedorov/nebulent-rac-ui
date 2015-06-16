@@ -33,6 +33,12 @@ define [
 
         "[name=year]":
           observe: "year"
+          onGet: (value)->
+            debugger
+            value
+          onSet: (value)->
+            debugger
+            value
 
         "[name=vin]":
           observe: "vin"
@@ -65,9 +71,9 @@ define [
       onShow: ->
         @$("[name=registration_date]").datetimepicker format: App.DataHelper.dateFormats.us
         @$("[name=inspection_date]").datetimepicker format: App.DataHelper.dateFormats.us
-        @$("[name=year]").datetimepicker format:"YYYY", viewMode: 'years', minViewMode: 'years'
+        @$('[name="year"]').datetimepicker format:' YYYY', minViewMode: 'years', viewMode: 'years'
         return unless @model
-        @stickit()
+#        @stickit()
         @initLocations()
 
       initLocations: ->
