@@ -3,9 +3,10 @@ define ['./templates/rent-agreement-row-template'], (template)->
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.RentAgreementRowView extends Marionette.ItemView
-      className:  "item-view rent-agreement-row"
-      tagName:    "tr"
-      template: template
+      className:      "item-view rent-agreement-row"
+      tagName:        "tr"
+      template:       template
+      actionsEnabled: true
 
       events:
         "click .extend-row":  "onExtendClick"
@@ -14,10 +15,12 @@ define ['./templates/rent-agreement-row-template'], (template)->
         "click":              "onClick"
 
       templateHelpers: ->
-        modelIndex: @index
+        modelIndex:     @index
+        actionsEnabled: @actionsEnabled
 
       initialize: (options)->
         @index = options.index
+        @actionsEnabled = options.actionsEnabled if "actionsEnabled" in _.keys(options)
         @channel = Backbone.Radio.channel 'rent-agreements'
         @listenTo @model, "change", @onModelChanged, @
 

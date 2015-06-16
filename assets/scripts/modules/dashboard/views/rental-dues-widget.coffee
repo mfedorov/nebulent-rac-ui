@@ -10,7 +10,7 @@ define [
       childView:  RentalDuesWidgetItem
       title:      'Rentals due today'
       dataTableId: 'rental_dues'
-      headerItems:  ['#', 'Client Name', 'Vehicle Make', 'Vehicle Model', 'Vehicle Color', 'Vehicle Plate Number', 'Rent Start Data', 'Actions']
+      headerItems:  ['#', 'Client Name', 'Vehicle Make', 'Vehicle Model', 'Vehicle Color', 'Vehicle Plate Number', 'Started On', 'Actions']
       icon:         'fa-clock-o'
       color:        'red'
 

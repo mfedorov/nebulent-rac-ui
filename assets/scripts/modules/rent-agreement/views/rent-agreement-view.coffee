@@ -64,11 +64,12 @@ define [
         @organization ?= new OrganizationModel()
         window.organization = @organization
         Module.organization = @organization
-        @listenTo @model, 'change:customer',  @onChange
-        @listenTo @model, 'change:vehicle',   @onChange
-        @listenTo @model, 'change:deposit',   @onChange
-        @listenTo @model, 'change:days',      @refreshModel
-        @listenTo @model, 'change:dailyRate', @refreshModel
+        @listenTo @model, 'change:customer',      @onChange
+        @listenTo @model, 'change:vehicle',       @onChange
+        @listenTo @model, 'change:deposit',       @onChange
+        @listenTo @model, 'change:days',          @refreshModel
+        @listenTo @model, 'change:discountRate',  @refreshModel
+        @listenTo @model, 'change:dailyRate',     @refreshModel
 
         @listenTo @organization, 'sync', _.partial(@loaded, 'organization')
         @listenTo @organization.get('customers'), 'sync',  _.partial(@loaded, 'customers')

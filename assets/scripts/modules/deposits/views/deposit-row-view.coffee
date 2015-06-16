@@ -9,6 +9,7 @@ define ['./templates/deposit-row-template'], (template)->
 
       events:
         "click .return-deposit":  "onReturnClick"
+        "click .show-rentals":    "onShowRentalsClick"
 
       initialize: (options)->
         @index    = options.index
@@ -32,9 +33,13 @@ define ['./templates/deposit-row-template'], (template)->
           @model.set "status", "ARCHIVED"
           @$el.addClass('deleted')
           @model.save()
-            .success (data)->
-              toastr.success "Successfully returned deposit"
-            .error   (data)=>
-              @model.set 'status', previousStatus
+          .success (data)->
+            toastr.success "Successfully returned deposit"
+          .error   (data)=>
+            @model.set 'status', previousStatus
+
+      onShowRentalsClick: (e)->
+        e.preventDefault()
+        @channel.command "show:deposit:rentals", @model
 
   App.Deposits.DepositsRowView
