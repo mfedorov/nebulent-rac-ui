@@ -5,7 +5,7 @@ define [
   App.module "Deposits", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.DepositCollection extends Backbone.PageableCollection
-      url:-> "api/#{Module.model?.get('config').get('orgId')}/deposits"
+      url:-> "api/deposits"
       model: DepositModel
 
       state:

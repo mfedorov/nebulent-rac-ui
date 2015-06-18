@@ -5,7 +5,7 @@ define [
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.CustomersCollection extends Backbone.PageableCollection
-      url: -> "api/#{Module.model.get('config').get('orgId')}/customers"
+      url: -> "api/customers"
       model: CustomersModel
 
       state:

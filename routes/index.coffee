@@ -10,6 +10,10 @@ router.get '/', (req, res) ->
 router.get '/login', (req, res) ->
   res.render 'authentication', title: req.app.get "title"
 
+router.get '/logout', (req, res) ->
+  req.logout()
+  res.redirect('/login');
+
 router.use '/authentication', authentication
 
 router.use '', api

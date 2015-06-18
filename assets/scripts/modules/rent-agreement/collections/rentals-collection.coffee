@@ -5,7 +5,7 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.RentalsCollection extends Backbone.PageableCollection
-      url:-> "api/#{Module.model?.get('config').get('orgId')}/rentals"
+      url:-> "api/rentals"
       model: RentAgreement
 
       state:
