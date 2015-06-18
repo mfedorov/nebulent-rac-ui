@@ -8,6 +8,6 @@ define [
       model: RentAgreement
 
       setUrl: (depositId)->
-        @url = "api/#{Module.model?.get('config').get('orgId')}/deposits/#{depositId}/rentals"
+        @url = "api/deposits/#{depositId}/rentals"
 
   App.CarRentAgreement.DepositRentalsCollection

@@ -4,16 +4,11 @@ define ->
 
     index: ->
       channel = Backbone.Radio.channel 'app'
-      $orgData = $.cookie("org")
 
-      unless $orgData?.length
-        if window.location.pathname is '/login'
-          channel.trigger 'show:index'
-        else
-          window.location.href = window.location.origin + "/login"
+      if window.location.pathname is '/login'
+        channel.trigger 'show:index'
       else
-        data = $.parseJSON $orgData
-        channel.trigger 'loggedin', org: data
+        channel.trigger 'show:dashboard'
 
     rentAgreement: (rentalId)->
       channel = Backbone.Radio.channel 'app'

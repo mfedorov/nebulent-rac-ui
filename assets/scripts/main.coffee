@@ -23,8 +23,9 @@ require [
   $.ajaxSetup
     statusCode:
       401: ->
-        channel = Backbone.Radio.channel 'user'
-        channel.trigger "unauthorized"
+        console.log "Unauthorized"
+        toastr.error "Unauthorized"
+        window.location.href = window.location.origin + "/login"
       404: (response, status, error) ->
 
   require [

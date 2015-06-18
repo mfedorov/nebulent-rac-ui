@@ -21,8 +21,7 @@ define ['./layout-template', './module'],
           App.Router.navigate '', trigger: true
 
         onLogout:()->
-          $.cookie 'org', ''
-          window.location.href = window.location.origin + "/login"
+          window.location.href = window.location.origin + "/logout"
 
 
     App.TopMenu.LayoutView

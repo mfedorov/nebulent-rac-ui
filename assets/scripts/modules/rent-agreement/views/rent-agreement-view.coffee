@@ -37,7 +37,6 @@ define [
         'change input:radio[name="depositChoiceRadios"]':       "depositChoiceChange"
         'change @ui.vehicleSearch':                             "onVehicleSearch"
         'change @ui.customerSearch':                            "onCustomerSearch"
-#        'change @ui.depositSearch':                             "onDepositSearch"
         'click #submit-rent-agreement':                         "onSubmit"
         'loaded':                                               "initViewElements"
         'customer:created':                                     "onCustomerCreated"
@@ -52,7 +51,6 @@ define [
         'input[name="fuelLevel"]'          : observe: 'fuelLevel'
         'input[name="totalTax"]'           : observe: 'totalTax'
         'input[name="discount_rate"]'      : observe: 'discountRate'
-#        "[name=location]"                  : observe: "location"
 
       regions:
         customer_region:  "#customer-region"
@@ -138,7 +136,7 @@ define [
         @initCustomerSelect2()
         @initVehicleSelect2()
         @initLocations()
-#        @initDepositSelect2()
+        @model.set 'orgId', @organization.get('orgId')
 
       initLocations:->
         @addBinding null, '[name="location"]',
@@ -176,21 +174,12 @@ define [
         @model.set "deposit", new DepositModel(itemID: deposit.get("itemID"))
         @deposit_region.show new DepositView(model: deposit, parent: @)
 
-#      onDepositSearch: (e)->
-#        id = $(e.currentTarget).val()
-#        if id
-#          @model.set 'deposit', new DepositModel(itemID: id)
-#          @deposit_region.show new DepositView model: @organization.get('deposits').get(id), organization: @organization
-#        else
-#          @model.set 'deposit', null
-#          @deposit_region.reset()
-
       initCustomerSelect2: ()->
         @ui.customerSearch.select2
           placeholder:          "Search for customer..."
           minimumInputLength:   3
           ajax:
-            url:          "api/#{Module.model?.get('config').get('orgId')}/customers"
+            url:          "api/customers"
             dataType:     "json"
             type:         "GET"
             delay:  1000
@@ -210,26 +199,6 @@ define [
         @ui.vehicleSearch.select2
           data: @organization.get('vehicles').toArray()
           minimumInputLength: 1
-
-#      initDepositSelect2: ()->
-#        @ui.depositSearch.select2('destroy') if @ui.depositSearch.data('select2')
-#        @ui.depositSearch.select2
-#          placeholder:          "Search for deposit..."
-#          minimumInputLength:   0
-#          ajax:
-#            url: =>       "api/#{Module.model?.get('config').get('orgId')}/deposits"
-#            dataType:     "json"
-#            type:         "GET"
-#            quietMillis:  3000
-#            data: (params)->
-#              search: params.term
-#              asc:    false
-#            processResults: (data, page) =>
-#              filtered = _.filter data, (deposit)-> deposit.customer.contactID is @model.get('customer').get('contactID')
-#              result = _.map filtered , (deposit)->
-#                id: deposit.itemID, text: deposit.customer.lastName + ", (" + deposit.itemID + ")"
-#              @organization.get('deposits').set(filtered, parse: true)
-#              results: result
 
       #opens/closes portlets
       portlet: (selector, action="open")->

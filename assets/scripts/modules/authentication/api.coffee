@@ -13,12 +13,6 @@ define [
         new LayoutView model: user
 
       success: (data) ->
-        #saving data in cookies
-        $.cookie("org", JSON.stringify(
-          apikey: data.org.apikey
-          id:     data.org.id
-        ));
-
         window.location.href = window.location.origin
 
     Module.on 'start', ->
