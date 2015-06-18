@@ -4,14 +4,12 @@ require [
   'router'
   'controller'
   './helpers/data_helper'
-  'app-config'
 ], (
   App,
   AppLayoutView,
   AppRouter,
   AppController,
   DataHelper,
-  AppConfig
 ) ->
   window.App = new App()
   window.App.DataHelper = DataHelper

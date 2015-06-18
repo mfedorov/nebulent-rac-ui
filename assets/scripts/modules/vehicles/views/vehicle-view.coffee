@@ -26,6 +26,11 @@ define [
           setOptions:
             validate: true
 
+        "[name=color]":
+          observe: "color"
+          setOptions:
+            validate: true
+
         "[name=plate_number]":
           observe: "plateNumber"
           setOptions:
@@ -34,14 +39,17 @@ define [
         "[name=year]":
           observe: "year"
           onGet: (value)->
-            debugger
             value
           onSet: (value)->
-            debugger
             value
 
         "[name=vin]":
           observe: "vin"
+          setOptions:
+            validate: true
+
+        "[name=last_oil_change]":
+          observe: "lastOilChangeMileage"
           setOptions:
             validate: true
 
@@ -81,11 +89,9 @@ define [
           observe: "location"
           onGet:(value)->
             return value unless value
-            console.log "get", value
             return value.id if value.id?
             value
           onSet:(value)->
-            console.log "Set", value
             id: value
           selectOptions:
             collection: @organization.get('locations').toArray()
