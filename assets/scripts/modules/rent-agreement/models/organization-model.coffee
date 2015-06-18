@@ -8,7 +8,7 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.OrganizationModel extends Backbone.Model
-      url: -> "api/#{Module.model?.get('config').get('orgId')}"
+      url: -> "api"
 
       defaults:
           vehicles:   new VehicleCollection()

@@ -8,7 +8,7 @@ define [
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.CustomerModel extends Backbone.Model
-      url: -> "api/#{Module.model.get('config').get('orgId')}/customers#{if @id then "/" + @id else ""}"
+      url: -> "api/customers#{if @id then "/" + @id else ""}"
       idAttribute: "contactID"
 
       validation:

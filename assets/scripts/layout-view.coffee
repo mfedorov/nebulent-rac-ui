@@ -1,7 +1,6 @@
 define [
-  'app-config'
   './initialize'
-], ( AppConfig) ->
+], ->
 
   class AppLayoutView extends Marionette.LayoutView
     el:           'body'
@@ -15,29 +14,17 @@ define [
 
     initialize: ->
       #TODO: decide where  the main data storage should be
-      @initConfig()
       @views  = {}
 
       channel = Backbone.Radio.channel 'app'
       channel.on 'show:index', @showIndex, @
       channel.on 'show:dashboard',@showDashboard, @
       channel.on 'show:sidebar-menu', @showSidebarMenu, @
-      channel.on 'loggedin',((data)=> @updateLoginData(data)), @
       channel.on 'show:rent-agreements', @showRentAgreement, @
       channel.on 'show:customers', @showCustomers, @
       channel.on 'show:vehicles', @showVehicles, @
       channel.on 'show:gps-trackings', @showGpsTrackings, @
       channel.on 'show:deposits', @showDeposits, @
-
-    #config stores appkey and orgid needed to query rac api
-    initConfig: ->
-      data = {orgId:"", apiKey:""}
-      if $.cookie("org")?.length > 0
-        parsed      = $.parseJSON($.cookie("org"))
-        data.orgId  = parsed.id
-        data.apiKey = parsed.apikey
-
-      @config = new AppConfig data
 
     onRender: ->
       unless @views.main_view
@@ -49,32 +36,27 @@ define [
 
         channel = Backbone.Radio.channel 'rent-agreements'
         @views.rent_agreement_view = channel.request 'view'
-        @views.rent_agreement_view.model.set 'config', @config
 
         channel = Backbone.Radio.channel 'customers'
         @views.customers_view = channel.request 'customers-view'
-        @views.customers_view.model.set 'config', @config
 
         channel = Backbone.Radio.channel 'dashboard'
         @views.dashboard_view = channel.request 'view'
-        @views.dashboard_view.model.set 'config', @config
 
         channel = Backbone.Radio.channel 'vehicles'
         @views.vehicles_view = channel.request 'view'
-        @views.vehicles_view.model.set 'config', @config
 
         channel = Backbone.Radio.channel 'deposits'
         @views.deposits_view = channel.request 'view'
-        @views.deposits_view.model.set 'config', @config
 
         channel = Backbone.Radio.channel 'gps-trackings'
         @views.gps_tracking_view = channel.request 'view'
-        @views.gps_tracking_view.model.set 'config', @config
 
         channel = Backbone.Radio.channel 'sidebar-menu'
         @views.sidebar_menu_view = channel.request 'view'
 
     showIndex: ->
+      debugger
       @login_region.show @views.main_view, preventDestroy: true
 
     ensure: (array)->
@@ -121,8 +103,3 @@ define [
     showGpsTrackings: ->
       @ensure ['sidebar_menu', 'top_menu']
       @main_region.show @views.gps_tracking_view, preventDestroy: true
-
-    updateLoginData: (data)->
-      @config.set "orgId", data.org.id
-      @config.set "apiKey", data.org.apikey
-      @showDashboard()

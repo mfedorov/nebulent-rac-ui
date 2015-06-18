@@ -57,16 +57,13 @@ define [
             collection: @model.get('gpsTrackings')
 
         refreshData: ->
-          config = @model.get('config')
-          if config
-            if config.get('orgId').length > 0 and config.get('apiKey').length > 0
-
-              @model.fetch()
-              .success (data)=>
-                console.log 'data received', data
-                @onRefresh()
-              .error (data)->
-                console.log 'error fetching', data
+          @model.fetch()
+          .success (data)=>
+            console.log 'data received', data
+            @onRefresh()
+          .error (data)->
+            toastr.error "Error fetching dashboard data"
+            console.log 'error fetching', data
 
         viewTracking: (model)->
           channel = Backbone.Radio.channel "gps-trackings"

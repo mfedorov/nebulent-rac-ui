@@ -4,14 +4,12 @@ require [
   'router'
   'controller'
   './helpers/data_helper'
-  'app-config'
 ], (
   App,
   AppLayoutView,
   AppRouter,
   AppController,
   DataHelper,
-  AppConfig
 ) ->
   window.App = new App()
   window.App.DataHelper = DataHelper
@@ -23,8 +21,9 @@ require [
   $.ajaxSetup
     statusCode:
       401: ->
-        channel = Backbone.Radio.channel 'user'
-        channel.trigger "unauthorized"
+        console.log "Unauthorized"
+        toastr.error "Unauthorized"
+        window.location.href = window.location.origin + "/login"
       404: (response, status, error) ->
 
   require [
