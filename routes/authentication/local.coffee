@@ -28,7 +28,6 @@ router.post '/sign-in', passport.authenticate('local'), (req, res, info) ->
   if req.user.id
     req.session.org_id = req.user.id
     req.session.api_key = req.user.apikey
-    console.log req.session
     res.json
       id:       req.user.id
       org:      req.user

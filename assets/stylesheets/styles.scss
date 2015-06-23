@@ -102,9 +102,11 @@ a.collapse.collapser {
   .spinner {
     display: none;
   }
-  .select2-container-div {
-    display: block;
-  }
+
+}
+.select2-container-div {
+  display: block;
+  width: 300px;
 }
 
 // select 2 style override
@@ -206,12 +208,6 @@ span.select2-selection__arrow {
 tr.deleted {
   background-color: #eee;
   color: #bbb;
-}
-
-#notes-list {
-  max-height: 400px;
-  overflow: auto;
-  margin-bottom: 15px;
 }
 
 .due-today {

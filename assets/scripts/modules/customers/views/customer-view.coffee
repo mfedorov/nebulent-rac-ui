@@ -87,7 +87,7 @@ define [
         # $('.icheck').iCheck()
 
       onSubmit:->
-        unless @model.isValid()
+        unless @model.isValid(true)
           toastr.error "Error Creating Customer. Check the required fields"
           return
         @model.save()

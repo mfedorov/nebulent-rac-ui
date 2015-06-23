@@ -28,6 +28,7 @@ define [
           utilization:                  '#utilization-chart'
           gps_tracking:                 '#gps-tracking'
           modal:                        '#modal'
+          modal2:                       '#modal2'
 
         initialize:->
           channel = Backbone.Radio.channel "dashboard"
@@ -73,7 +74,7 @@ define [
           @$('#modal').modal()
 
         viewVehicleMovements: (collection)->
-          @modal.show new VehicleMovementsModalView collection: collection
-          @$('#modal').modal()
+          @modal2.show new VehicleMovementsModalView collection: collection
+          @$('#modal2').modal()
 
     App.Dashboard.LayoutView

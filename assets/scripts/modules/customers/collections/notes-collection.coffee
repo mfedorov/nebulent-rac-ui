@@ -15,6 +15,7 @@ define [
         @add new NoteModel() unless @length
 
       parse: (response)->
+        return response unless response
         newResponce = []
         newResponce.push(text: text) for text in response
         newResponce
