@@ -4,12 +4,14 @@ body_parser   = require "body-parser"
 cookie_parser = require "cookie-parser"
 passport      = require "passport"
 FileStore     = require("session-file-store")(session)
+favicon       = require 'serve-favicon'
 
 app = express()
 
 app.set "title", "RAC Client"
 app.set "view engine", "jade"
 app.use express.static "public"
+app.use favicon(__dirname + '/public/img/favicon.ico')
 app.use cookie_parser()
 app.use body_parser.json()
 app.use body_parser.urlencoded extended: true
