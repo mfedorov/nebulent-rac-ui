@@ -13,7 +13,6 @@ ensureAuthenticated = (req, res, next) ->
 LocalStrategy  = local.Strategy
 
 passport.use new LocalStrategy (username, password, done) ->
-  console.log process.env.API_URL
   request.post {
     url: "#{process.env.API_URL}/public/login"
     json:
@@ -29,7 +28,6 @@ router.post '/sign-in', passport.authenticate('local'), (req, res, info) ->
   if req.user.id
     req.session.org_id = req.user.id
     req.session.api_key = req.user.apikey
-    console.log req.session
     res.json
       id:       req.user.id
       org:      req.user
