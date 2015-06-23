@@ -5,7 +5,7 @@ define [
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.CustomerRowView extends Marionette.ItemView
-      className: "item-view customer-row"
+      className: "item-view customer-row clickable"
       tagName:   "tr"
       template:   template
 

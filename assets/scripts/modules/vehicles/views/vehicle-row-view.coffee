@@ -3,7 +3,7 @@ define ['./templates/vehicle-row-template'], (template)->
   App.module "Vehicles", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.VehicleRowView extends Marionette.ItemView
-      className:  "item-view vehicle-row"
+      className:  "item-view vehicle-row clickable"
       tagName:    "tr"
       template:     template
 
