@@ -37,6 +37,7 @@ define [
           @vehicles_region.show new VehicleList(collection: @model.get('gpsTrackings'))
 
         renderMap: ->
+          @infowindow = new google.maps.InfoWindow()
           @map = new google.maps.Map @$('#gmaps')[0],
             center: lat: 40.986, lng: -103.059
             zoom: 4
@@ -65,7 +66,6 @@ define [
           latlng = new google.maps.LatLng(tracking.get('address').get('lat'), tracking.get('address').get('lon'))
           info   = new GpsInfoView model: tracking
           info.render()
-          infowindow = new google.maps.InfoWindow content: info.el
 
           marker = new google.maps.Marker
             position: latlng
@@ -73,7 +73,10 @@ define [
             title: tracking.get('vehicle').get('plateNumber')
             icon: "http://icons.iconarchive.com/icons/icons-land/transporter/64/Car-Front-Red-icon.png"
 
-          google.maps.event.addListener marker, 'click', -> infowindow.open(@map,marker)
+          google.maps.event.addListener marker, 'click', =>
+            @infowindow.close()
+            @infowindow.setContent info.el
+            @infowindow.open(@map,marker)
           @trackings[tracking.id] = marker
           marker
 
