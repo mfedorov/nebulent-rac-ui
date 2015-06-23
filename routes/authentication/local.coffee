@@ -13,6 +13,7 @@ ensureAuthenticated = (req, res, next) ->
 LocalStrategy  = local.Strategy
 
 passport.use new LocalStrategy (username, password, done) ->
+  console.log process.env.API_URL
   request.post {
     url: "#{process.env.API_URL}/public/login"
     json:
