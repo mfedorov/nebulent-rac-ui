@@ -188,7 +188,7 @@ define [
             processResults: (data, page) =>
               @organization.get('customers').set(data, parse: true)
               result = _.map data , (item)->
-                id: item.contactID, text: item.firstName + ' ' + item.lastName
+                id: item.contactID, text: item.firstName + ' ' + item.lastName + " (#{item.driverLicense})"
               results: result
 
         @ui.customerSearch.select2('open') unless @ui.customerSearch.select2('val')?.length

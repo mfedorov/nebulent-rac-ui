@@ -102,9 +102,11 @@ a.collapse.collapser {
   .spinner {
     display: none;
   }
-  .select2-container-div {
-    display: block;
-  }
+
+}
+.select2-container-div {
+  display: block;
+  width: 300px;
 }
 
 // select 2 style override
