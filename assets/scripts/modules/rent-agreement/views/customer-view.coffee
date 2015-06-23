@@ -9,7 +9,7 @@ define [
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
-    class Module.Customer extends Marionette.LayoutView
+    class Module.CustomerView extends Marionette.LayoutView
       className:  "layout-view customer"
       template:   template
       phones:     null
@@ -71,4 +71,4 @@ define [
             toastr.error "Error Creating Customer"
             console.log "error creating customer", data
 
-  App.CarRentAgreement.Customer
+  App.CarRentAgreement.CustomerView
