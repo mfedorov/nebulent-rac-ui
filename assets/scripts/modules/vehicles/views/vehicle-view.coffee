@@ -77,11 +77,10 @@ define [
         window.vehicle  = @model
 
       onShow: ->
-        @$("[name=registration_date]").datetimepicker format: App.DataHelper.dateFormats.us
-        @$("[name=inspection_date]").datetimepicker format: App.DataHelper.dateFormats.us
-        @$('[name="year"]').datetimepicker format:' YYYY', minViewMode: 'years', viewMode: 'years'
-        return unless @model
         @stickit()
+        @$("[name=registration_date]").datetimepicker format: App.DataHelper.dateFormats.us
+        @$("[name=inspection_date]").datetimepicker   format: App.DataHelper.dateFormats.us
+        @$('[name="year"]').datetimepicker format:'YYYY', viewMode: 'years'
         @initLocations()
 
       initLocations: ->
