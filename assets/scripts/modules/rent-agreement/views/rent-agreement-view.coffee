@@ -196,8 +196,7 @@ define [
       initVehicleSelect2: ()->
         @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
         activeRentals = @collection.filter (item)-> item.get('status') in ["NEW", "EXTENDED"]
-        rentedVehicles = _.map activeRentals, (rental)-> rental.get('vehicle')
-        rentedVehicleIds = _.map rentedVehicles, (vehicle)-> vehicle.id
+        rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id
         @ui.vehicleSearch.select2
           data: @organization.get('vehicles').toArray(rentedVehicleIds)
           minimumInputLength: 1
