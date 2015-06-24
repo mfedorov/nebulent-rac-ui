@@ -2,7 +2,6 @@ define ->
 
   _.extend Backbone.Validation.validators,
     locationRequired: (value, attr, customValue, model) ->
-      debugger
       if !value || !(value?.id.length)
         return 'Please select a value'
       return
@@ -10,6 +9,8 @@ define ->
   App.module "Vehicles", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.VehicleModel extends Backbone.Model
+      urlRoot: -> "api/vehicles"
+      idAttribute: "itemID"
 
       validation:
         make:
@@ -38,10 +39,6 @@ define ->
           pattern: 'number'
         weeklyRate:
           pattern: 'number'
-
-
-      urlRoot: -> "api/vehicles"
-      idAttribute: "itemID"
 
       defaults:->
         registrationDate: moment().unix()*1000

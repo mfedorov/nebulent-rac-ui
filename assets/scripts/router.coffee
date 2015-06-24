@@ -12,3 +12,6 @@ define ->
       'gps-trackings':            'gpsTrackings'
       'deposits':                 'listDeposits'
       'deposit(/)(:id)':          'deposit'
+
+    onRoute: (name, path)->
+      window.clearTooltips()

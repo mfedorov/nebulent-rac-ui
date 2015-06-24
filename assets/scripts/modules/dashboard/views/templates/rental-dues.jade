@@ -11,7 +11,7 @@ td
 td
   = vehicle.plateNumber
 td
-  = vehicle.registrationDate
+  = startDate ? moment(startDate).format(App.DataHelper.dateFormats.us): ""
 td
   if gpsTrackings.length
     a.btn.default.btn-xs.blue.view-tracking(href="#" data-toggle="tooltip" title="Show vehicle movements")
