@@ -45,6 +45,12 @@ define [
     Layout.init()
     Demo.init()
 
+  debugger
+  Backbone.Stickit.addHandler
+    selector: '.datepicker-binded'
+    events: ['dp.change', 'change']
+    update: ($el, val)-> $el.val(val)
+    getVal: ($el)->      $el.val()
 
   Backbone.Marionette.Renderer.render = (template, data) ->
     Marionette.TemplateCache.get(template)(data)

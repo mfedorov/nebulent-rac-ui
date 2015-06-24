@@ -7,9 +7,10 @@ define [
     class Module.VehicleCollection extends Backbone.Collection
       model: VehicleModel
 
-      toArray:->
+      toArray:(except)->
         return [] unless @length
-        result = _.map @models, (vehicle)->
+        result = _.filter @models, (vehicle)-> vehicle.id not in except
+        result = _.map result, (vehicle)->
           id: vehicle.get('itemID'), text: vehicle.get('color') + ", " + vehicle.get('model') + ", " + vehicle.get('make') + ", " + vehicle.get('year') + ", " + vehicle.get('plateNumber')
         result.unshift id: 0, text:""
         result

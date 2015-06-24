@@ -102,9 +102,11 @@ a.collapse.collapser {
   .spinner {
     display: none;
   }
-  .select2-container-div {
-    display: block;
-  }
+
+}
+.select2-container-div {
+  display: block;
+  width: 300px;
 }
 
 // select 2 style override
@@ -208,12 +210,24 @@ tr.deleted {
   color: #bbb;
 }
 
-#notes-list {
-  max-height: 400px;
-  overflow: auto;
-  margin-bottom: 15px;
-}
-
 .due-today {
   background-color: #fcf8e3;
+}
+
+tr.clickable  {
+  cursor: pointer;
+}
+
+
+i.fa-warning.validation-error {
+  display: none;
+}
+
+.has-error {
+  i.fa-info-circle {
+    display:none;
+  }
+  i.fa-warning {
+    display:block;
+  }
 }

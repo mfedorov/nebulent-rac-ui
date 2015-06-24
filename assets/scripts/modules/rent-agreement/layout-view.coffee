@@ -56,7 +56,7 @@ define [
             mainView = new RentAgreementsListView collection: @model.get('rentals')
           else
             model = if @agreement_id? then @model.get('rentals').get(@agreement_id) else new RentAgreement()
-            mainView = new RentAgreementView model: model
+            mainView = new RentAgreementView model: model, collection: @model.get('rentals')
           @main_region.show mainView
 
         closeAgreement: (model)->

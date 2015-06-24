@@ -40,7 +40,8 @@
         .col-md-4
         .inputs.col-md-3.left
           .portlet-input.input-inline.input-small
-            input.form-control.width-150(type='text', name='vehicle_search', placeholder='search...' value="#{vehicle.get('itemID')}")
+            .select2-container-div
+              input.form-control.width-150(type='text', name='vehicle_search', placeholder='search...' value="#{vehicle.get('itemID')}")
         .tools.col-md-1.right
           a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide

@@ -57,10 +57,9 @@ define [
         vehicle_region:   "#vehicle-region"
         deposit_region:   "#deposit-region"
 
-      initialize:->
-        window.model = @model
+      initialize:(options)->
+        @collection = options.collection
         @organization ?= new OrganizationModel()
-        window.organization = @organization
         Module.organization = @organization
         @listenTo @model, 'change:customer',      @onChange
         @listenTo @model, 'change:vehicle',       @onChange
@@ -169,7 +168,7 @@ define [
           @vehicle_region.reset()
 
       renderDeposit: ->
-        customerDeposits = @organization.get('deposits').filter((deposit)-> deposit.get('customer').get('contactID') is @model.get('customer').get('contactID'))
+        customerDeposits = @organization.get('deposits').filter((deposit)=> deposit.get('customer').get('contactID') is @model.get('customer').get('contactID'))
         deposit = if customerDeposits.length then customerDeposits[0] else new DepositModel(customer: @organization.get('customers').get(@model.get('customer').get('contactID')), orgId: @model.get('orgId'))
         @model.set "deposit", new DepositModel(itemID: deposit.get("itemID"))
         @deposit_region.show new DepositView(model: deposit, parent: @)
@@ -189,15 +188,17 @@ define [
             processResults: (data, page) =>
               @organization.get('customers').set(data, parse: true)
               result = _.map data , (item)->
-                id: item.contactID, text: item.firstName + ' ' + item.lastName
+                id: item.contactID, text: item.firstName + ' ' + item.lastName + " (#{item.driverLicense})"
               results: result
 
         @ui.customerSearch.select2('open') unless @ui.customerSearch.select2('val')?.length
 
       initVehicleSelect2: ()->
         @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
+        activeRentals = @collection.filter (item)-> item.get('status') in ["NEW", "EXTENDED"]
+        rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id
         @ui.vehicleSearch.select2
-          data: @organization.get('vehicles').toArray()
+          data: @organization.get('vehicles').toArray(rentedVehicleIds)
           minimumInputLength: 1
 
       #opens/closes portlets

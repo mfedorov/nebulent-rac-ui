@@ -5,26 +5,26 @@ define ['backbone.validation', './initialize'], ->
     onRender: ->
       Backbone.Validation.bind @view,
         valid: (view, attr) ->
-          console.log "valid"
           view.$ ".form-group:has([name=#{attr}])"
-            .addClass 'has-success'
             .removeClass 'has-error'
 
-          view.$ "[name=#{attr}]"
-            .removeAttr 'data-original-title'
-            .removeAttr 'title'
-            .tooltip 'hide'
+          view.$("[name=#{attr}]").parent()
+            .find('i.fa-warning.validation-error')
+            .tooltip('hide')
+            .remove()
 
         invalid: (view, attr, error) ->
-          console.log "invalid"
-
           view.$ ".form-group:has([name=#{attr}])"
             .addClass 'has-error'
-            .removeClass 'has-success'
 
-          view.$ "[name=#{attr}]"
-            .attr 'data-original-title', error
-            .attr 'title', error
+          view.$("[name=#{attr}]").parent()
+            .find('i.fa-warning.validation-error')
+            .tooltip('hide')
+            .remove()
+
+          view.$("[name=#{attr}]").parent()
+            .prepend $('<i>').addClass('fa fa-warning tooltips validation-error').data('container', 'body').data('original-title', error).attr('title', error)
+            .find '.fa-warning'
             .tooltip 'show'
 
   window.Behaviors.Validation = Validation

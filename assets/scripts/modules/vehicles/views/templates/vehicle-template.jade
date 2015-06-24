@@ -32,7 +32,7 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Plate number', data-container='body')
-          input.form-control(type='text' name='plate_number')
+          input.form-control(type='text' name='plateNumber')
 
   .row
     .form-group.col-md-3.col-sm-6.col-xs-12
@@ -42,7 +42,7 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Vehicle year', data-container='body')
-          input.form-control(type='text' name='year')
+          input.form-control.datepicker-binded(type='text' name='year')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Vehicle vin
@@ -58,7 +58,7 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Registration Date', data-container='body')
-          input.form-control(type='text' name='registration_date')
+          input.form-control.datepicker-binded(type='text' name='registrationDate')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Inspection date
@@ -66,7 +66,7 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Inspection date', data-container='body')
-          input.form-control(type='text' name='inspection_date')
+          input.form-control.datepicker-binded(type='text' name='inspectionDate')
 
   .row
     .form-group.col-md-3.col-sm-6.col-xs-12
@@ -74,27 +74,27 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Current mileage', data-container='body')
-          input.form-control(type='text' name='current_mileage')
+          input.form-control(type='text' name='currentMileage')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label  Daily rate
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Daily rate', data-container='body')
-          input.form-control(type='text' name='daily_rate')
+          input.form-control(type='text' name='dailyRate')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Weekly rate
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Weekly rate', data-container='body')
-          input.form-control(type='text' name='weekly_rate')
+          input.form-control(type='text' name='weeklyRate')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Last Oil Change Mileage
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Code', data-container='body')
-          input.form-control(type='text' name='last_oil_change')
+          input.form-control(type='text' name='lastOilChangeMileage')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Location
@@ -102,14 +102,6 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           select.form-control(type='text' name='location')
-  //.row
-  //  .form-group.col-md-12.col-sm-12.col-xs-12
-  //    label.col-md-12.control-label
-  //      | Description
-  //    .col-md-12
-  //      .input-icon.right
-  //        i.fa.fa-info-circle.tooltips(data-original-title='Description', data-container='body')
-  //        textarea.form-control(name='description')
 
 .row
   .form-actions

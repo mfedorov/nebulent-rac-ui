@@ -56,7 +56,6 @@ define [
         @views.sidebar_menu_view = channel.request 'view'
 
     showIndex: ->
-      debugger
       @login_region.show @views.main_view, preventDestroy: true
 
     ensure: (array)->
