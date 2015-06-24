@@ -38,6 +38,7 @@ define [
   window.bootbox = bootbox
   window.toastr  = toastr
   window.moment  = moment
+  window.clearTooltips = -> $('[role="tooltip"]').remove()
 
   #init metronic theme
   window.initMetronic = ()->
@@ -45,7 +46,6 @@ define [
     Layout.init()
     Demo.init()
 
-  debugger
   Backbone.Stickit.addHandler
     selector: '.datepicker-binded'
     events: ['dp.change', 'change']
