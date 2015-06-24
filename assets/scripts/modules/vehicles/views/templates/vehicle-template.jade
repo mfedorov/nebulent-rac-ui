@@ -32,7 +32,7 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Plate number', data-container='body')
-          input.form-control(type='text' name='plate_number')
+          input.form-control(type='text' name='plateNumber')
 
   .row
     .form-group.col-md-3.col-sm-6.col-xs-12
@@ -42,7 +42,7 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Vehicle year', data-container='body')
-          input.form-control(type='text' name='year')
+          input.form-control.datepicker-binded(type='text' name='year')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Vehicle vin
@@ -58,7 +58,7 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Registration Date', data-container='body')
-          input.form-control(type='text' name='registration_date')
+          input.form-control.datepicker-binded(type='text' name='registrationDate')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Inspection date
@@ -66,7 +66,7 @@ form#vehicle-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Inspection date', data-container='body')
-          input.form-control(type='text' name='inspection_date')
+          input.form-control.datepicker-timestamp-binded(type='text' name='inspectionDate')
 
   .row
     .form-group.col-md-3.col-sm-6.col-xs-12

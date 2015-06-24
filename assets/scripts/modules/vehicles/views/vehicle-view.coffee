@@ -9,8 +9,8 @@ define [
       class:       'item-view vehicle'
       template: template
 
-      # behaviors:
-      #   Validation: {}
+      behaviors:
+         Validation: {}
 
       events:
         "click button[name='submit_vehicle']" :  'onSubmit'
@@ -31,17 +31,15 @@ define [
           setOptions:
             validate: true
 
-        "[name=plate_number]":
+        "[name=plateNumber]":
           observe: "plateNumber"
           setOptions:
             validate: true
 
         "[name=year]":
           observe: "year"
-          onGet: (value)->
-            value
-          onSet: (value)->
-            value
+          setOptions:
+            validate: true
 
         "[name=vin]":
           observe: "vin"
@@ -53,14 +51,14 @@ define [
           setOptions:
             validate: true
 
-        "[name=registration_date]":
+        "[name=registrationDate]":
           observe: "registrationDate"
           onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
           onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
           setOptions:
             validate: true
 
-        "[name=inspection_date]":
+        "[name=inspectionDate]":
           observe: "inspectionDate"
           onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
           onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
@@ -77,15 +75,18 @@ define [
         window.vehicle  = @model
 
       onShow: ->
+        @$('.tooltips').tooltip()
         @stickit()
-        @$("[name=registration_date]").datetimepicker format: App.DataHelper.dateFormats.us
-        @$("[name=inspection_date]").datetimepicker   format: App.DataHelper.dateFormats.us
+        @$("[name=registrationDate]").datetimepicker format: App.DataHelper.dateFormats.us
+        @$("[name=inspectionDate]").datetimepicker   format: App.DataHelper.dateFormats.us
         @$('[name="year"]').datetimepicker format:'YYYY', viewMode: 'years'
         @initLocations()
 
       initLocations: ->
         @addBinding @model, '[name="location"]',
           observe: "location"
+          setOptions:
+            validate: true
           onGet:(value)->
             return value unless value
             return value.id if value.id?
@@ -98,11 +99,12 @@ define [
             valuePath: 'name'
 
       onSubmit: ->
-        # unless @model.isValid()
-        #   toastr.error "Error creating vehicle. Check the required fields"
-        #   return
+        unless @model.isValid(true)
+           toastr.error "Error creating vehicle. Check the required fields"
+           return
         @model.save()
           .success (data)=>
+            debugger
             @collection.add @model
             toastr.success "Successfully created vehicle"
             console.log "successfully created vehicle", data

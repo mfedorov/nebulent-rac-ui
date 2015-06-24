@@ -217,3 +217,17 @@ tr.deleted {
 tr.clickable  {
   cursor: pointer;
 }
+
+
+i.fa-warning.validation-error {
+  display: none;
+}
+
+.has-error {
+  i.fa-info-circle {
+    display:none;
+  }
+  i.fa-warning {
+    display:block;
+  }
+}
