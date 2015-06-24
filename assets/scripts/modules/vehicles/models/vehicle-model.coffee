@@ -30,6 +30,15 @@ define ->
           required: true
         location:
           locationRequired: true
+        lastOilChangeMileage:
+          pattern: 'number'
+        currentMileage:
+          pattern: 'number'
+        dailyRate:
+          pattern: 'number'
+        weeklyRate:
+          pattern: 'number'
+
 
       urlRoot: -> "api/vehicles"
       idAttribute: "itemID"

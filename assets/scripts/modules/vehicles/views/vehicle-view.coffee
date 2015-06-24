@@ -46,7 +46,7 @@ define [
           setOptions:
             validate: true
 
-        "[name=last_oil_change]":
+        "[name=lastOilChangeMileage]":
           observe: "lastOilChangeMileage"
           setOptions:
             validate: true
@@ -54,25 +54,37 @@ define [
         "[name=registrationDate]":
           observe: "registrationDate"
           onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
-          onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
+          onSet: (value)->
+            return value unless value
+            moment(value, App.DataHelper.dateFormats.us).unix()*1000
           setOptions:
             validate: true
 
         "[name=inspectionDate]":
           observe: "inspectionDate"
           onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
-          onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
+          onSet: (value)->
+            return value unless value
+            moment(value, App.DataHelper.dateFormats.us).unix()*1000
           setOptions:
             validate: true
 
-        "[name=current_mileage]":     observe: "currentMileage"
-        "[name=daily_rate]":          observe: "dailyRate"
-        "[name=weekly_rate]":         observe: "weeklyRate"
+        "[name=currentMileage]":
+            observe: "currentMileage"
+            setOptions:
+              validate: true
+        "[name=dailyRate]":
+            observe: "dailyRate"
+            setOptions:
+              validate: true
+        "[name=weeklyRate]":
+            observe: "weeklyRate"
+            setOptions:
+              validate: true
 
       initialize: (options)->
         @organization   = options.organization
         @collection     = @organization.get 'vehicles'
-        window.vehicle  = @model
 
       onShow: ->
         @$('.tooltips').tooltip()
@@ -104,7 +116,6 @@ define [
            return
         @model.save()
           .success (data)=>
-            debugger
             @collection.add @model
             toastr.success "Successfully created vehicle"
             console.log "successfully created vehicle", data

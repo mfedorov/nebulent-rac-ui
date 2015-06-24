@@ -48,25 +48,9 @@ define [
   debugger
   Backbone.Stickit.addHandler
     selector: '.datepicker-binded'
-    events: ['dp.change']
+    events: ['dp.change', 'change']
     update: ($el, val)-> $el.val(val)
-    getVal: ($el)-> $el.val()
-
-  Backbone.Stickit.addHandler
-    selector: '.datepicker-timestamp-binded'
-    events: ['dp.change']
-    update: ($el, val)->
-      debugger
-      $el.val(val)
-    getVal: ($el)-> moment.unix(parseInt($el.val())/1000).format(App.DataHelper.dateFormats.us)
-#    initialize: ($el, model, options) ->
-#      debugger
-#      $el.on 'dp.change', ->
-#        debugger
-#        model.set options.observe, $el.val()
-#        return
-#      return
-
+    getVal: ($el)->      $el.val()
 
   Backbone.Marionette.Renderer.render = (template, data) ->
     Marionette.TemplateCache.get(template)(data)
