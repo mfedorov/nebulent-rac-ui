@@ -5,7 +5,16 @@ td
 td
   = customer.get('lastName') || customer.get('contactID')
 td
-  = vehicle.get('plateNumber') || vehicle.get('itemID')
+  - vehicleCol = []
+  if vehicle.get('make')
+    - vehicleCol.push(vehicle.get('make'))
+  if vehicle.get('model')
+    - vehicleCol.push(vehicle.get('model'))
+  if vehicle.get('color')
+    - vehicleCol.push(vehicle.get('color'))
+  if vehicle.get('color')
+    - vehicleCol.push(vehicle.get('plateNumber'))
+  = vehicleCol.join(', ')
 td
   = days
 td
