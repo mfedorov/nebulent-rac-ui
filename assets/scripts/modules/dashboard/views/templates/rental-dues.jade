@@ -13,6 +13,8 @@ td
 td
   = startDate ? moment(startDate).format(App.DataHelper.dateFormats.us): ""
 td
+  = dueDate ? moment(dueDate).format(App.DataHelper.dateFormats.us): ""
+td
   if gpsTrackings.length
     a.btn.default.btn-xs.blue.view-tracking(href="#" data-toggle="tooltip" title="Show vehicle movements")
       i.fa.fa-compass  Show vehicle movements
