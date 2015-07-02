@@ -44,7 +44,7 @@ define [
           @model.collection.trigger('change')
           @$('.close').click()
         .error   (data)=>
-          @model.set "status", previousStatus
+          @model.set "status", @previousStatus
           toastr.error "Error Closing Agreement"
 
   App.CarRentAgreement.CloseRentAgreementModal

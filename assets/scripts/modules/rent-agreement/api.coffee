@@ -1,15 +1,16 @@
 define [
   './layout-view'
+  './views/widget-layout-view'
   './views/deposit-rentals-view'
   './collections/deposit-rentals-collecton'
+  './collections/rentals-collection'
   './model'
   './module'
-], (LayoutView, DepositRentalsView, DepositRentalsCollection) ->
+], (LayoutView, WidgetLayoutView, DepositRentalsView, DepositRentalsCollection, RentalsCollection) ->
 
   #adding custom validator for nested payment in deposit
   _.extend Backbone.Validation.validators,
     depositPaymentAmount: (value, attr, customValue, model)->
-      console.log "in deposit payment amount custom validator"
       "error" unless value.get('amount')
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
@@ -28,10 +29,17 @@ define [
 
         new DepositRentalsView(collection:collection)
 
+      getWidgetView: (collection)->
+        debugger
+        rentals = new RentalsCollection(collection.toJSON(), parse:true)
+
+        new WidgetLayoutView(collection: rentals)
+
     Module.on 'start', ->
       channel = Backbone.Radio.channel 'rent-agreements'
       channel.reply 'view', API.getView
       channel.reply 'deposit:rentals:view', API.getDepositRentalsView
+      channel.reply 'widget:view', API.getWidgetView
       return
 
     return

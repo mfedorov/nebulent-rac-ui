@@ -49,10 +49,18 @@ define [
           @last_call_logs.show new LastCallLogsWidget
             collection: @model.get('lastCallLogs')
 
-          @rental_dues.show new RentalDuesWidget
-            collection: @model.get('rentalDues')
+#          @rental_dues.show new RentalDuesWidget
+#            collection: @model.get('rentalDues')
 
-          @utilization.show new UtilizationWidget()
+          @utilization.show new UtilizationWidget
+            activeRentals: @model.get('rentalDues')
+
+          channel = Backbone.Radio.channel "rent-agreements"
+          rentalsView = channel.request "widget:view", @model.get('rentalDues')
+          @rental_dues.show new RentalDuesWidget rentalsView: rentalsView
+#          @rental_dues.show @rentalsView,
+#            preventDestroy: true
+#            forceShow: true
 
           @gps_tracking.show new GpsTrackingWidget
             collection: @model.get('gpsTrackings')
@@ -60,6 +68,7 @@ define [
         refreshData: ->
           @model.fetch()
           .success (data)=>
+            debugger
             console.log 'data received', data
             @onRefresh()
           .error (data)->

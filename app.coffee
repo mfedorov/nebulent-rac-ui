@@ -16,7 +16,7 @@ app.use cookie_parser()
 app.use body_parser.json()
 app.use body_parser.urlencoded extended: true
 app.use session
-   store:              new FileStore
+   store:              new FileStore(ttl: 2592000)
    secret:             process.env.SECRET_KEY
    resave:             true
    saveUninitialized:  true
