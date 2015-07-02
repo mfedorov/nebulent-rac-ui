@@ -3,20 +3,18 @@ define [
   './collections/last-call-logs'
   './collections/rental-dues'
   './collections/utilization'
-  './collections/vehicles-need-inspections'
-  './collections/vehicles-need-oil-change'
+  './collections/vehicle-collection'
   './collections/gps-trackings-collection'
   './module'
-], (DepositsDue, LastCallLogs, RentalDues, Utilization, VehiclesNeedInspections,
-    VehiclesNeedOilChange, GpsTrackingCollection)->
+], (DepositsDue, LastCallLogs, RentalDues, Utilization, VehicleCollection, GpsTrackingCollection)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.Model extends Backbone.Model
       url: -> "api/dashboard"
       defaults:
-        vehiclesNeedInspections:  new VehiclesNeedInspections()
-        vehiclesNeedOilChange:    new VehiclesNeedOilChange()
+        vehiclesNeedInspections:  new VehicleCollection()
+        vehiclesNeedOilChange:    new VehicleCollection()
         dpositsDue:               new DepositsDue()
         lastCallLogs:             new LastCallLogs()
         rentalDues:               new RentalDues()

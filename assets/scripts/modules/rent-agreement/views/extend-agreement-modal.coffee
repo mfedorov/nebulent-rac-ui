@@ -13,27 +13,32 @@ define [
 
       events:
         "[name='number-of-days]":   "onDaysCountChange"
+        "change [name=dueDate]":    "onDueDateChange"
         "click .extend":            "onExtendClick"
 
       onShow:->
-        @stickit()
+#        @stickit()
+        @$("[name=dueDate]").val @model.get('dueDate')
+        @$("[name=dueDate]").datetimepicker
+          format: App.DataHelper.dateFormats.us
+          minDate: @model.get('dueDate')
 
       onExtendClick:->
-        value = parseInt(@$("[name='number-of-days']").val())
+        value = @$("[name=dueDate]").val()
         return if saving
-        unless 0 < value <= 14
-          return toastr.error "Amount of days should be minimum #{@minimumDays}, maximum #{@maximumDays}"
         saving = true
-        @model.set "days", value
         @previousStatus = @model.get "status"
+        @previousDueDate = @model.get "dueDate"
         @model.set "status", "EXTENDED"
+        @model.set "dueDate", moment(value).unix()*1000
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
             @model.collection.trigger('change')
             @$('.close').click()
           .error   (data)=>
-            @model.set "status", previousStatus
+            @model.set "status", @previousStatus
+            @model.set "dueDate", @previousDueDate
             toastr.error "Error Extending Agreement"
 
   App.CarRentAgreement.ExtendRentAgreementModal

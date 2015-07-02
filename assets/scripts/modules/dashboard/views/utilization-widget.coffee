@@ -1,33 +1,44 @@
 define [
   './widget'
   './templates/utilization'
-], (WidgetView, template)->
-
+  './../models/organization'
+], (WidgetView, template, OrganizationModel)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.UtilizationWidget extends WidgetView
-      className: "utilization-chart"
-      title: 'Utilization'
-      template: template
-      color: "blue"
-      icon: "fa-pie-chart"
+      className:  "utilization-chart"
+      title:      'Utilization'
+      template:   template
+      color:      "blue"
+      icon:       "fa-pie-chart"
 
-      initialize:->
-        @collection = new Backbone.Collection()
+
+      initialize: (options)->
+        @activeRentals  = options.activeRentals
+        @organization   = new OrganizationModel()
 
       onShow:->
+        @organization.fetch()
+          .success (data)=>
+            @drawChart()
+          .error (data)->
+            toastr.error "Problems occured when trying to get vehicle data"
+            console.log "organization fetch error"
+
+      getRates: (dailyRates)->
+        dailyRates.reduce (previousValue, currentValue, index, array)-> previousValue + (currentValue or 0)
+
+      drawChart:->
         chartData = [
-          {
             'dailyRate': 'Total'
-            'value': 260
-          }
-          {
+            'value': @getRates _.map @organization.get('vehicles').models, (vehicle)-> vehicle.get('dailyRate')
+        ,
             'dailyRate': 'Current'
-            'value': 50
-          }
+            'value': @getRates _.map @activeRentals.models, (rental)->
+                rental.get('subTotal')/rental.get('days')
         ]
-          # PIE CHART
+        # PIE CHART
         chart = new (AmCharts.AmPieChart)
         chart.dataProvider = chartData
         chart.titleField = 'dailyRate'
@@ -40,7 +51,7 @@ define [
         chart.angle = 30
         # WRITE
         chart.write("utilization-chart-container")
-#        chart.invalidateNow()
+        # chart.invalidateNow()
         chart.validateSize()
 
   App.Dashboard.UtilizationWidget

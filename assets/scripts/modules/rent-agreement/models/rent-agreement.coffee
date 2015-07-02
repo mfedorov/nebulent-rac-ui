@@ -3,7 +3,8 @@ define [
   './vehicle-model'
   './deposit-model'
   './../collections/notes-collection'
-], (CustomerModel, VehicleModel, DepositModel, NotesCollection)->
+  './../collections/gps-trackings-collection'
+], (CustomerModel, VehicleModel, DepositModel, NotesCollection, GpsTrackingsCollection)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -15,6 +16,7 @@ define [
         vehicle:      new VehicleModel()
         deposit:      new DepositModel()
         notes:        new NotesCollection()
+        gpsTrackings: new GpsTrackingsCollection()
         dailyRate:    50
         days:         2
         subTotal:     ""
@@ -25,7 +27,7 @@ define [
         discountRate: ""
         location:     null
 
-      blacklist: ['dailyRate', 'fuelLevel']
+      blacklist: ['dailyRate', 'fuelLevel', 'gpsTrackings']
 
       toJSON: (options)->
         attrs = _.clone @attributes
@@ -43,14 +45,17 @@ define [
         @set 'customer',  new CustomerModel() unless @get('customer')?
         @set 'vehicle',   new VehicleModel() unless @get('vehicle')?
         @set 'notes',     new NotesCollection() unless @get('notes')?
+        @set 'gpsTrackings', new GpsTrackingsCollection() unless @get('gpsTrackings')?
 
         @get('customer').set(response.customer)
         @get('vehicle').set(response.vehicle)
         @get('notes').set(response.notes, parse:true)
+        @get('gpsTrackings').set(response.gpsTrackings, parse:true)
 
-        response.vehicle  = @get 'vehicle'
-        response.customer  = @get 'customer'
-        response.notes  = @get 'notes'
+        response.vehicle       = @get 'vehicle'
+        response.customer      = @get 'customer'
+        response.notes         = @get 'notes'
+        response.gpsTrackings  = @get 'gpsTrackings'
 
         response
 

@@ -5,9 +5,12 @@ define [
     './views/rent-agreements-list-view'
     './views/close-agreement-modal'
     './views/extend-agreement-modal'
+    './views/vehicle-movements-modal-view'
+    './views/gps-tracking-modal-view'
     './module'
 ],  (template, RentAgreementView, RentAgreement, RentAgreementsListView
-      CloseAgreementView, ExtendAgreementView) ->
+      CloseAgreementView, ExtendAgreementView, VehicleMovementsModalView,
+      GpsTrackingModal) ->
 
     App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -20,9 +23,11 @@ define [
         regions:
           main_region: "#main"
           modal_region: "#modal"
+          modal_region2: "#modal2"
 
         ui:
           modal: "#modal"
+          modal2: "#modal2"
 
         initialize:->
           channel = Backbone.Radio.channel 'rent-agreements'
@@ -31,6 +36,8 @@ define [
           channel.comply "rent:agreement:created", @onAgreemenetCreated, @
           channel.comply "rent:agreement:show:notes", @onShowNotes, @
           channel.comply "rentals:list:refresh", @onListRefresh, @
+#          channel.comply "show:rental:movements", @viewVehicleMovements, @
+#          channel.comply "show:rental:tracking", @viewTracking, @
 
         onAgreemenetCreated: (model)->
           @fetched = false
@@ -80,5 +87,17 @@ define [
         onListRefresh: ->
           @fetched = false
           @onShow()
+
+        viewTracking: (model)->
+          channel = Backbone.Radio.channel "gps-trackings"
+          mapView = channel.request "one:car:view", model
+
+          @modal_region.show new GpsTrackingModal(model: model, mapView: mapView)
+          degugger
+          @$ui.modal.modal()
+
+        viewVehicleMovements: (collection)->
+          @modal_region2.show new VehicleMovementsModalView collection: collection
+          @ui.modal2.modal()
 
     App.CarRentAgreement.LayoutView

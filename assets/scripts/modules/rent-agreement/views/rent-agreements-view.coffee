@@ -1,7 +1,9 @@
 define [
   './templates/rent-agreements-template'
   './rent-agreement-row-view'
-],  (template, RentAgreementRowView) ->
+  './gps-tracking-modal-view'
+  './vehicle-movements-modal-view'
+],  (template, RentAgreementRowView, GpsTrackingModal, VehicleMovementsModalView) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -13,6 +15,13 @@ define [
       headerItems:        ['#', 'Invoice #', 'Customer', 'Vehicle', 'Days', 'Due Date', 'Total', 'Status', 'Actions']
       dataTableId:        "rent-agreements"
 
+      events:
+         'show:tracking': 'viewTracking'
+
+      initialize:->
+        channel = Backbone.Radio.channel 'rent-agreements'
+        channel.comply "show:rental:movements", @viewVehicleMovements, @
+
       childViewOptions: (model, index) ->
         index: index
 
@@ -20,5 +29,17 @@ define [
         header:       @headerItems
         dataTableId:  @dataTableId
         count:        @collection.length
+
+      viewTracking: (event, model)->
+        channel = Backbone.Radio.channel "gps-trackings"
+        mapView = channel.request "one:car:view", model
+        App.modalRegion2.show new GpsTrackingModal(model: model, mapView: mapView)
+        App.modalRegion2.$el.modal()
+
+      viewVehicleMovements: (collection)->
+        App.modalRegion1.show new VehicleMovementsModalView
+          collection: collection,
+          initiator: @
+        App.modalRegion1.$el.modal()
 
   App.CarRentAgreement.RentAgreements

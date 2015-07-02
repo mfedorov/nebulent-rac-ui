@@ -1,11 +1,8 @@
-.portlet.box(class="#{color}")
-  .portlet-title
-    .caption
-      i.fa(class="#{icon}")
-      = title + "  (" + count + ")"
-    .tools
-      a.expand.collapser(href='javascript:;', data-original-title='', title='')
-  .portlet-body.display-hide
+.modal-content
+  .modal-header
+    button.close(type='button', data-dismiss='modal', aria-hidden='true')
+    h4.modal-title Track vehicle movements
+  .modal-body
     .dataTables_wrapper.no-footer
       table.table.table-bordered.table-hover(id="#{dataTableId}")
         thead

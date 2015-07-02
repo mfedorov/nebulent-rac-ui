@@ -9,14 +9,16 @@ define ['./templates/rent-agreement-row-template'], (template)->
       actionsEnabled: true
 
       events:
-        "click .extend-row":  "onExtendClick"
-        "click .close-row":   "onCloseClick"
-        "click .notes-row":   "onNotesClick"
-        "click":              "onClick"
+        "click .extend-row":    "onExtendClick"
+        "click .close-row":     "onCloseClick"
+        "click .notes-row":     "onNotesClick"
+        "click":                "onClick"
+        "click .view-tracking": "onViewTracking"
 
       templateHelpers: ->
         modelIndex:     @index
         actionsEnabled: @actionsEnabled
+        gpsTrackings:   @model.get 'gpsTrackings'
 
       initialize: (options)->
         @index = options.index
@@ -30,6 +32,8 @@ define ['./templates/rent-agreement-row-template'], (template)->
 
       onShow:->
         @$el.addClass('deleted') if @model.get('status') is "CLOSED"
+        if moment().format(App.DataHelper.dateFormats.us) is moment(@model.get('dueDate')).format(App.DataHelper.dateFormats.us)
+          @$el.addClass("due-today")
 
       onClick: (e)->
         return true if $(e.target).prop('tagName') in ["I", "A"]
@@ -45,5 +49,10 @@ define ['./templates/rent-agreement-row-template'], (template)->
       onNotesClick: (e)->
         e.preventDefault()
         @channel.command "rent:agreement:show:notes", @model
+
+      onViewTracking:(e)->
+        e.preventDefault()
+        channel = Backbone.Radio.channel "rent-agreements"
+        channel.command "show:rental:movements", @model.get('gpsTrackings')
 
   App.CarRentAgreement.RentAgreementRowView
