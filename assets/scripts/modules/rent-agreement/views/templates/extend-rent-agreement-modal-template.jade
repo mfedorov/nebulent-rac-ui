@@ -4,15 +4,23 @@
     h4.modal-title Extend Rent Agreement
   .modal-body
     .row
+      //.form-group.col-md-6.col-sm-6.col-xs-12
+      //  label.col-md-12.control-label
+      //    | Number of Days to extend
+      //    span.required(aria-required='true') *
+      //  .col-md-12
+      //    .input-group
+      //      .input-icon.right
+      //        i.fa.fa-info-circle.tooltips(data-original-title='End Fuel Level', data-container='body')
+      //        input.form-control(type='number', name='number-of-days', min="1", value="1", max='14')
       .form-group.col-md-6.col-sm-6.col-xs-12
         label.col-md-12.control-label
-          | Number of Days to extend
+          | New Due Date
           span.required(aria-required='true') *
         .col-md-12
-          .input-group
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='End Fuel Level', data-container='body')
-              input.form-control(type='number', name='number-of-days', min="1", value="1", max='14')
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='New Due Date', data-container='body')
+            input.form-control.datepicker-binded(type='text' name='dueDate')
   .modal-footer
     button.btn.default(type='button', data-dismiss='modal') Cancel
     button.btn.blue.extend(type='button') Extend

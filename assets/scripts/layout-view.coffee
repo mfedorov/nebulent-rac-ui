@@ -11,10 +11,14 @@ define [
       main_region:                '#main-region'
       sidebar_menu_region:   '#sidebar-menu-region'
       login_region:                 '#login-region'
+      modalRegion1:                 '#modal-global-1'
+      modalRegion2:                 '#modal-global-2'
 
     initialize: ->
       #TODO: decide where  the main data storage should be
       @views  = {}
+      App.modalRegion1 = @modalRegion1
+      App.modalRegion2 = @modalRegion2
 
       channel = Backbone.Radio.channel 'app'
       channel.on 'show:index', @showIndex, @

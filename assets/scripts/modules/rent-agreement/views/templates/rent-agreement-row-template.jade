@@ -5,7 +5,16 @@ td
 td
   = customer.get('lastName') || customer.get('contactID')
 td
-  = vehicle.get('plateNumber') || vehicle.get('itemID')
+  - vehicleCol = []
+  if vehicle.get('make')
+    - vehicleCol.push(vehicle.get('make'))
+  if vehicle.get('model')
+    - vehicleCol.push(vehicle.get('model'))
+  if vehicle.get('color')
+    - vehicleCol.push(vehicle.get('color'))
+  if vehicle.get('color')
+    - vehicleCol.push(vehicle.get('plateNumber'))
+  = vehicleCol.join(', ')
 td
   = days
 td
@@ -21,6 +30,9 @@ if actionsEnabled
       i.fa.fa-download
     a.btn.default.btn-xs.purple.notes-row(href="#" data-toggle="tooltip" title="Agreement Notes")
       i.fa.fa-comments-o
+    if gpsTrackings.length
+      a.btn.default.btn-xs.blue.view-tracking(href="#" data-toggle="tooltip" title="Show vehicle movements")
+        i.fa.fa-compass
     if status.toLowerCase() !== "closed"
       a.btn.default.btn-xs.blue.extend-row(href="#" data-toggle="tooltip" title="Extend rent agreement")
         i.fa.fa-angle-double-right
