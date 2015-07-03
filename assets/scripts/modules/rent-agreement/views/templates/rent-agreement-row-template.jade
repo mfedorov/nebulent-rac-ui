@@ -6,6 +6,8 @@ td
   = customer.get('lastName') || customer.get('contactID')
 td
   - vehicleCol = []
+  if vehicle.get('year')
+    - vehicleCol.push(vehicle.get('year'))
   if vehicle.get('make')
     - vehicleCol.push(vehicle.get('make'))
   if vehicle.get('model')

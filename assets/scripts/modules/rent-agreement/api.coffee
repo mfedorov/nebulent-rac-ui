@@ -30,7 +30,6 @@ define [
         new DepositRentalsView(collection:collection)
 
       getWidgetView: (collection)->
-        debugger
         rentals = new RentalsCollection(collection.toJSON(), parse:true)
 
         new WidgetLayoutView(collection: rentals)
