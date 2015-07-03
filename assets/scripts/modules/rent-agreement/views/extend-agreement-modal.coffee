@@ -11,26 +11,69 @@ define [
       maximumDays: 14
       minimumDays: 1
 
+      ui:
+        days:       "[name='number-of-days']"
+        newDueDate: "[name=dueDate]"
+
       events:
-        "[name='number-of-days]":   "onDaysCountChange"
-        "change [name=dueDate]":    "onDueDateChange"
-        "click .extend":            "onExtendClick"
+        "change input[name='number-of-days']":     "onDaysCountChange"
+        "dp.change input[name='dueDate']":         "onDueDateChange"
+        "change input[name='dueDate']":            "onDueDateChange"
+        "click .extend":                           "onExtendClick"
+
+      initialize: ->
+        minDate = new Date moment.unix(parseInt(@model.get('dueDate'))/1000).format(App.DataHelper.dateFormats.us)
+        minDate.setDate minDate.getDate() + 1
+        @minDate = moment(minDate).format(App.DataHelper.dateFormats.us)
+        @dueDate = moment.unix(parseInt(@model.get('dueDate'))/1000).format(App.DataHelper.dateFormats.us)
 
       onShow:->
-#        @stickit()
-        @$("[name=dueDate]").val @model.get('dueDate')
-        @$("[name=dueDate]").datetimepicker
+        @$el.closest('.modal').on 'shown.bs.modal', => @initElements()
+        @$el.closest('.modal').on 'hidden.bs.modal', => @destroy()
+
+      initElements: ->
+        @ui.newDueDate.val @minDate
+        @ui.newDueDate.datetimepicker
           format: App.DataHelper.dateFormats.us
-          minDate: @model.get('dueDate')
+          minDate: @minDate
+
+      onDueDateChange: (e)->
+        if moment(@ui.newDueDate.val()).unix() > moment(@dueDate).unix()
+          dateDifference = @getDaysDifference @ui.newDueDate.val(), @dueDate
+          if dateDifference > 0
+            @ui.days.val(dateDifference)
+          else
+            @ui.newDueDate.val @minDate
+          @newDueDate = @ui.newDueDate.val()
+        else
+          @ui.newDueDate.val @minDate
+          @newDueDate = @ui.newDueDate.val()
+
+      getDaysDifference: (date1, date2)->
+        date1 = new Date date1
+        date2 = new Date date2
+        timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+      onDaysCountChange: (e)->
+        dayCount = parseInt($(e.currentTarget).val())
+        @ui.days.val dayCount + 1 if dayCount <= 0
+        @ui.newDueDate.val @addDays(@dueDate, @ui.days.val())
+        @dayCount = @ui.days.val()
+
+      addDays: (date, days)->
+        date = new Date date
+        date.setDate date.getDate() + parseInt(days)
+        moment(date).format(App.DataHelper.dateFormats.us)
 
       onExtendClick:->
-        value = @$("[name=dueDate]").val()
+        value = @ui.days.val()
         return if saving
         saving = true
         @previousStatus = @model.get "status"
-        @previousDueDate = @model.get "dueDate"
+        @previousDays = @model.get "days"
         @model.set "status", "EXTENDED"
-        @model.set "dueDate", moment(value).unix()*1000
+        @model.set "days", @previousDays + parseInt(value)
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
@@ -38,7 +81,13 @@ define [
             @$('.close').click()
           .error   (data)=>
             @model.set "status", @previousStatus
-            @model.set "dueDate", @previousDueDate
+            @model.set "days",   @previousDays
             toastr.error "Error Extending Agreement"
+
+      destroy: ->
+        console.log "destroying"
+        @$el.closest('.modal').off 'shown.bs.modal'
+        @$el.closest('.modal').off 'hidden.bs.modal'
+        super
 
   App.CarRentAgreement.ExtendRentAgreementModal
