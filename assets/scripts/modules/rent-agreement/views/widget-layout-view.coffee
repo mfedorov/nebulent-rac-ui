@@ -42,7 +42,7 @@ define [
 
       extendAgreement: (model)->
         console.log "extend agreement for", model
-        App.modalRegion1.show new ExtendAgreementView(model: model)
+        App.modalRegion1.show new ExtendAgreementView(model: model), forseShow: true
         App.modalRegion1.$el.modal()
 #        @modal_region.show new ExtendAgreementView(model: model)
 #        @ui.modal.modal()

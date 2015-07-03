@@ -65,7 +65,6 @@ define [
         refreshData: ->
           @model.fetch()
           .success (data)=>
-            debugger
             console.log 'data received', data
             @onRefresh()
           .error (data)->
