@@ -56,7 +56,6 @@ define [
         Math.ceil(timeDiff / (1000 * 3600 * 24));
 
       onDaysCountChange: (e)->
-        debugger
         dayCount = parseInt($(e.currentTarget).val())
         @ui.days.val dayCount + 1 if dayCount <= 0
         @ui.newDueDate.val @addDays(@dueDate, @ui.days.val())
