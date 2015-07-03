@@ -58,9 +58,6 @@ define [
           channel = Backbone.Radio.channel "rent-agreements"
           rentalsView = channel.request "widget:view", @model.get('rentalDues')
           @rental_dues.show new RentalDuesWidget rentalsView: rentalsView
-#          @rental_dues.show @rentalsView,
-#            preventDestroy: true
-#            forceShow: true
 
           @gps_tracking.show new GpsTrackingWidget
             collection: @model.get('gpsTrackings')
