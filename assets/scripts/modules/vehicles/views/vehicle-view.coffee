@@ -111,15 +111,15 @@ define [
             valuePath: 'name'
 
       onSubmit: ->
-        unless @model.isValid(true)
-           toastr.error "Error creating vehicle. Check the required fields"
-           return
+        unless @model.isValid true
+          return toastr.error "Error creating vehicle. Check the required fields"
+
         @model.save()
           .success (data)=>
             @collection.add @model
             toastr.success "Successfully created vehicle"
             console.log "successfully created vehicle", data
-            #redirect to customer list
+            #redirect to vehicle list
             App.Router.navigate "#vehicles", trigger:true
           .error (data)->
             toastr.error "Error creating vehicle"

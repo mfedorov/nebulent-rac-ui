@@ -2,7 +2,9 @@
   .input-group
     span.input-group-addon
       i.fa.fa-file-text-o
-    input.form-control(type='text' name="incident_text" placeholder="New incident")
+    .input-icon.right
+      i.fa.fa-info-circle.tooltips(data-original-title='Incident Text', data-container='body')
+      input.form-control(type='text' name="text" placeholder="New incident")
 
     span.input-group-addon.remove-incident
       i.fa.fa-times

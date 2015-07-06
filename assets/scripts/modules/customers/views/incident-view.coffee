@@ -7,11 +7,17 @@ define [
     class Module.Incident extends Marionette.ItemView
       template: template
 
+      behaviors:
+        Validation: {}
+
       events:
         'click .remove-incident': 'onRemove'
 
       bindings:
-        "[name=incident_text]":  observe: "text"
+        "[name=text]":
+          observe: "text"
+          setOptions:
+            validate: true
 
       onShow:->
         @stickit()

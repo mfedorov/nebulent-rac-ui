@@ -7,11 +7,17 @@ define [
     class Module.Note extends Marionette.ItemView
       template: template
 
+      behaviors:
+        Validation: {}
+
       events:
         'click .remove-note': 'onRemove'
 
       bindings:
-        "[name=note_text]":  observe: "text"
+        ':input[name="text"]'   :
+          observe:"text"
+          setOptions:
+            validate: true
 
       onShow:->
         @stickit()

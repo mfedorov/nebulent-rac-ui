@@ -2,6 +2,8 @@
   .input-group
     span.input-group-addon
       i.fa.fa-book
-    input.form-control(type='text' name="note_text" placeholder="Note")
+    .input-icon.right
+      i.fa.fa-info-circle.tooltips(data-original-title='Note Text', data-container='body')
+      input.form-control(type='text' name="text" placeholder="Note")
     span.input-group-addon.remove-note
       i.fa.fa-times
