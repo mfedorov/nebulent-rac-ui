@@ -10,13 +10,13 @@ form#customer-form
             i.fa.fa-user
           .input-icon.right
             i.fa.fa-info-circle.tooltips(data-original-title='First Name', data-container='body')
-            input.form-control(type='text' name='first_name')
+            input.form-control(type='text' name='firstName')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label  Middle Name
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Middle Name', data-container='body')
-          input.form-control(type='text' name='middle_name')
+          input.form-control(type='text' name='middleName')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Last Name
@@ -24,7 +24,7 @@ form#customer-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Last Name', data-container='body')
-          input.form-control(type='text' name='last_name')
+          input.form-control(type='text' name='lastName')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | DOB
@@ -32,7 +32,7 @@ form#customer-form
       .col-md-12
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Date of Birth', data-container='body')
-          input.form-control(type='text' name='date_of_birth')
+          input.form-control(type='text' name='dateOfBirth')
   .row
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
@@ -44,20 +44,20 @@ form#customer-form
             i.fa.fa-list-alt
           .input-icon.right
             i.fa.fa-info-circle.tooltips(data-original-title='Driving License', data-container='body')
-            input.form-control(type='text' name='license_number')
+            input.form-control(type='text' name='driverLicense')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | License State
         span.required(aria-required='true') *
       .col-md-12
         .input-icon.right
-          select.form-control(type='text' name='license_state')
+          select.form-control(type='text' name='driverLicenseState')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Expiration Date
         span.required(aria-required='true') *
       .col-md-12
-        input.form-control(type='text' name='license_expiration_date')
+        input.form-control(type='text' name='driverLicenseExpirationDate')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Email
@@ -68,32 +68,31 @@ form#customer-form
             i.fa.fa-envelope
           .input-icon.right
             i.fa.fa-info-circle.tooltips(data-original-title='Email', data-container='body')
-            input.form-control(type='text' name='email_address')
+            input.form-control(type='text' name='emailAddress')
 
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Skype user name
-        span.required(aria-required='true') *
       .col-md-12
         .input-group
           span.input-group-addon
             i.fa.fa-skype
           .input-icon.right
             i.fa.fa-info-circle.tooltips(data-original-title='Driving License', data-container='body')
-            input.form-control(type='text' name='skype_username')
+            input.form-control(type='text' name='skypeUserName')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         | Tax number
       .col-md-12
         .input-icon.right
-          input.form-control(type='text' name='tax_number')
+          input.form-control(type='text' name='taxNumber')
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
         |  Supplier
       .col-md-12
         .input-icon.right
           label.col-md-12.pointer(for="is_supplier")
-            input.icheck#is_supplier(type='checkbox' name="is_supplier")
+            input.icheck#is_supplier(type='checkbox' name="isCustomer")
             |  Is supplier
     .form-group.col-md-3.col-sm-6.col-xs-12
       label.col-md-12.control-label
@@ -101,7 +100,7 @@ form#customer-form
       .col-md-12
         .input-icon.right
           label.col-md-12.pointer(for="is_customer")
-            input.icheck#is_customer(type='checkbox' name="is_customer")
+            input.icheck#is_customer(type='checkbox' name="isSupplier")
             |  Is customer
     .col-md-12
       .col-md-12

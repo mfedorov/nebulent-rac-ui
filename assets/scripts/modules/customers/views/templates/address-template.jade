@@ -5,7 +5,9 @@
       span.required(aria-required='true') *
     .col-md-12
       .input-group
-        input.form-control(type='text' name='address_1')
+        .input-icon.right
+          i.fa.fa-info-circle.tooltips(data-original-title='Address Line 1', data-container='body')
+          input.form-control(type='text' name='addressLine1')
         span.input-group-addon.remove-address
           i.fa.fa-times
   .form-group.col-md-12.col-sm-12.col-xs-12
@@ -14,7 +16,7 @@
     .col-md-12
       .input-icon.right
         i.fa.fa-info-circle.tooltips(data-original-title='Address 2', data-container='body')
-        input.form-control(type='text' name='address_2')
+        input.form-control(type='text' name='addressLine2')
 .row
   .form-group.col-md-6.col-sm-6.col-xs-12
     label.col-md-12.control-label
@@ -29,14 +31,18 @@
       | Country
       span.required(aria-required='true') *
     .col-md-12
-      select.form-control(name='country')
-        option(value='USA') USA
+      .input-icon.right
+        i.fa.fa-info-circle.tooltips(data-original-title='Country Selector', data-container='body')
+        select.form-control(name='country')
+          option(value='USA') USA
   .form-group.col-md-6.col-sm-6.col-xs-12
     label.control-label.col-md-12
       | State
       span.required(aria-required='true') *
     .col-md-12
-      select.form-control(name='region')
+      .input-icon.right
+        i.fa.fa-info-circle.tooltips(data-original-title='Region selector', data-container='body')
+        select.form-control(name='region')
   .form-group.col-md-6.col-sm-6.col-xs-12
     label.col-md-12.control-label
       | Postal Code
@@ -47,7 +53,7 @@
           i.fa.fa-envelope
         .input-icon.right
           i.fa.fa-info-circle.tooltips(data-original-title='Postal Code', data-container='body')
-          input.form-control(type='text' name='postal_code')
+          input.form-control(type='text' name='postalCode')
   .col-md-12
     .col-md-12
       hr

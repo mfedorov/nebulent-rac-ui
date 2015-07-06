@@ -2,8 +2,12 @@
   .input-group
     span.input-group-addon
       i.fa.fa-phone
-    input.form-control(type='text' name="phone_type" value=phoneType)
+    .input-icon.right
+      i.fa.fa-info-circle.tooltips(data-original-title='Phone Type', data-container='body')
+      input.form-control(type='text' name="phoneType" value=phoneType)
     span.input-group-addon :
-    input.form-control(type='text' name="phone_number" value= phoneNumber)
+    .input-icon.right
+      i.fa.fa-info-circle.tooltips(data-original-title='Phone Number', data-container='body')
+      input.form-control(type='text' name="phoneNumber" value= phoneNumber)
     span.input-group-addon.remove-phone
       i.fa.fa-times

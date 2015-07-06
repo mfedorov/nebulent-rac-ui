@@ -7,18 +7,31 @@ define [
     class Module.AddressView extends Marionette.ItemView
       template: template
 
+      behaviors:
+        Validation: {}
+
       bindings:
-        ':input[name="address_1"]'      : observe:"addressLine1"
+        ':input[name="addressLine1"]'   :
+          observe:"addressLine1"
+          setOptions:
+            validate: true
         ':input[name="address_2"]'      : observe:"addressLine2"
-        ':input[name=""]'               : observe:"addressLine3"
-        ':input[name=""]'               : observe:"addressLine4"
-        ':input[name=""]'               : observe:"addressType"
-        ':input[name=""]'               : observe:"attentionTo"
-        ':input[name="city"]'           : observe:"city"
-        ':input[name="country"]'        : observe:"country"
-        ':input[name="postal_code"]'    : observe:"postalCode"
+        ':input[name="city"]'           :
+          observe:"city"
+          setOptions:
+            validate: true
+        ':input[name="country"]'        :
+          observe:"country"
+          setOptions:
+            validate: true
+        ':input[name="postalCode"]'    :
+          observe:"postalCode"
+          setOptions:
+            validate: true
         ':input[name="region"]'         :
           observe: "region"
+          setOptions:
+            validate: true
           selectOptions:
             collection: App.DataHelper.states
             labelPath: 'name'
