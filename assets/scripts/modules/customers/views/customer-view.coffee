@@ -26,43 +26,49 @@ define [
         "click button[name='submit_customer']" :  'onSubmit'
 
       bindings:
-        "[name=first_name]":
+        "[name=firstName]":
           observe: "firstName"
           setOptions:
             validate: true
-
-        "[name=last_name]":                observe: "lastName"
-        "[name=middle_name]":           observe: "middleName"
-        "[name=date_of_birth]":
+        "[name=lastName]":
+          observe: "lastName"
+          setOptions:
+            validate: true
+        "[name=middleName]":
+          observe: "middleName"
+        "[name=dateOfBirth]":
           observe: "dateOfBirth"
           onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
           onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
-        "[name=license_number]":           observe: "driverLicense"
-        "[name=license_expiration_date]":
+        "[name=driverLicense]":
+          observe: "driverLicense"
+        "[name=driverLicenseExpirationDate]":
           observe: "driverLicenseExpirationDate"
           onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
           onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
-        "[name=license_state]":
+        "[name=driverLicenseState]":
           observe: "driverLicenseState"
           selectOptions:
             collection: App.DataHelper.states
             labelPath: 'name'
             valuePath: 'abbreviation'
-        "[name=email_address]":                 observe: "emailAddress"
-        "[name=skype_username]":             observe: "skypeUserName"
-        "[name=tax_number]":                    observe: "taxNumber"
-        "[name=is_customer]":                    observe: "isCustomer"
-        "[name=is_supplier]":                      observe: "isSupplier"
+        "[name=emailAddress]":
+          observe: "emailAddress"
+          setOptions:
+            validate: true
+        "[name=skypeUserName]":             observe: "skypeUserName"
+        "[name=taxNumber]":                 observe: "taxNumber"
+        "[name=isCustomer]":                observe: "isCustomer"
+        "[name=isSupplier]":                observe: "isSupplier"
 
       regions:
-        list_region:            "#customer-region"
+        list_region:        "#customer-region"
         phones_region:      "#phones-region"
-        addresses_region:  "#addresses-region"
+        addresses_region:   "#addresses-region"
         incidents_region:   "#incidents-region"
-        notes_region:        "#notes-region"
+        notes_region:       "#notes-region"
 
       initialize: (options)->
-        # console.log 'customer model', @model.cid
         @organization        = options.organization
         @collection            = options.collection
         window.customer   = @model
@@ -87,9 +93,9 @@ define [
         # $('.icheck').iCheck()
 
       onSubmit:->
-        unless @model.isValid(true)
-          toastr.error "Error Creating Customer. Check the required fields"
-          return
+        unless @model.isValid true
+          return toastr.error "Error Creating Customer. Check the required fields"
+
         @model.save()
           .success (data)=>
             model = new CustomerView(data)

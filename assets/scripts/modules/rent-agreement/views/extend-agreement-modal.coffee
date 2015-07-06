@@ -85,7 +85,6 @@ define [
             toastr.error "Error Extending Agreement"
 
       destroy: ->
-        console.log "destroying"
         @$el.closest('.modal').off 'shown.bs.modal'
         @$el.closest('.modal').off 'hidden.bs.modal'
         super

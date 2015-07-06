@@ -7,12 +7,21 @@ define [
     class Module.Phone extends Marionette.ItemView
       template: template
 
+      behaviors:
+        Validation: {}
+
       events:
         'click .remove-phone': 'onRemove'
 
       bindings:
-        ':input[name="phone_type"]'        : observe:"phoneType"
-        ':input[name="phone_number"]'      : observe:"phoneNumber"
+        ':input[name="phoneType"]'        :
+          observe:"phoneType"
+          setOptions:
+            validate: true
+        ':input[name="phoneNumber"]'      :
+          observe:"phoneNumber"
+          setOptions:
+            validate: true
 
       onShow:->
         @stickit()
