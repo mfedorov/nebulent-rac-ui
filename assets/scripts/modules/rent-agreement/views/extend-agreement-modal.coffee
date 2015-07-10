@@ -73,7 +73,18 @@ define [
         @previousStatus = @model.get "status"
         @previousDays = @model.get "days"
         @model.set "status", "EXTENDED"
-        @model.set "days", @previousDays + parseInt(value)
+        @model.set "days", parseInt(value)
+        #TODO: move it to main app logic
+#        unless Module.organization?
+#          channel = Backbone.Radio.channel "rent-agreements"
+#          org = channel.request "update:organization"
+#          org.done ()=> @calculateAndSave()
+#        else
+#          @calculateAndSave()
+        @calculateAndSave()
+
+      calculateAndSave: ->
+#        @model.recalc()
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
