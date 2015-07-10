@@ -36,7 +36,8 @@ define [
       recalc: ->
         TAX      = Module.organization.get('stateTax') + Module.organization.get('rentalTax')
         subtotal = @get('days')*@get('dailyRate')
-        tax      = subtotal * TAX / 100 + Module.organization.get('rentalDailyFee') * @get('days')
+        dailyRate = @vehicle?.get('dailyRate') or Module.organization.get('rentalDailyFee')
+        tax      = subtotal * TAX / 100 + dailyRate * @get('days')
         @set 'subTotal', subtotal
         @set 'total', subtotal + tax - (parseInt(@get('discountRate')) or 0)
         @set 'totalTax', tax

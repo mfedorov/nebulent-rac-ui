@@ -4,9 +4,11 @@ define [
   './views/deposit-rentals-view'
   './collections/deposit-rentals-collecton'
   './collections/rentals-collection'
+  './models/organization-model'
   './model'
   './module'
-], (LayoutView, WidgetLayoutView, DepositRentalsView, DepositRentalsCollection, RentalsCollection) ->
+], (LayoutView, WidgetLayoutView, DepositRentalsView, DepositRentalsCollection,
+    RentalsCollection, OrganizationModel) ->
 
   #adding custom validator for nested payment in deposit
   _.extend Backbone.Validation.validators,
@@ -34,11 +36,24 @@ define [
 
         new WidgetLayoutView(collection: rentals)
 
+      updateOrganization: ->
+        deferred = $.Deferred()
+        organization = new OrganizationModel()
+        organization.fetch()
+          .success (data)->
+            Module.organization = organization
+            deferred.resolve()
+          .error (data)->
+            deferred.fail()
+        deferred.promise()
+
+
     Module.on 'start', ->
       channel = Backbone.Radio.channel 'rent-agreements'
       channel.reply 'view', API.getView
       channel.reply 'deposit:rentals:view', API.getDepositRentalsView
       channel.reply 'widget:view', API.getWidgetView
+      channel.reply 'update:organization', API.updateOrganization
       return
 
     return
