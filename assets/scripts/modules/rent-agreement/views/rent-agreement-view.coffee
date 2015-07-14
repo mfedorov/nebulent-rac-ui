@@ -194,6 +194,7 @@ define [
         @ui.customerSearch.select2('open') unless @ui.customerSearch.select2('val')?.length
 
       initVehicleSelect2: ()->
+        debugger
         @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
         activeRentals = @collection.filter (item)-> item.get('status') in ["NEW", "EXTENDED"]
         rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id

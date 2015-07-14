@@ -229,3 +229,13 @@ i.fa-warning.validation-error {
     display:block;
   }
 }
+
+.list-search-group {
+  i.fa-times{
+    top: -4px;
+    cursor: pointer;
+  }
+  i.fa-times:hover {
+    color: red;
+  }
+}
