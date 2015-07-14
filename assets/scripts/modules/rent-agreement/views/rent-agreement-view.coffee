@@ -7,8 +7,9 @@ define [
     './deposit-view'
     './../models/vehicle-model'
     './../models/organization-model'
+    './../collections/rentals-collection'
 ],  (template, CustomerView, CustomerModel, DepositModel,  VehicleView, DepositView
-     VehicleModel, OrganizationModel) ->
+     VehicleModel, OrganizationModel, RentalsCollection) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -195,11 +196,22 @@ define [
 
       initVehicleSelect2: ()->
         @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
-        activeRentals = @collection.filter (item)-> item.get('status') in ["NEW", "EXTENDED"]
-        rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id
-        @ui.vehicleSearch.select2
-          data: @organization.get('vehicles').toArray(rentedVehicleIds)
-          minimumInputLength: 1
+        @ui.vehicleSearch.hide().parent().find('i').show()
+        initSelect = (activeRentals)=>
+          activeRentals = @collection.filter (item)-> item.get('status') in ["NEW", "EXTENDED"]
+          rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id
+          @ui.vehicleSearch.show().parent().find('i').hide()
+          @ui.vehicleSearch.select2
+            data: @organization.get('vehicles').toArray(rentedVehicleIds)
+            minimumInputLength: 1
+
+        channel = Backbone.Radio.channel "dashboard"
+        activeRentals = channel.request "active:rentals"
+        activeRentals.done (data)->
+          activeRentals = new RentalsCollection data.activeRentals, parse:true
+          initSelect(activeRentals)
+        .fail (data)->
+          console.log "error receiving active rentals"
 
       #opens/closes portlets
       portlet: (selector, action="open")->

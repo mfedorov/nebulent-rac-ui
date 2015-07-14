@@ -211,6 +211,9 @@ tr.deleted {
 .due-today {
   background-color: #FAEA92;
 }
+.past-due-date {
+  background-color: #F59595;
+}
 
 tr.clickable  {
   cursor: pointer;
@@ -227,5 +230,15 @@ i.fa-warning.validation-error {
   }
   i.fa-warning {
     display:block;
+  }
+}
+
+.list-search-group {
+  i.fa-times{
+    top: -4px;
+    cursor: pointer;
+  }
+  i.fa-times:hover {
+    color: red;
   }
 }

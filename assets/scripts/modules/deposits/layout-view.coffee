@@ -49,6 +49,7 @@ define [
         @main_region.show mainView
 
       onListRefresh: ->
+        @main_region.reset()
         @fetched = false
         @onShow()
 

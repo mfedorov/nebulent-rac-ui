@@ -34,6 +34,8 @@ define ['./templates/rent-agreement-row-template'], (template)->
         @$el.addClass('deleted') if @model.get('status') is "CLOSED"
         if moment().format(App.DataHelper.dateFormats.us) is moment(@model.get('dueDate')).format(App.DataHelper.dateFormats.us)
           @$el.addClass("due-today")
+        else if (moment().unix()*1000 > @model.get('dueDate')) and (@model.get('status') isnt "CLOSED")
+          @$el.addClass("past-due-date")
 
       onClick: (e)->
         return true if $(e.target).prop('tagName') in ["I", "A"]
