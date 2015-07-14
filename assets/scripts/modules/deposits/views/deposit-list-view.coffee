@@ -15,9 +15,6 @@ define [
       regions:
         tableRegion:        "#table"
 
-      events:
-        'click #list-refresh':      "onListRefresh"
-
       templateHelpers: ->
         currentPage: @collection.state.currentPage
         nextStatus:  if @collection.length < @collection.state.pageSize then "disabled" else
@@ -25,9 +22,5 @@ define [
 
       onShow:->
         @tableRegion.show new TableView(collection: @collection)
-
-      onListRefresh: ->
-        channel = Backbone.Radio.channel "deposits"
-        channel.command "deposits:list:refresh"
 
   App.Deposits.DepositsListView

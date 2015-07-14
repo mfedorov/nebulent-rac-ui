@@ -11,12 +11,16 @@ define [
       state:
         firstPage:    1
         currentPage:  1
-        pageSize:     10
+        pageSize:     30
 
       queryParams:
         currentPage: 'start'
         pageSize:    'size'
         asc:         'false'
         search:      ''
+
+      getPage:(index, options)->
+        @trigger "get:page"
+        super
 
   App.Deposits.DepositCollection
