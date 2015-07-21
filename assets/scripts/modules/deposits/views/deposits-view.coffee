@@ -26,16 +26,18 @@ define [
         count:        @collection.length
 
       initialize: ->
-        @listenTo @collection, 'sync', @onShow, @
+        @listenTo @collection, 'sync', @onListRefresh, @
         @listenTo @collection, 'get:page', @onChangePage, @
 
       onShow:->
+        debugger
         @table = @$("##{@dataTableId}").dataTable "bPaginate": false
         @$('.dataTables_info').hide()
         container = @$('#deposits-table_filter').closest('.row')
         @$('#toolbar').prependTo(container.find('div:first'))
 
       onChangePage: ->
+        debugger
         @$('#toolbar').prependTo(@$el)
         if @table
           @$("##{@dataTableId}").dataTable().fnClearTable()
