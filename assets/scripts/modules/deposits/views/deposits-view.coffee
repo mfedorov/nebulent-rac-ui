@@ -26,7 +26,7 @@ define [
         count:        @collection.length
 
       initialize: ->
-        @listenTo @collection, 'sync', @onShow, @
+        @listenTo @collection, 'sync', @onListRefresh, @
         @listenTo @collection, 'get:page', @onChangePage, @
 
       onShow:->
@@ -42,7 +42,6 @@ define [
           @$("##{@dataTableId}").dataTable().fnDestroy()
 
       onListRefresh: ->
-        debugger
         channel = Backbone.Radio.channel "deposits"
         channel.command "deposits:list:refresh"
 
