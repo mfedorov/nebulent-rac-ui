@@ -30,21 +30,18 @@ define [
         @listenTo @collection, 'get:page', @onChangePage, @
 
       onShow:->
-        debugger
         @table = @$("##{@dataTableId}").dataTable "bPaginate": false
         @$('.dataTables_info').hide()
         container = @$('#deposits-table_filter').closest('.row')
         @$('#toolbar').prependTo(container.find('div:first'))
 
       onChangePage: ->
-        debugger
         @$('#toolbar').prependTo(@$el)
         if @table
           @$("##{@dataTableId}").dataTable().fnClearTable()
           @$("##{@dataTableId}").dataTable().fnDestroy()
 
       onListRefresh: ->
-        debugger
         channel = Backbone.Radio.channel "deposits"
         channel.command "deposits:list:refresh"
 
