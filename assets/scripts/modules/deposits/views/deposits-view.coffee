@@ -27,11 +27,16 @@ define [
 
       initialize: ->
         @listenTo @collection, 'sync', @onListRefresh, @
-        @listenTo @collection, 'get:page', @onChangePage, @
+#        @listenTo @collection, 'get:page', @onChangePage, @
 
       onShow:->
-        @table = @$("##{@dataTableId}").dataTable "bPaginate": false
-        @$('.dataTables_info').hide()
+        #perhaps its a temporary solution
+        #TODO: check later and remove commented lines if there will be no need
+        #to revert changes
+#        @table = @$("##{@dataTableId}").dataTable "bPaginate": false
+        @table = @$("##{@dataTableId}").dataTable "pageLength":100
+#        @$('.dataTables_info').hide()
+#        @$('.dataTables_length').hide()
         container = @$('#deposits-table_filter').closest('.row')
         @$('#toolbar').prependTo(container.find('div:first'))
 
