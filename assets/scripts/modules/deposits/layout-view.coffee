@@ -33,16 +33,16 @@ define [
           @showView()
         else
           @refreshData()
-          .success (data)=>
+          .done (data)=>
             console.log data
             @showView()
             @fetched = true
-          .error (data)->
+          .fail (data)->
             toastr.error "error fetching rent deposits information"
             console.log "get deposits failed", data
 
       refreshData:->
-        @collection.fetch(parse:true)
+        @collection.fetch parse:true
 
       showView: ->
         mainView = new DepositListView collection: @collection
