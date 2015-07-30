@@ -248,3 +248,7 @@ i.fa-warning.validation-error {
   float: left;
   margin-right: 10px;
 }
+
+.modal-dialog table>tbody>tr>td {
+  word-break: break-all;
+}
