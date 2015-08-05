@@ -3,26 +3,30 @@ td
 td
   = invoiceNumber
 td
-  = customer.get('lastName') || customer.get('contactID')
+  = customer.get('firstName')
 td
-  - vehicleCol = []
-  if vehicle.get('year')
-    - vehicleCol.push(vehicle.get('year'))
-  if vehicle.get('make')
-    - vehicleCol.push(vehicle.get('make'))
-  if vehicle.get('model')
-    - vehicleCol.push(vehicle.get('model'))
-  if vehicle.get('color')
-    - vehicleCol.push(vehicle.get('color'))
-  if vehicle.get('color')
-    - vehicleCol.push(vehicle.get('plateNumber'))
-  = vehicleCol.join(', ')
+  = customer.get('lastName')
+td
+  = customer.get('driverLicense')
+td
+  = vehicle.get('color')
+td
+  = vehicle.get('year')
+td
+  = vehicle.get('make')
+td
+  = vehicle.get('model')
+td
+  = vehicle.get('plateNumber')
 td
   = days
 td
   = moment(dueDate).format(App.DataHelper.dateFormats.us)
 td
   = total
+td
+  span(class="closed agreement_status")
+    = amountDue
 td
   span(class="#{status.toLowerCase()} agreement_status")
     = status
