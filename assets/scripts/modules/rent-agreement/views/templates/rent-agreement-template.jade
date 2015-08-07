@@ -42,7 +42,7 @@
           .portlet-input.input-inline.input-small
             .select2-container-div
               i.spinner.fa.fa-spinner.fa-pulse
-              input.form-control.width-150(type='text', name='vehicle_search', placeholder='search...' value="#{vehicle.get('itemID')}")
+              input.form-control.width-150(type='text', name='vehicle_search', placeholder='search...' value="#{vehicle.itemID}")
         .tools.col-md-1.right
           a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
@@ -55,20 +55,6 @@
           span.caption-subject.bold.font-purple-plum.uppercase
             | Deposit
           span.caption-helper (id)
-
-        //.col-md-4
-          .form-group
-            .radio-list
-              label.radio-inline
-                #uniform-optionsRadios4.radio
-                  span.checked
-                    input#deposit-existing-radio(type='radio', name='depositChoiceRadios', value='new')
-                |  New Deposit
-              label.radio-inline
-                #uniform-optionsRadios5.radio
-                  span
-                    input#deposit-new-radio(type='radio', name='depositChoiceRadios', value='existing', checked='')
-                |  Existing Deposit
         .inputs.col-md-3.left
           .portlet-input.input-inline.input-small
             //select.form-control.width-150(type='hidden', name='deposit_search', placeholder='search...', value="#{deposit.get('itemID')}")
@@ -126,6 +112,14 @@
               input.form-control(type='text' name='days' value='2')
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
+            | Discount Rate
+            span.required(aria-required='true') *
+          .col-md-12
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
+              input.form-control(type='text' name='discount_rate' value='2')
+        .form-group.col-md-3.col-sm-6.col-xs-12
+          label.col-md-12.control-label
             | Type
             span.required(aria-required='true') *
           .col-md-12
@@ -133,37 +127,7 @@
               select.form-control(type='text' name='type')
                 option(value="ACCPAY") ACCPAY
                 option(value="ACCREC") ACCREC
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Discount Rate
-            span.required(aria-required='true') *
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
-              input.form-control(type='text' name='discount_rate' value='2')
       .row
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Total Discount
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Total Discount', data-container='body')
-              input.form-control(type='text' name='total_discount')
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Total Tax
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Total Taxes', data-container='body')
-              input.form-control(type='text' name='totalTax' disabled=true)
-        .form-group.col-md-3.col-sm-6.col-xs-12
-          label.col-md-12.control-label
-            | Subtotal
-            span.required(aria-required='true') *
-          .col-md-12
-            .input-icon.right
-              i.fa.fa-info-circle.tooltips(data-original-title='Subtotal', data-container='body')
-              input.form-control(type='text' name='subtotal' disabled=true)
         .form-group.col-md-3.col-sm-6.col-xs-12
           label.col-md-12.control-label
             | Total
@@ -171,7 +135,23 @@
           .col-md-12
             .input-icon.right
               i.fa.fa-info-circle.tooltips(data-original-title='Total', data-container='body')
-              input.form-control(type='text' name='total' disabled=true)
+              input.form-control(type='text' name='total')
+        .form-group.col-md-3.col-sm-6.col-xs-12
+          label.col-md-12.control-label
+            | Amount Paid
+            span.required(aria-required='true') *
+          .col-md-12
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
+              input.form-control(type='text' name='amount_paid')
+        .form-group.col-md-3.col-sm-6.col-xs-12
+          label.col-md-12.control-label
+            | Amount Due
+            span.required(aria-required='true') *
+          .col-md-12
+            .input-icon.right
+              i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
+              input.form-control(type='text' name='amount_due')
       .form-actions
         .row
           .col-md-offset-3.col-md-9.right

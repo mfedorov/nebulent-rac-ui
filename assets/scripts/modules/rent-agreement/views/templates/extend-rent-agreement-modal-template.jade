@@ -12,7 +12,7 @@
           .input-group
             .input-icon.right
               i.fa.fa-info-circle.tooltips(data-original-title='End Fuel Level', data-container='body')
-              input.form-control(type='number', name='number-of-days', min="1", value="1", max='14')
+              input.form-control(type='number', name='days', min="1", value="1", max='14')
       .form-group.col-md-6.col-sm-6.col-xs-12
         label.col-md-12.control-label
           | New Due Date
@@ -21,6 +21,49 @@
           .input-icon.right
             i.fa.fa-info-circle.tooltips(data-original-title='New Due Date', data-container='body')
             input.form-control.datepicker-binded(type='text' name='dueDate')
+    .row
+      .form-group.col-md-6.col-sm-6.col-xs-12
+        label.col-md-12.control-label
+          | Discount Rate
+          span.required(aria-required='true') *
+        .col-md-12
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
+            input.form-control(type='text' name='discount_rate')
+      .form-group.col-md-6.col-sm-6.col-xs-12
+        label.col-md-12.control-lablfel
+          | Daily rate
+          span.required(aria-required='true') *
+        .col-md-12
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Daily Rate', data-container='body')
+            input.form-control(type='text' name='daily_rate')
+    .row
+      .form-group.col-md-4.col-sm-6.col-xs-12
+        label.col-md-12.control-label
+          | Total
+          span.required(aria-required='true') *
+        .col-md-12
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Total', data-container='body')
+            input.form-control(type='text' name='total')
+      .form-group.col-md-4.col-sm-6.col-xs-12
+        label.col-md-12.control-label
+          | Amount Paid
+          span.required(aria-required='true') *
+        .col-md-12
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
+            input.form-control(type='text' name='amount_paid')
+      .form-group.col-md-4.col-sm-6.col-xs-12
+        label.col-md-12.control-label
+          | Amount Due
+          span.required(aria-required='true') *
+        .col-md-12
+          .input-icon.right
+            i.fa.fa-info-circle.tooltips(data-original-title='Discount Rate', data-container='body')
+            input.form-control(type='text' name='amount_due')
+
   .modal-footer
     button.btn.default(type='button', data-dismiss='modal') Cancel
     button.btn.blue.extend(type='button') Extend

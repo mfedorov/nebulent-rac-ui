@@ -12,44 +12,73 @@ define [
       minimumDays: 1
 
       ui:
-        days:       "[name='number-of-days']"
-        newDueDate: "[name=dueDate]"
+        days:             "[name='days']"
+        newDueDate:       "[name=dueDate]"
+      bindings:
+        'input[name="daily_rate"]'         : observe: 'dailyRate'
+        'input[name="dueDate"]'            :
+          observe: 'dueDate'
+          onGet: (value)-> moment.unix(parseInt(value)/1000).format(App.DataHelper.dateFormats.us)
+          onSet: (value)-> moment(value, App.DataHelper.dateFormats.us).unix()*1000
+        'input[name="days"]'               : observe: 'days'
+        'input[name="total"]'              : observe: 'total'
+        'input[name="discount_rate"]'      : observe: 'discountRate'
+        'input[name="amount_paid"]'        : observe: 'amountPaid'
+        'input[name="amount_due"]'         : observe: 'amountDue'
 
       events:
-        "change input[name='number-of-days']":     "onDaysCountChange"
+        "change input[name='days']":               "onDaysCountChange"
         "dp.change input[name='dueDate']":         "onDueDateChange"
         "change input[name='dueDate']":            "onDueDateChange"
         "click .extend":                           "onExtendClick"
 
-      initialize: ->
+      initialize: (options)->
+        @originalModel = options.originalModel
+
         minDate = new Date moment.unix(parseInt(@model.get('dueDate'))/1000).format(App.DataHelper.dateFormats.us)
         minDate.setDate minDate.getDate() + 1
         @minDate = moment(minDate).format(App.DataHelper.dateFormats.us)
         @dueDate = moment.unix(parseInt(@model.get('dueDate'))/1000).format(App.DataHelper.dateFormats.us)
 
-      onShow:->
-        @$el.closest('.modal').on 'shown.bs.modal', => @initElements()
-        @$el.closest('.modal').on 'hidden.bs.modal', => @destroy()
+        @model.set 'status', 'EXTENDED'
+        @model.set 'days', '1'
+        @model.set 'dueDate', moment(@minDate, App.DataHelper.dateFormats.us).unix()*1000
+
+        @listenTo @model, 'change:days',          @refreshModel
+        @listenTo @model, 'change:discountRate',  @refreshModel
+        @listenTo @model, 'change:dailyRate',     @refreshModel
+        @listenTo @model, 'change:amountPaid',    @refreshModel
+        @listenTo @model, 'change:total',         @refreshModel
+
+      refreshModel: (model, value, event)->
+        return @model.recalcPaidAndDue() if event?.stickitChange?.observe in ['total', 'amountPaid']
+        @model.recalcAll()
+
+      onShow: ->
+        @stickit()
+        @$el.closest('.modal').on 'shown.bs.modal',   => @initElements()
+        @$el.closest('.modal').on 'hidden.bs.modal',  => @destroy()
 
       initElements: ->
-        @ui.newDueDate.val @minDate
         @ui.newDueDate.datetimepicker
           format: App.DataHelper.dateFormats.us
           minDate: @minDate
+        @model.recalcAll()
 
       onDueDateChange: (e)->
         if moment(@ui.newDueDate.val()).unix() > moment(@dueDate).unix()
           dateDifference = @getDaysDifference @ui.newDueDate.val(), @dueDate
           if dateDifference > 0
-            @ui.days.val(dateDifference)
+            @model.set 'days', dateDifference
           else
             @ui.newDueDate.val @minDate
           @newDueDate = @ui.newDueDate.val()
         else
-          @ui.newDueDate.val @minDate
+          @model.set 'days', @minDate
           @newDueDate = @ui.newDueDate.val()
 
       getDaysDifference: (date1, date2)->
+        debugger
         date1 = new Date date1
         date2 = new Date date2
         timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -66,14 +95,10 @@ define [
         date.setDate date.getDate() + parseInt(days)
         moment(date).format(App.DataHelper.dateFormats.us)
 
-      onExtendClick:->
+      onExtendClick: ->
         value = @ui.days.val()
         return if saving
         saving = true
-        @previousStatus = @model.get "status"
-        @previousDays = @model.get "days"
-        @model.set "status", "EXTENDED"
-        @model.set "days", parseInt(value)
         #TODO: move it to main app logic
 #        unless Module.organization?
 #          channel = Backbone.Radio.channel "rent-agreements"
@@ -84,15 +109,13 @@ define [
         @calculateAndSave()
 
       calculateAndSave: ->
-#        @model.recalc()
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
-            @model.collection.trigger('change')
+            @originalModel.set @model.toJSON(), parse: true
+            @originalModel.collection.trigger('change')
             @$('.close').click()
           .error   (data)=>
-            @model.set "status", @previousStatus
-            @model.set "days",   @previousDays
             toastr.error "Error Extending Agreement"
 
       destroy: ->
