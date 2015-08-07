@@ -22,8 +22,8 @@ define [
       currentDeposit:   null
 
       dataCollection:
-        organization: false
-        deposits:     false
+        organization:   false
+        deposits:       false
 
       ui:
         vehicleSearch:              'input[name="vehicle_search"]'
@@ -52,6 +52,8 @@ define [
         'input[name="fuelLevel"]'          : observe: 'fuelLevel'
         'input[name="totalTax"]'           : observe: 'totalTax'
         'input[name="discount_rate"]'      : observe: 'discountRate'
+        'input[name="amount_paid"]'        : observe: 'amountPaid'
+        'input[name="amount_due"]'         : observe: 'amountDue'
 
       regions:
         customer_region:  "#customer-region"
@@ -68,6 +70,8 @@ define [
         @listenTo @model, 'change:days',          @refreshModel
         @listenTo @model, 'change:discountRate',  @refreshModel
         @listenTo @model, 'change:dailyRate',     @refreshModel
+        @listenTo @model, 'change:amountPaid',    @refreshModel
+        @listenTo @model, 'change:total',         @refreshModel
 
         @listenTo @organization, 'sync', _.partial(@loaded, 'organization')
         @listenTo @organization.get('customers'), 'sync',  _.partial(@loaded, 'customers')
@@ -109,7 +113,6 @@ define [
 
       onDepositCreated: (e, model)->
         return unless @model.get('customer')
-        @initDepositSelect2()
         @ui.depositSearch.select2 'val', model.get 'itemID'
         @$('#deposit-existing-radio').click()
         @$('.deposit-portlet .portlet-title .tools a').click() if @$('.deposit-portlet .portlet-title .tools a').hasClass('collapse')
@@ -256,8 +259,9 @@ define [
         if @model.get("vehicle").get('itemID')
           @model.set 'startMileage', @organization.get('vehicles').get(@model.get("vehicle").get('itemID')).get('currentMileage')
 
-      refreshModel: ->
-        @model.recalc()
+      refreshModel: (model, value, event)->
+        return @model.recalcPaidAndDue() if event?.stickitChange?.observe in ['total', 'amountPaid']
+        @model.recalcAll()
 
       showModelMessage: (type=success, message, data) ->
         toastr[type] message
@@ -266,12 +270,13 @@ define [
       onSubmit: (e)->
         e.preventDefault()
         return false unless @isValid()
-        unless @model.get('deposit').isValid(true)
+        depositModel = @deposit_region.currentView.model
+        unless depositModel.isValid(true)
           toastr.error "Make sure all required data in deposit is filled in"
           return false
 
-        unless @model.get('deposit').get('itemID')
-          @deposit_region.currentView.model.save()
+        unless depositModel.get('itemID')
+          depositModel.save()
             .success (data)=>
               @showModelMessage "success", "Successfully Created Deposit for Agreement", data
               channel = Backbone.Radio.channel "deposits"

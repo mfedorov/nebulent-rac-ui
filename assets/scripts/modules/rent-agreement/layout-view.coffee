@@ -73,7 +73,9 @@ define [
 
         extendAgreement: (model)->
           console.log "extend agreement for", model
-          @modal_region.show new ExtendAgreementView(model: model)
+          @modal_region.show new ExtendAgreementView
+            model:          new RentAgreement model.toJSON()
+            originalModel:  model
           @ui.modal.modal()
 
         onShowNotes: (model)->
@@ -93,7 +95,6 @@ define [
           mapView = channel.request "one:car:view", model
 
           @modal_region.show new GpsTrackingModal(model: model, mapView: mapView)
-          degugger
           @$ui.modal.modal()
 
         viewVehicleMovements: (collection)->
