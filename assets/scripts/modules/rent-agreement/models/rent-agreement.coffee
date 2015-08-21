@@ -29,7 +29,7 @@ define [
         amountDue:    0
         location:     null
 
-      blacklist: ['dailyRate', 'fuelLevel', 'gpsTrackings', 'amountDue']
+      blacklist: ['dailyRate', 'fuelLevel', 'gpsTrackings']
 
       toJSON: (options)->
         attrs = _.clone @attributes
