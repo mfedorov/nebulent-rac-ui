@@ -27,6 +27,7 @@ define [
             console.log "organization fetch error"
 
       getRates: (dailyRates)->
+        return 0 if dailyRates.length is 0
         dailyRates.reduce (previousValue, currentValue, index, array)-> previousValue + (currentValue or 0)
 
       drawChart:->

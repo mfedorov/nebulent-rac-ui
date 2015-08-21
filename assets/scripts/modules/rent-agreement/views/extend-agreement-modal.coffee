@@ -78,7 +78,6 @@ define [
           @newDueDate = @ui.newDueDate.val()
 
       getDaysDifference: (date1, date2)->
-        debugger
         date1 = new Date date1
         date2 = new Date date2
         timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -96,7 +95,6 @@ define [
         moment(date).format(App.DataHelper.dateFormats.us)
 
       onExtendClick: ->
-        value = @ui.days.val()
         return if saving
         saving = true
         #TODO: move it to main app logic
