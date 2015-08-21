@@ -9,7 +9,7 @@ define [
     class Module.DepositRentalsView extends RentAgreementsView
       className:          "layout-view deposit-rent-agreements"
       template:           template
-      headerItems:        ['#', 'Invoice #', 'Customer', 'Vehicle', 'Days', 'Due Date', 'Total', 'Status']
+      headerItems:        ['#', 'First Name', 'Last Name', 'License #', 'Vehicle Color', 'Vehicle Year', 'Vehicle Make', 'Vehicle Model', 'Vehicle Plate #', 'Days', 'Due Date', 'Total', 'Amount Due', 'Status']
       dataTableId:        "deposit-rent-agreements"
 
       childViewOptions: (model, index) ->

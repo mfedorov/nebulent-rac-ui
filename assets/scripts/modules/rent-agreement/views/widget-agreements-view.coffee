@@ -11,7 +11,7 @@ define [
       template:           template
       childView:          RentAgreementRowView
       childViewContainer: ".row-container"
-      headerItems:        ['#', 'Invoice #', 'Customer', 'Vehicle', 'Days', 'Due Date', 'Total', 'Status', 'Actions']
+      headerItems:        ['#', 'Invoice #', 'First Name', 'Last Name', 'License #', 'Vehicle Color', 'Vehicle Year', 'Vehicle Make', 'Vehicle Model', 'Vehicle Plate #', 'Days', 'Due Date', 'Total', 'Amount Due', 'Status', 'Actions']
       dataTableId:        "widget-active-rent-agreements"
 
       onShow:->
