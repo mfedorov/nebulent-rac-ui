@@ -107,6 +107,7 @@ define [
         @calculateAndSave()
 
       calculateAndSave: ->
+        @model.get('deposit').set 'status', 'ARCHIVED'
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"

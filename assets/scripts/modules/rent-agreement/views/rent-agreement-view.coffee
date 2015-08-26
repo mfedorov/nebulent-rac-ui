@@ -17,10 +17,6 @@ define [
       className:        "layout-view rent-agreement"
       template:         template
 
-      currentCustomer:  null
-      currentVehicle:   null
-      currentDeposit:   null
-
       dataCollection:
         organization:   false
         deposits:       false
@@ -63,7 +59,7 @@ define [
       initialize:(options)->
         @collection = options.collection
         @organization ?= new OrganizationModel()
-        Module.organization = @organization
+        Module.organization ?= @organization
         @listenTo @model, 'change:customer',      @onChange
         @listenTo @model, 'change:vehicle',       @onChange
         @listenTo @model, 'change:deposit',       @onChange
