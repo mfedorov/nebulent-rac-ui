@@ -4,7 +4,11 @@ define [
   './deposit-model'
   './../collections/notes-collection'
   './../collections/gps-trackings-collection'
-], (CustomerModel, VehicleModel, DepositModel, NotesCollection, GpsTrackingsCollection)->
+  './../collections/additional-drivers-collection'
+  './../collections/payments-collection'
+  './../collections/line-items-collection'
+], (CustomerModel, VehicleModel, DepositModel, NotesCollection, GpsTrackingsCollection
+    AdditionalDriversCollection, PaymentsCollection, LineItemsCollection)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -12,22 +16,25 @@ define [
       url:-> "api/rentals#{if @id then "/" + @id else ""}"
       idAttribute: "invoiceID"
       defaults:->
-        customer:     new CustomerModel()
-        vehicle:      new VehicleModel()
-        deposit:      new DepositModel()
-        notes:        new NotesCollection()
-        gpsTrackings: new GpsTrackingsCollection()
-        dailyRate:    50
-        days:         2
-        subTotal:     ""
-        total:        ""
-        startMileage: ""
-        fuelLevel:    "FULL"
-        totalTax:     ""
-        discountRate: ""
-        amountPaid:   0
-        amountDue:    0
-        location:     null
+        customer:          new CustomerModel()
+        vehicle:           new VehicleModel()
+        deposit:           new DepositModel()
+        notes:             new NotesCollection()
+        gpsTrackings:      new GpsTrackingsCollection()
+        additionalDrivers: new AdditionalDriversCollection()
+        payments:          new PaymentsCollection()
+        lineItems:         new LineItemsCollection()
+        dailyRate:         50
+        days:              2
+        subTotal:          ""
+        total:             ""
+        startMileage:      ""
+        fuelLevel:         "FULL"
+        totalTax:          ""
+        discountRate:      ""
+        amountPaid:        0
+        amountDue:         0
+        location:          null
 
       blacklist: ['dailyRate', 'fuelLevel', 'gpsTrackings']
 
@@ -67,18 +74,33 @@ define [
         if !@get('notes')? or !(@get('notes').constructor.name is 'NotesCollection')
           @set 'notes',     new NotesCollection()
 
-        if !@get('gpsTrackings')? or (@get('gpsTrackings').constructor.name is 'GpsTrackingCollection')
+        if !@get('gpsTrackings')? or !(@get('gpsTrackings').constructor.name is 'GpsTrackingCollection')
           @set 'gpsTrackings', new GpsTrackingsCollection()
 
-        @get('customer').set(response.customer)
-        @get('vehicle').set(response.vehicle)
-        @get('notes').set(response.notes, parse:true)
-        @get('gpsTrackings').set(response.gpsTrackings, parse:true)
+        if !@get('additionalDrivers')? or !(@get('additionalDrivers').constructor.name is 'AdditionalDriversCollection')
+          @set 'additionalDrivers', new AdditionalDriversCollection()
 
-        response.vehicle       = @get 'vehicle'
-        response.customer      = @get 'customer'
-        response.notes         = @get 'notes'
-        response.gpsTrackings  = @get 'gpsTrackings'
+        if !@get('payments')? or !(@get('payments').constructor.name is 'PaymentsCollection')
+          @set 'payments', new PaymentsCollection()
+
+        if !@get('lineItems')? or !(@get('lineItems').constructor.name is 'LineItemsCollection')
+          @set 'lineItems', new LineItemsCollection()
+
+        @get('customer').set(response.customer).parse(response.customer)
+        @get('vehicle').set       response.vehicle,      parse:true
+        @get('notes').set         response.notes,        parse:true
+        @get('gpsTrackings').set  response.gpsTrackings, parse:true
+        @get('additionalDrivers').set  response.additionalDrivers, parse:true
+        @get('payments').set  response.payments, parse:true
+        @get('lineItems').set  response.lineItems, parse:true
+
+        response.vehicle            = @get 'vehicle'
+        response.customer           = @get 'customer'
+        response.notes              = @get 'notes'
+        response.gpsTrackings       = @get 'gpsTrackings'
+        response.additionalDrivers  = @get 'additionalDrivers'
+        response.payments           = @get 'payments'
+        response.lineItems          = @get 'lineItems'
 
         response
 
