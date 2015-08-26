@@ -39,6 +39,7 @@ define ['./templates/rent-agreement-row-template'], (template)->
 
       onClick: (e)->
         return true if $(e.target).prop('tagName') in ["I", "A"]
+        App.Router.navigate "#rent-agreement/#{@model.get('invoiceID')}", trigger: true
 
       onExtendClick: (e)->
         e.preventDefault()

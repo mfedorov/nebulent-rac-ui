@@ -1,6 +1,7 @@
 define [
     './layout-template'
     './views/rent-agreement-view'
+    './views/rent-agreement-edit-view'
     './models/rent-agreement'
     './views/rent-agreements-list-view'
     './views/close-agreement-modal'
@@ -8,7 +9,7 @@ define [
     './views/vehicle-movements-modal-view'
     './views/gps-tracking-modal-view'
     './module'
-],  (template, RentAgreementView, RentAgreement, RentAgreementsListView
+],  (template, RentAgreementView, RentAgreementEditView, RentAgreement, RentAgreementsListView
       CloseAgreementView, ExtendAgreementView, VehicleMovementsModalView,
       GpsTrackingModal) ->
 
@@ -62,8 +63,11 @@ define [
           if @agreement_id is 'list'
             mainView = new RentAgreementsListView collection: @model.get('rentals')
           else
-            model = if @agreement_id? then @model.get('rentals').get(@agreement_id) else new RentAgreement()
-            mainView = new RentAgreementView model: model, collection: @model.get('rentals')
+           if @agreement_id?
+              mainView = new RentAgreementEditView model: @model.get('rentals').get(@agreement_id), collection: @model.get('rentals')
+           else
+            mainView = new RentAgreementView model: new RentAgreement(), collection: @model.get('rentals')
+
           @main_region.show mainView
 
         closeAgreement: (model)->

@@ -252,3 +252,10 @@ i.fa-warning.validation-error {
 .modal-dialog table>tbody>tr>td {
   word-break: break-all;
 }
+
+#additional-drivers-region {
+  width: 320px;
+  .select2-container {
+    width: inherit !important;
+  }
+}
