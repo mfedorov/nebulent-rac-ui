@@ -30,7 +30,7 @@ define [
         vehicle_portlet:            '.vehicle-portlet'
         deposit_portlet:            '.deposit-portlet'
         dailyRate:                  'input[name="daily_rate"]'
-        dailyRate:                  'input[name="additional_drivers"]'
+        additionalDrivers:          'input[name="additional_drivers"]'
 
       events:
         'change @ui.vehicleSearch':                             "onVehicleSearch"
@@ -58,6 +58,7 @@ define [
         additional_fees_region:     "#additional-fees-region"
 
       initialize:(options)->
+        console.log @model, '----------'
         @collection = options.collection
         unless @model.get('dailyRate')
           @model.set 'dailyRate', (@model.get('total') + @model.get('discountRate'))/@model.get('days')

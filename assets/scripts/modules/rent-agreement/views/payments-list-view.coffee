@@ -1,7 +1,8 @@
 define [
   './templates/payments-list-template'
   './payments-row-view'
-], (template, PaymentsRowView)->
+  './no-payments-view'
+], (template, PaymentsRowView, NoPaymentsView)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
@@ -10,6 +11,7 @@ define [
       template:           template
       childView:          PaymentsRowView
       childViewContainer: "tbody"
+      emptyView:          NoPaymentsView
       tableColumnNames:   ['Created', 'Amount', 'Reference', 'Type', 'Status']
 
       templateHelpers: ->
