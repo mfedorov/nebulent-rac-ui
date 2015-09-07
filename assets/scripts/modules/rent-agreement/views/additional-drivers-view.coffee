@@ -36,6 +36,7 @@ define [
               result = _.map data , (item)->
                 id: item.contactID, text: item.firstName + ' ' + item.lastName + " (#{item.driverLicense})"
               results: result
+        .select2 'val', @collection.map (model)=> model.id
 
       onSelect: (e)->
         model = @organization.get('customers').get e.params.data.id

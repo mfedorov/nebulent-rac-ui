@@ -7,8 +7,12 @@ define [],  () ->
       tagName:   'option'
       template:  false
 
-      onShow: ->
-        @$el.val @model.get 'lastName'
-        @$el.text @model.get('lastName') + ' ' + @model.get('firstName')
+      onRender: ->
+        debugger
+        @$el.val @model.get('lastName') or @model.id
+
+        text = @model.get('lastName') + ' ' + @model.get('firstName')
+        text = @model.id if !@model.get('lastName') and !@model.get('firstName')
+        @$el.text text
 
   App.CarRentAgreement.DriverView
