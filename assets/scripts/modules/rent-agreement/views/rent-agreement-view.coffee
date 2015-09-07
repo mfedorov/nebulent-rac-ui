@@ -8,15 +8,18 @@ define [
     './../models/vehicle-model'
     './../models/organization-model'
     './../collections/rentals-collection'
+    './additional-drivers-view'
+    './payments-list-view'
+    './line-items-view'
 ],  (template, CustomerView, CustomerModel, DepositModel,  VehicleView, DepositView
-     VehicleModel, OrganizationModel, RentalsCollection) ->
+     VehicleModel, OrganizationModel, RentalsCollection, AdditionalDriversView,
+     PaymentsListView, LineItemsView) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.RentAgreement extends Marionette.LayoutView
       className:        "layout-view rent-agreement"
       template:         template
-
       dataCollection:
         organization:   false
         deposits:       false
@@ -28,6 +31,8 @@ define [
         vehicle_portlet:            '.vehicle-portlet'
         deposit_portlet:            '.deposit-portlet'
         agreement_details_portlet:  '.agreement-details-portlet'
+        dailyRate:                  'input[name="daily_rate"]'
+        additionalDrivers:          'input[name="additional_drivers"]'
 
       events:
         'change input:radio[name="customerChoiceRadios"]':      "customerChoiceChange"
@@ -55,6 +60,9 @@ define [
         customer_region:  "#customer-region"
         vehicle_region:   "#vehicle-region"
         deposit_region:   "#deposit-region"
+        additional_drivers_region:  "#additional-drivers-region"
+        payments_region:            "#payments-region"
+        additional_fees_region:     "#additional-fees-region"
 
       initialize:(options)->
         @collection = options.collection
@@ -133,9 +141,25 @@ define [
 
       initViewElements:->
         @initCustomerSelect2()
+        @initAdditionalDrivers()
+        @renderPayments()
+        @renderAdditionalFees()
         @initVehicleSelect2()
         @initLocations()
         @model.set 'orgId', @organization.get('orgId')
+
+      renderPayments: ->
+        @payments_region.show new PaymentsListView
+          collection: @model.get('payments')
+          organization: @organization
+
+      renderAdditionalFees: ->
+        @additional_fees_region.show new LineItemsView collection: @model.get('lineItems')
+
+      initAdditionalDrivers: ->
+        @additional_drivers_region.show new AdditionalDriversView
+          collection:   @model.get('additionalDrivers')
+          organization: @organization
 
       initLocations:->
         @addBinding null, '[name="location"]',

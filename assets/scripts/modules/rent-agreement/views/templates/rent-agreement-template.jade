@@ -29,6 +29,23 @@
             a.expand(href='javascript:;', data-original-title='', title='')
       .portlet-body.display-hide
         #customer-region
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.additional-drivers-portlet
+    .portlet.light
+      .portlet-title
+        .col-md-4.caption
+          i.fa.fa-users.font-purple-plum
+          span.caption-subject.bold.font-purple-plum.uppercase
+            | Additional Drivers
+          span.caption-helper (first name, last name, id)
+        .col-md-4
+          .form-group
+            .radio-list
+        .inputs.col-md-3.left
+          .portlet-input.input-inline.input-small.contains-select2
+        .tools.col-md-1.right
+          a.expand(href='javascript:;', data-original-title='', title='')
+      .portlet-body
+        #additional-drivers-region
   .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.vehicle-portlet
     .portlet.light
       .portlet-title
@@ -63,6 +80,38 @@
           a.collapse(href='javascript:;', data-original-title='', title='')
       .portlet-body
         #deposit-region
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.payments-portlet
+    .portlet.light
+      .portlet-title
+        .col-md-4.caption
+          i.fa.fa-credit-card.font-purple-plum
+          span.caption-subject.bold.font-purple-plum.uppercase
+            | Payments
+          span.caption-helper (description, amount)
+        .col-md-4
+        .inputs.col-md-3.left
+          .portlet-input.input-inline.input-small
+            .select2-container-div
+        .tools.col-md-1.right
+          a.expand(href='javascript:;', data-original-title='', title='')
+      .portlet-body.display-hide
+        #payments-region
+  .col-md-12.col-sm-12.col-xs-12.rent-agreement-portlet.aditional-fees-portlet
+    .portlet.light
+      .portlet-title
+        .col-md-4.caption
+          i.fa.fa-credit-card.font-purple-plum
+          span.caption-subject.bold.font-purple-plum.uppercase
+            | Additional Fees
+          span.caption-helper (description, amount)
+        .col-md-4
+        .inputs.col-md-3.left
+          .portlet-input.input-inline.input-small
+            .select2-container-div
+        .tools.col-md-1.right
+          a.expand(href='javascript:;', data-original-title='', title='')
+      .portlet-body.display-hide
+        #additional-fees-region
   .col-md-12.col-sm-12.col-xs-12.rental-details.agreement-details-portlet
     form#rental-details-form.form
       .row
