@@ -40,6 +40,9 @@ define [
 
       onSelect: (e)->
         model = @organization.get('customers').get e.params.data.id
-        @collection.add(model) unless @collection.get model.id
+        @collection.add(model, silent: true) unless @collection.get model.id
+
+      onUnselect: (e)->
+        @collection.remove e.params.data.id
 
   App.CarRentAgreement.AdditionalDriversView

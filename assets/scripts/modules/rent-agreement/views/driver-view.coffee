@@ -8,8 +8,7 @@ define [],  () ->
       template:  false
 
       onRender: ->
-        debugger
-        @$el.val @model.get('lastName') or @model.id
+        @$el.val @model.id
 
         text = @model.get('lastName') + ' ' + @model.get('firstName')
         text = @model.id if !@model.get('lastName') and !@model.get('firstName')
