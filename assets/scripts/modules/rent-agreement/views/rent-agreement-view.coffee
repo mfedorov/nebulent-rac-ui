@@ -31,6 +31,10 @@ define [
         vehicle_portlet:            '.vehicle-portlet'
         deposit_portlet:            '.deposit-portlet'
         agreement_details_portlet:  '.agreement-details-portlet'
+        aditional_fees_portlet:     '.aditional_fees-portlet'
+        payments_portlet:           '.payments-portlet'
+        additional_drivers_portlet: '.additional_drivers-portlet'
+        agreement_details_portlet:  '.agreement-details-portlet'
         dailyRate:                  'input[name="daily_rate"]'
         additionalDrivers:          'input[name="additional_drivers"]'
 
@@ -57,9 +61,9 @@ define [
         'input[name="amount_due"]'         : observe: 'amountDue'
 
       regions:
-        customer_region:  "#customer-region"
-        vehicle_region:   "#vehicle-region"
-        deposit_region:   "#deposit-region"
+        customer_region:            "#customer-region"
+        vehicle_region:             "#vehicle-region"
+        deposit_region:             "#deposit-region"
         additional_drivers_region:  "#additional-drivers-region"
         payments_region:            "#payments-region"
         additional_fees_region:     "#additional-fees-region"
@@ -108,12 +112,11 @@ define [
           else
             @ui["#{parts}_portlet"][operation]()
 
-        portlets ["vehicle", "deposit", "agreement_details"], "hide"
+        portlets ["vehicle", "deposit", "agreement_details", "aditional_fees", "payments", "additional_drivers"], "hide"
         if @model.get('customer')?.get('contactID')
-          portlets "vehicle", "show"
+          portlets ["vehicle", "additional_drivers"], "show"
           if @model.get('vehicle')?.get('itemID')
-            portlets "deposit", "show"
-            portlets "agreement_details", "show"
+            portlets ["deposit", "agreement_details", "payments", "aditional_fees"], "show"
 
       onDepositCreated: (e, model)->
         return unless @model.get('customer')

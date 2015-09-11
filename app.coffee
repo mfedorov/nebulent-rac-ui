@@ -5,7 +5,9 @@ cookie_parser = require "cookie-parser"
 passport      = require "passport"
 FileStore     = require("session-file-store")(session)
 favicon       = require 'serve-favicon'
+dotenv        = require "dotenv"
 
+dotenv.load()
 app = express()
 
 app.set "title", "RAC Client"
