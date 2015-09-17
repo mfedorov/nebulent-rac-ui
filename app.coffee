@@ -1,3 +1,7 @@
+# Making sure app process is running from root directory
+# even if it was launched somewhere else
+process.chdir __dirname
+
 express       = require "express"
 session       = require "express-session"
 body_parser   = require "body-parser"
