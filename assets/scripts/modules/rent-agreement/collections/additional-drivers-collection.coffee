@@ -8,7 +8,4 @@ define [
     class Module.AdditionalDriversCollection extends CustomerCollection
       model: AdditionalDriver
 
-      toJSON:->
-        _.map @models, (model)-> "contactID": model.id
-
   App.CarRentAgreement.AdditionalDriversCollection

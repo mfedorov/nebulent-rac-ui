@@ -107,11 +107,13 @@ define [
         @calculateAndSave()
 
       calculateAndSave: ->
+        debugger
         @model.get('deposit').set 'status', 'ARCHIVED'
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
-            @originalModel.set @model.toJSON(), parse: true
+            debugger
+            @originalModel.parse @model.toJSON()
             @originalModel.collection.trigger('change')
             @$('.close').click()
           .error   (data)=>

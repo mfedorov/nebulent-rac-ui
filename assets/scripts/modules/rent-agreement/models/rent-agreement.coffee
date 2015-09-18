@@ -35,15 +35,17 @@ define [
         amountPaid:        0
         amountDue:         0
         location:          null
+        type:              "ACCREC"
 
       blacklist: ['dailyRate', 'fuelLevel', 'gpsTrackings']
 
       toJSON: (options)->
-        attrs = _.clone @attributes
-        attrs.customer = attrs.customer.toJSON() if attrs.customer?.constructor.name is "CustomerModel"
-        attrs.vehicle = attrs.vehicle.toJSON() if attrs.vehicle?.constructor.name is "VehicleModel"
-        attrs.gpsTrackings = attrs.gpsTrackings.toJSON() if attrs.gpsTrackings?.constructor.name is "GpsTrackingCollection"
-        attrs.notes = attrs.notes.toJSON() if attrs.notes?.constructor.name is "NotesCollection"
+        attrs                   = _.clone @attributes
+        attrs.customer          = attrs.customer.toJSON() if attrs.customer?.constructor.name is "CustomerModel"
+        attrs.vehicle           = attrs.vehicle.toJSON() if attrs.vehicle?.constructor.name is "VehicleModel"
+        attrs.gpsTrackings      = attrs.gpsTrackings.toJSON() if attrs.gpsTrackings?.constructor.name is "GpsTrackingCollection"
+        attrs.notes             = attrs.notes.toJSON() if attrs.notes?.constructor.name is "NotesCollection"
+        attrs.additionalDrivers = attrs.additionalDrivers.toJSON() if attrs.additionalDrivers?.constructor.name is "AdditionalDriversCollection"
         _.omit attrs, @blacklist
 
       recalcAll: ->
@@ -71,6 +73,9 @@ define [
         if !@get('vehicle')? or !(@get('vehicle').constructor.name is 'VehicleModel')
           @set 'vehicle',   new VehicleModel()
 
+        if !@get('deposit')? or !(@get('deposit').constructor.name is 'DepositModel')
+          @set 'deposit',   new DepositModel()
+
         if !@get('notes')? or !(@get('notes').constructor.name is 'NotesCollection')
           @set 'notes',     new NotesCollection()
 
@@ -88,6 +93,7 @@ define [
 
         @get('customer').set(response.customer).parse(response.customer)
         @get('vehicle').set       response.vehicle,      parse:true
+        @get('deposit').set       response.deposit,      parse:true
         @get('notes').set         response.notes,        parse:true
         @get('gpsTrackings').set  response.gpsTrackings, parse:true
         @get('additionalDrivers').set  response.additionalDrivers, parse:true
@@ -96,6 +102,7 @@ define [
 
         response.vehicle            = @get 'vehicle'
         response.customer           = @get 'customer'
+        response.deposit            = @get 'deposit'
         response.notes              = @get 'notes'
         response.gpsTrackings       = @get 'gpsTrackings'
         response.additionalDrivers  = @get 'additionalDrivers'
