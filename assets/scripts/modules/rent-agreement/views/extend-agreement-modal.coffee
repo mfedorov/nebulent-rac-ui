@@ -111,7 +111,7 @@ define [
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
-            @originalModel.set @model.toJSON(), parse: true
+            @originalModel.parse @model.toJSON()
             @originalModel.collection.trigger('change')
             @$('.close').click()
           .error   (data)=>

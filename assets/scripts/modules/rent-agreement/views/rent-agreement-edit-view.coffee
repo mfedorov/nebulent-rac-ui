@@ -168,6 +168,8 @@ define [
         channel = Backbone.Radio.channel "dashboard"
         activeRentals = channel.request "active:rentals"
         activeRentals.done (data)=>
+          #TODO: think of some other way, for now this is needed if user navigates away before callback resolves
+          return false unless @regionManager.length
           activeRentals = new RentalsCollection data.activeRentals, parse:true
           initSelect(activeRentals)
           @vehicle_region.show new VehicleView model: @model.get('vehicle')
