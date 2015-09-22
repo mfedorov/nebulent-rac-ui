@@ -35,6 +35,7 @@ define [
           channel.comply "rent:agreement:close", @closeAgreement, @
           channel.comply "rent:agreement:extend", @extendAgreement, @
           channel.comply "rent:agreement:created", @onAgreemenetCreated, @
+          channel.comply "rent:agreement:updated", @onAgreemenetCreated, @
           channel.comply "rent:agreement:show:notes", @onShowNotes, @
           channel.comply "rentals:list:refresh", @onListRefresh, @
 #          channel.comply "show:rental:movements", @viewVehicleMovements, @

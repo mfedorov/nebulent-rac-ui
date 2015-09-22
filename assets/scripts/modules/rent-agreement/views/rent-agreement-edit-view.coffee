@@ -22,6 +22,7 @@ define [
       template:         template
       dataCollection:
         organization:   false
+        deposits:       false
 
       ui:
         vehicleSearch:              'input[name="vehicle_search"]'
@@ -33,9 +34,9 @@ define [
         additionalDrivers:          'input[name="additional_drivers"]'
 
       events:
-        'change @ui.vehicleSearch':                             "onVehicleSearch"
-        'click #submit-rent-agreement':                         "onSubmit"
-        'loaded':                                               "initViewElements"
+        'change @ui.vehicleSearch':      "onVehicleSearch"
+        'click #submit-rent-agreement':  "onSubmit"
+        'loaded':                        "initViewElements"
 
       bindings:
         'input[name="daily_rate"]'         : observe: 'dailyRate'
@@ -58,7 +59,6 @@ define [
         additional_fees_region:     "#additional-fees-region"
 
       initialize:(options)->
-        console.log @model, '----------'
         @collection = options.collection
         unless @model.get('dailyRate')
           @model.set 'dailyRate', (@model.get('total') + @model.get('discountRate'))/@model.get('days')
@@ -72,6 +72,7 @@ define [
         @listenTo @model, 'change:total',         @refreshModel
 
         @listenTo @organization, 'sync', _.partial(@loaded, 'organization')
+        @listenTo @organization.get('deposits'), 'sync', _.partial(@loaded, 'deposits')
 
         @initData()
 
@@ -208,13 +209,13 @@ define [
         unless depositModel.get('itemID')
           depositModel.save()
           .success (data)=>
-            @showModelMessage "success", "Successfully Created Deposit for Agreement", data
+            @showModelMessage "success", "Successfully Updated Deposit for Agreement", data
             channel = Backbone.Radio.channel "deposits"
             channel.command "deposit:created"
             @model.set "deposit", itemID: data.itemID
             @rentalSave()
           .error  (data)=>
-            @showModelMessage "error", "Error Creating Deposit", data
+            @showModelMessage "error", "Error Updating Deposit", data
         else
           @rentalSave()
 
@@ -225,7 +226,7 @@ define [
           @ui.vehicleSearch.select2 'close'
           @showModelMessage "success", "Successfully Created Rent Agreement", data
           channel = Backbone.Radio.channel "rent-agreements"
-          channel.command "rent:agreement:created", @model
+          channel.command "rent:agreement:updated", @model
           App.Router.navigate "#rent-agreements", trigger: true
         .error (data)=>
           @showModelMessage "error", "Error Creating Rent Agreement", data

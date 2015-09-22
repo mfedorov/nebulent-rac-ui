@@ -30,11 +30,10 @@ define [
         '[name="deposit_customer_view"]' :
           observe: "customer"
           onGet: (value)->
-            if value.get('contactID')?
-              if value.get('lastName')? and value.get('lastName')
-                value =  value.get('lastName') + " " + value.get('firstName')
-              else
-                value = value.get('contactID')
+            if value.get('lastName')? and value.get('lastName')
+              value =  value.get('lastName') + " " + value.get('firstName')
+            else
+              value = value.get('contactID') if value.get('contactID')?
             value
         '[name="deposit_location"]' :     "location"
 
