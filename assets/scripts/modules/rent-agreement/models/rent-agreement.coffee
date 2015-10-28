@@ -39,6 +39,9 @@ define [
 
       blacklist: ['dailyRate', 'fuelLevel', 'gpsTrackings']
 
+      initialize: ->
+        Backbone.Select.Me.applyTo @
+
       toJSON: (options)->
         attrs                   = _.clone @attributes
         attrs.customer          = attrs.customer.toJSON() if attrs.customer?.constructor.name is "CustomerModel"
@@ -50,17 +53,11 @@ define [
 
       recalcAll: ->
         #TODO remove commented lines if not needed later
-        console.log "in recalc"
-#        TAX      = Module.organization.get('stateTax') + Module.organization.get('rentalTax')
         subtotal = @get('days')*@get('dailyRate')
         dailyRate = @vehicle?.get('dailyRate') or Module.organization?.get('rentalDailyFee')
-#        tax      = subtotal * TAX / 100 + dailyRate * @get('days')
-#        @set 'subTotal', subtotal
-#        @set 'total', subtotal + tax - (parseInt(@get('discountRate')) or 0)
         total     = subtotal - (parseInt(@get('discountRate')) or 0)
         @set 'total', total
         @set('amountDue', total - @get('amountPaid'))
-#        @set 'totalTax', tax
 
       recalcPaidAndDue: ->
         total = @get 'total'

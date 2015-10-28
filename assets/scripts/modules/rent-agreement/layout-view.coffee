@@ -50,7 +50,6 @@ define [
           else
             @refreshData()
             .success (data)=>
-              console.log data
               @showView()
               @fetched = true
             .error (data)->
@@ -72,12 +71,10 @@ define [
           @main_region.show mainView
 
         closeAgreement: (model)->
-          console.log "close agreement for", model
           @modal_region.show new CloseAgreementView( model: model, collection:@model.get('rentals'))
           @ui.modal.modal()
 
         extendAgreement: (model)->
-          console.log "extend agreement for", model
           @modal_region.show new ExtendAgreementView
             model:          new RentAgreement model.toJSON()
             originalModel:  model

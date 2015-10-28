@@ -221,15 +221,18 @@ define [
 
       rentalSave: ->
         @model.get('deposit').set "status", "ARCHIVED"
+        @model.set 'status', 'SUBMITTED'
+        #TODO: make sure edit uses a newly created sepparate model and this kind of nulling should be avoided
+        @model.set 'dueDate', undefined
         @model.save()
-        .success (data)=>
-          @ui.vehicleSearch.select2 'close'
-          @showModelMessage "success", "Successfully Created Rent Agreement", data
-          channel = Backbone.Radio.channel "rent-agreements"
-          channel.command "rent:agreement:updated", @model
-          App.Router.navigate "#rent-agreements", trigger: true
-        .error (data)=>
-          @showModelMessage "error", "Error Creating Rent Agreement", data
+          .success (data)=>
+            @ui.vehicleSearch.select2 'close'
+            @showModelMessage "success", "Successfully Created Rent Agreement", data
+            channel = Backbone.Radio.channel "rent-agreements"
+            channel.command "rent:agreement:updated", @model
+            App.Router.navigate "#rent-agreements", trigger: true
+          .error (data)=>
+            @showModelMessage "error", "Error Creating Rent Agreement", data
 
       isValid:->
         unless @model.get "location"

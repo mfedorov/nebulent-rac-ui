@@ -15,7 +15,7 @@ define [
         "change input" :  "onInputChange"
 
       initialize: ->
-        @listenTo @model, "selected", => @selected()
+        @listenTo @model, "selected",   => @selected()
         @listenTo @model, "deselected", => @selected()
 
       onInputChange: (e)->
@@ -24,7 +24,5 @@ define [
 
       selected:->
         @$('input').prop 'checked', @model.selected
-
-
 
   App.GpsTrackings.VehicleItemView

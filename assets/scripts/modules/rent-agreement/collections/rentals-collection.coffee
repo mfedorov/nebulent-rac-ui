@@ -19,4 +19,7 @@ define [
         asc:         'false'
         search:      ''
 
+      initialize: (models, options) ->
+        Backbone.Select.One.applyTo @, models, options
+
   App.CarRentAgreement.RentalsCollection
