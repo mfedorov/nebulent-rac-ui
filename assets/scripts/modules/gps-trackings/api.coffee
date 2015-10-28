@@ -18,7 +18,6 @@ define [
       getOneCarView: (model)->
         new OneCarView model: model
 
-
     Module.on 'start', ->
       channel = Backbone.Radio.channel 'gps-trackings'
       channel.reply 'view', API.getView

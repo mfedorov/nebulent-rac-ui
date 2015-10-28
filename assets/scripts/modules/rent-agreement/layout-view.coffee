@@ -38,8 +38,8 @@ define [
           channel.comply "rent:agreement:updated", @onAgreemenetCreated, @
           channel.comply "rent:agreement:show:notes", @onShowNotes, @
           channel.comply "rentals:list:refresh", @onListRefresh, @
-#          channel.comply "show:rental:movements", @viewVehicleMovements, @
-#          channel.comply "show:rental:tracking", @viewTracking, @
+          channel.comply "show:rental:movements", @viewVehicleMovements, @
+          channel.comply "show:rental:tracking", @viewTracking, @
 
         onAgreemenetCreated: (model)->
           @fetched = false
@@ -71,22 +71,22 @@ define [
           @main_region.show mainView
 
         closeAgreement: (model)->
-          @modal_region.show new CloseAgreementView( model: model, collection:@model.get('rentals'))
-          @ui.modal.modal()
+          App.modalRegion1.show new CloseAgreementView( model: model, collection:@model.get('rentals'))
+          App.modalRegion1.$el.modal()
 
         extendAgreement: (model)->
-          @modal_region.show new ExtendAgreementView
+          App.modalRegion1.show new ExtendAgreementView
             model:          new RentAgreement model.toJSON()
             originalModel:  model
-          @ui.modal.modal()
+          App.modalRegion1.$el.modal()
 
         onShowNotes: (model)->
           channel = Backbone.Radio.channel "notes"
           view = channel.request "notes:view",
             model: model
             title: "Rent Agreement"
-          @modal_region.show view
-          @ui.modal.modal()
+          App.modalRegion1.show view
+          App.modalRegion1.$el.modal()
 
         onListRefresh: ->
           @fetched = false
@@ -96,11 +96,11 @@ define [
           channel = Backbone.Radio.channel "gps-trackings"
           mapView = channel.request "one:car:view", model
 
-          @modal_region.show new GpsTrackingModal(model: model, mapView: mapView)
-          @$ui.modal.modal()
+          App.modalRegion2.show new GpsTrackingModal(model: model, mapView: mapView)
+          App.modalRegion2.$el.modal()
 
         viewVehicleMovements: (collection)->
-          @modal_region2.show new VehicleMovementsModalView collection: collection
-          @ui.modal2.modal()
+          App.modalRegion1.show new VehicleMovementsModalView collection: collection
+          App.modalRegion1.$el.modal()
 
     App.CarRentAgreement.LayoutView

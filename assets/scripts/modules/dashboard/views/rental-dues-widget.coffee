@@ -1,23 +1,6 @@
-define [
-  './widget'
-  './rental-dues-widget-item'
-  './templates/rental-dues-layout-template'
-], (WidgetView, RentalDuesWidgetItem, template)->
-
+define [  './templates/rental-dues-layout-template'], ( template)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
-
-#    class Module.RentalDuesWidget extends WidgetView
-#      childView:    RentalDuesWidgetItem
-#      title:        'Active Rentals'
-#      dataTableId:  'rental_dues'
-#      headerItems:  ['#', 'Client Name', 'Vehicle Make', 'Vehicle Model', 'Vehicle Color', 'Vehicle Plate Number', 'Started On', 'Due Date', 'Actions']
-#      icon:         'fa-clock-o'
-#      color:        'red'
-#
-#      onShow:->
-#        super
-#        @$('.collapser').click()
 
     class Module.RentalDuesWidget extends Marionette.LayoutView
       template:     template
@@ -46,7 +29,6 @@ define [
         @rentalsView = options.rentalsView
 
       onShow:->
-#        @$("##{@dataTableId}").dataTable()
         @main.show @rentalsView
         @$('.collapser').click()
 

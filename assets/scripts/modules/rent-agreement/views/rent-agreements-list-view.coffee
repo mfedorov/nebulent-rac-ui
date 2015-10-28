@@ -19,9 +19,10 @@ define [
         tableRegion:   "#table"
 
       templateHelpers: ->
-        currentPage: @collection.state.currentPage
-        nextStatus:  if @collection.length < @collection.state.pageSize then "disabled" else
-        prevStatus:  if @collection.state.currentPage is 1 then "disabled" else ""
+        currentPage:      @collection.state.currentPage
+        nextStatus:       if @collection.length < @collection.state.pageSize then "disabled" else
+        prevStatus:       if @collection.state.currentPage is 1 then "disabled" else ""
+        enablePagination: @options.EnablePagination or true
 
       onShow:->
         @toolbarRegion.show new ToolbarView(collection: @collection)

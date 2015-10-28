@@ -1,18 +1,20 @@
 .col-md-8.col-sm-12.no-left-padding
   .actions
-    button#list-refresh.list-refresh-button.btn.btn-sm.purple.filter-submit.margin-bottom
-      i.fa.fa-refresh
-    a.btn.default.purple-stripe.input-inline.input-small.input-sm.new-agreement(href='#rent-agreement')
-      i.fa.fa-plus
-      span.hidden-480
-        |  New Agreement
+    if options.mainButtonsEnabled
+      button#list-refresh.list-refresh-button.btn.btn-sm.purple.filter-submit.margin-bottom
+        i.fa.fa-refresh
+      a.btn.default.purple-stripe.input-inline.input-small.input-sm.new-agreement(href='#rent-agreement')
+        i.fa.fa-plus
+        span.hidden-480
+          |  New Agreement
     .actions-region(data-region='actions-region')
-.col-md-4.col-sm-12.no-right-padding
-  .table-group-actions.pull-right
-    .input-icon.right.pull-left.list-search-group
-      i.fa.fa-times.tooltips.reset-search.hidden(data-original-title='Reset Search', data-container='body')
-      input#rental-query.table-group-action-input.form-control.input-inline.input-small.input-sm(type='text', name='order_quantity_from')
-      | &nbsp;
-    button#rental-search.btn.btn-sm.purple.filter-submit.margin-bottom
-      i.fa.fa-search
-      |  Search
+if options.searchEnabled
+  .col-md-4.col-sm-12.no-right-padding
+    .table-group-actions.pull-right
+      .input-icon.right.pull-left.list-search-group
+        i.fa.fa-times.tooltips.reset-search.hidden(data-original-title='Reset Search', data-container='body')
+        input#rental-query.table-group-action-input.form-control.input-inline.input-small.input-sm(type='text', name='order_quantity_from')
+        | &nbsp;
+      button#rental-search.btn.btn-sm.purple.filter-submit.margin-bottom
+        i.fa.fa-search
+        |  Search
