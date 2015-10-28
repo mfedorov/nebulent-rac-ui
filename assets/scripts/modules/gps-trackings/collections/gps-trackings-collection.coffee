@@ -4,8 +4,8 @@ define ['./../models/gps-tracking-model'], (model)->
 
     class Module.GpsTrackingCollection extends Backbone.Collection
       model: model
-      initialize: ->
-        multiSelect = new Backbone.Picky.MultiSelect @
-        _.extend @, multiSelect
+
+      initialize: (models) ->
+        Backbone.Select.Many.applyTo @, models
 
   App.GpsTrackings.GpsTrackingCollection
