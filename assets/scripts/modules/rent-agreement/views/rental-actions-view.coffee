@@ -36,7 +36,6 @@ define ['./templates/rental-actions'], (template)->
 
       onViewTracking:(e)->
         e.preventDefault()
-        channel = Backbone.Radio.channel "rent-agreements"
-        channel.command "show:rental:movements", @model.get('gpsTrackings')
+        @channel.command "show:rental:movements", @model.get('gpsTrackings')
 
   App.CarRentAgreement.RentalActionsView

@@ -47,7 +47,6 @@ define [
             deferred.fail()
         deferred.promise()
 
-
     Module.on 'start', ->
       channel = Backbone.Radio.channel 'rent-agreements'
       channel.reply 'view', API.getView

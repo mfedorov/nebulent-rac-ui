@@ -192,7 +192,6 @@ span.select2-selection__arrow {
       .rental-actions {
         a {
           padding: 4px 8px 5px 8px;
-          width: 28px;
           height: 28px;
         }
       }
@@ -299,3 +298,17 @@ i.fa-warning.validation-error {
 table#rent-agreements {
   font-size: 12px;
 }
+
+// dashboard
+//- rentals due widget
+#rental-dues {
+  #toolbar {
+    position: absolute;
+    left: 165px;
+    top: 65px;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
+// dashboard end

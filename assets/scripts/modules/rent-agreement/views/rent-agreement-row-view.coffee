@@ -41,6 +41,7 @@ define ['./templates/rent-agreement-row-template'], (template)->
           @$el.addClass 'due-today'
         else if (moment().unix()*1000 > @model.get('dueDate')) and (@model.get('status') isnt 'CLOSED')
           @$el.addClass('past-due-date')
+        @$('input[type=radio]').prop 'checked', true if !@$('input[type=radio]').prop('checked') and @model.selected
 
       onClick: (e)->
         return true if $(e.target).prop('tagName') in ['I', 'A', 'INPUT']
