@@ -8,12 +8,13 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.RentAgreements extends Marionette.CompositeView
-      className:          "layout-view rent-agreements"
-      template:           template
-      childView:          RentAgreementRowView
-      childViewContainer: ".row-container"
-      headerItems:        ['#', 'First Name', 'Last Name', 'License #', 'Vehicle Color', 'Vehicle Year', 'Vehicle Make', 'Vehicle Model', 'Vehicle Plate #', 'Days', 'Due Date', 'Total', 'Amount Due', 'Status', 'Actions']
-      dataTableId:        "rent-agreements"
+      className:            "layout-view rent-agreements"
+      template:             template
+      childView:            RentAgreementRowView
+      childViewContainer:   ".row-container"
+      headerItems:          ['#', 'First Name', 'Last Name', 'License #', 'Vehicle Color', 'Vehicle Year', 'Vehicle Make', 'Vehicle Model', 'Plate #', 'Days', 'Due Date', 'Total', 'Due', 'Status', 'Actions']
+      dataTableId:          "rent-agreements"
+      actionsInlineEnabled: false
 
       events:
          'show:tracking': 'viewTracking'
@@ -26,7 +27,12 @@ define [
         index: index
 
       templateHelpers: ->
-        header:       @headerItems
+        header = []
+        if @actionsInlineEnabled
+          header = @headerItems.slice 1, @headerItems.length
+        else
+          header = @headerItems.slice 0, @headerItems.length - 1
+        header:       header
         dataTableId:  @dataTableId
         count:        @collection.length
 

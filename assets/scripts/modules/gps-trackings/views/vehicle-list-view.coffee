@@ -16,6 +16,6 @@ define [
 
       onGroupCheck:(e)->
         return @collection.selectAll() if $(e.currentTarget).is(":checked")
-        @collection.selectNone()
+        @collection.deselectAll()
 
   App.GpsTrackings.VehicleListView

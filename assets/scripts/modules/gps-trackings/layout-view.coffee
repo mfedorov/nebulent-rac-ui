@@ -30,8 +30,7 @@ define [
         renderElements: ->
           @renderVehicles()
           @renderMap()
-          @model.get('gpsTrackings').on "select:some", => @onSelectSome()
-          @model.get('gpsTrackings').on "select:none", => @onSelectSome()
+          @model.get('gpsTrackings').on "select:some select:all select:none", @onSelectSome, @
 
         renderVehicles: ->
           @vehicles_region.show new VehicleList(collection: @model.get('gpsTrackings'))

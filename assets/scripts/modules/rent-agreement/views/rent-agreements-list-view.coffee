@@ -2,7 +2,7 @@ define [
   './templates/rent-agreements-list-template'
   './rent-agreements-view'
   './agreements-pagination-view'
-  './agreements-list-toolbar-view'
+  './list-toolbar-view'
 ],  (template, TableView, PaginationView, ToolbarView) ->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
@@ -15,8 +15,8 @@ define [
         PageableTable: {}
 
       regions:
-        toolbarRegion:      "#toolbar"
-        tableRegion:        "#table"
+        toolbarRegion: "#toolbar"
+        tableRegion:   "#table"
 
       templateHelpers: ->
         currentPage: @collection.state.currentPage
@@ -25,6 +25,8 @@ define [
 
       onShow:->
         @toolbarRegion.show new ToolbarView(collection: @collection)
-        @tableRegion.show new TableView(collection: @collection)
+        @tableRegion.show   new TableView(collection: @collection)
+        @collection.selected?.deselect()
+        @collection.first().select()
 
   App.CarRentAgreement.RentAgreementsListView

@@ -7,12 +7,13 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.WidgetRentalsView extends RentAgreementsView
-      className:          "layout-view widet-rentals-view"
-      template:           template
-      childView:          RentAgreementRowView
-      childViewContainer: ".row-container"
-      headerItems:        ['#', 'First Name', 'Last Name', 'License #', 'Vehicle Color', 'Vehicle Year', 'Vehicle Make', 'Vehicle Model', 'Vehicle Plate #', 'Days', 'Due Date', 'Total', 'Amount Due', 'Status', 'Actions']
-      dataTableId:        "widget-active-rent-agreements"
+      className:            "layout-view widet-rentals-view"
+      template:             template
+      childView:            RentAgreementRowView
+      childViewContainer:   ".row-container"
+      headerItems:          ['#', 'First Name', 'Last Name', 'License #', 'Vehicle Color', 'Vehicle Year', 'Vehicle Make', 'Vehicle Model', 'Plate #', 'Days', 'Due Date', 'Total', 'Due', 'Status', 'Actions']
+      dataTableId:          "widget-active-rent-agreements"
+      actionsInlineEnabled: true
 
       onShow:->
         @$("##{@dataTableId}").dataTable()

@@ -12,11 +12,11 @@ define [
   'moment'
   'iCheck'
   'bootbox'
+  'backbone.select'
   'backbone.paginator'
   'bootstrap-datetimepicker'
   'backbone.radio'
   'backbone.stickit'
-  'backbone.picky'
   'backbone.radio.shim'
   'backbone.modals'
   'runtime'
@@ -33,11 +33,12 @@ define [
   './behaviors/textarea-supporting-tabs'
   './behaviors/pageable-table'
 ], (Backbone, Marionette, $, _, toastr, select2, metronic, layout,
-    quickSidebar, demo, moment, iCheck, bootbox) ->
+    quickSidebar, demo, moment, iCheck, bootbox, select) ->
 
   window.bootbox = bootbox
   window.toastr  = toastr
   window.moment  = moment
+  window.select  = select
   window.clearTooltips = -> $('[role="tooltip"]').remove()
 
   #init metronic theme

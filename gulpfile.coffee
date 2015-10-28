@@ -71,7 +71,7 @@ gulp.task "scripts", ["cleanScripts"], ->
       "runtime":                  "./public/scripts/vendor/runtime"
       "backbone.radio.shim":      "./public/scripts/vendor/backbone.radio.shim"
       "bootstrap-growl":          "./public/scripts/vendor/jquery.bootstrap-growl"
-      "backbone.picky":           "./public/scripts/vendor/backbone.picky"
+      "backbone.select":           "./public/scripts/vendor/backbone.select"
       "handlebars":               "./public/scripts/vendor/handlebars"
       "toastr":                   "./public/scripts/vendor/toastr"
       "jquery-cookie":            "./public/scripts/vendor/jquery-cookie"

@@ -19,8 +19,7 @@ define [
         trackedOn:                  null
 
       initialize: ->
-        selectable = new Backbone.Picky.Selectable @
-        _.extend @, selectable
+        Backbone.Select.Me.applyTo @
 
       parse: (response, options) ->
         @set @defaults()

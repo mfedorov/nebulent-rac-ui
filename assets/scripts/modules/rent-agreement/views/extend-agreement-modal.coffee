@@ -24,25 +24,23 @@ define [
         'input[name="total"]'              : observe: 'total'
         'input[name="discount_rate"]'      : observe: 'discountRate'
         'input[name="amount_paid"]'        : observe: 'amountPaid'
-        'input[name="amount_due"]'         : observe: 'amountDue'
 
       events:
-        "change input[name='days']":               "onDaysCountChange"
-        "dp.change input[name='dueDate']":         "onDueDateChange"
-        "change input[name='dueDate']":            "onDueDateChange"
-        "click .extend":                           "onExtendClick"
+        "change input[name='days']":       "onDaysCountChange"
+        "dp.change input[name='dueDate']": "onDueDateChange"
+        "change input[name='dueDate']":    "onDueDateChange"
+        "click .extend":                   "onExtendClick"
 
       initialize: (options)->
         @originalModel = options.originalModel
-
-        minDate = new Date moment.unix(parseInt(@model.get('dueDate'))/1000).format(App.DataHelper.dateFormats.us)
+        minDate = new Date moment.unix(parseInt(@originalModel.get('dueDate'))/1000).format(App.DataHelper.dateFormats.us)
         minDate.setDate minDate.getDate() + 1
         @minDate = moment(minDate).format(App.DataHelper.dateFormats.us)
-        @dueDate = moment.unix(parseInt(@model.get('dueDate'))/1000).format(App.DataHelper.dateFormats.us)
+        @dueDate = moment.unix(parseInt(@originalModel.get('dueDate'))/1000).format(App.DataHelper.dateFormats.us)
 
         @model.set 'status', 'EXTENDED'
         @model.set 'days', '1'
-        @model.set 'dueDate', moment(@minDate, App.DataHelper.dateFormats.us).unix()*1000
+        @model.set 'amountPaid', '0'
 
         @listenTo @model, 'change:days',          @refreshModel
         @listenTo @model, 'change:discountRate',  @refreshModel
@@ -97,21 +95,17 @@ define [
       onExtendClick: ->
         return if saving
         saving = true
-        #TODO: move it to main app logic
-#        unless Module.organization?
-#          channel = Backbone.Radio.channel "rent-agreements"
-#          org = channel.request "update:organization"
-#          org.done ()=> @calculateAndSave()
-#        else
-#          @calculateAndSave()
         @calculateAndSave()
 
       calculateAndSave: ->
         @model.get('deposit').set 'status', 'ARCHIVED'
+        #TODO: think of the way to avoid this kind of nulling
+        @model.set 'amountDue', undefined
+        @model.set 'dueDate', undefined
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
-            @originalModel.parse @model.toJSON()
+            @originalModel.fetch()
             @originalModel.collection.trigger('change')
             @$('.close').click()
           .error   (data)=>

@@ -1,5 +1,8 @@
-td
-  = modelIndex + 1
+unless actionsInlineEnabled
+  td
+    .checker
+      span
+        input.checkboxes(name='active_rental', type='radio', value='1')
 td
   = customer.firstName
 td
@@ -28,7 +31,7 @@ td
 td
   span(class="#{status.toLowerCase()} agreement_status")
     = status
-if actionsEnabled
+if actionsInlineEnabled
   td
     a.btn.default.btn-xs.green.download-row(href="#{externalDocUrl}" data-toggle="tooltip" title="Download PDF version of agreement")
       i.fa.fa-download

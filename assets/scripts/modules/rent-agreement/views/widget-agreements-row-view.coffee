@@ -6,6 +6,7 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.RentAgreementRowView extends RentAgreementRowView
+      actionsInlineEnabled: true
 
       onExtendClick: (e)->
         e.preventDefault()

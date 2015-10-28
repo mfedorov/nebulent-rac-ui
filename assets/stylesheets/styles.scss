@@ -162,8 +162,44 @@ span.select2-selection__arrow {
 }
 
 #toolbar {
-  margin-bottom: 15px
+  margin-bottom: 15px;
+  .rent-agreemens-list-toolbar{
+    .agreement-actions {
+      display: inline;
+      margin-left: 6px;
+      a {
+        width: 28px;
+        height: 28px;
+        padding: 5px;
+        i {
+          font-size: 14px;
+        }
+
+      }
+    }
+  }
+  .actions {
+    .list-refresh-button {
+      vertical-align:top;
+    }
+    .new-agreement-button {
+      vertical-align: top;
+    }
+    .actions-region {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 6px;
+      .rental-actions {
+        a {
+          padding: 4px 8px 5px 8px;
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+  }
 }
+
 //agreements list end
 
 //google maps

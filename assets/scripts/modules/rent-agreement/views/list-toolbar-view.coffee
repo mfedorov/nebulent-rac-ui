@@ -1,8 +1,8 @@
-define ['./templates/list-toolbar-template'], (template)->
+define ['./templates/list-toolbar-template', './rental-actions-view'], (template, RentalActionsView)->
 
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
-    class Module.AgreementsListToolbarView extends Marionette.ItemView
+    class Module.AgreementsListToolbarView extends Marionette.LayoutView
       className:  "item-view rent-agreemens-list-toolbar clearfix"
       template: template
 
@@ -17,8 +17,14 @@ define ['./templates/list-toolbar-template'], (template)->
         'change   @ui.searchQuery'  :  "onQueryChange"
         'click    @ui.resetSearch'  :  "onResetSearch"
 
-      initialize: (options)->
-        @collection = options.collection
+      regions:
+        actionsRegion: '[data-region=actions-region]'
+
+      collectionEvents:
+        'select:one': 'onRentalSelected'
+
+      templateHelpers: ->
+        actionsEnabled: true
 
       onSearch: ->
         @update()
@@ -46,5 +52,8 @@ define ['./templates/list-toolbar-template'], (template)->
         @ui.searchQuery.val ''
         @ui.resetSearch.addClass 'hidden'
         @onSearch()
+
+      onRentalSelected: ->
+        @actionsRegion.show new RentalActionsView(model: @collection.selected or @collection.first())
 
   App.CarRentAgreement.AgreementsListToolbarView
