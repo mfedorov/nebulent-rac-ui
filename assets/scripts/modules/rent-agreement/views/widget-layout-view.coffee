@@ -1,7 +1,7 @@
 define [
   './templates/widget-layout-template'
   './../models/rent-agreement'
-  './widget-agreements-view'
+  './widget-agreements-list-view'
   './close-agreement-modal'
   './extend-agreement-modal'
   './vehicle-movements-modal-view'
@@ -34,19 +34,12 @@ define [
         @main_region.show new RentAgreementsView collection: @collection
 
       closeAgreement: (model)->
-        console.log "close agreement for", model
         App.modalRegion1.show new CloseAgreementView( model: model, collection: @collection)
         App.modalRegion1.$el.modal()
-#        @modal_region.show new CloseAgreementView( model: model, collection: @collection)
-#        @ui.modal.modal()
 
       extendAgreement: (model)->
-        console.log "extend agreement for", model
         App.modalRegion1.show new ExtendAgreementView(model: model), forseShow: true
         App.modalRegion1.$el.modal()
-#        @modal_region.show new ExtendAgreementView(model: model)
-#        @ui.modal.modal()
-
       onShowNotes: (model)->
         channel = Backbone.Radio.channel "notes"
         view = channel.request "notes:view",
@@ -54,8 +47,6 @@ define [
           title: "Rent Agreement"
         App.modalRegion1.show view
         App.modalRegion1.$el.modal()
-#        @modal_region.show view
-#        @ui.modal.modal()
 
       onListRefresh: ->
         @fetched = false

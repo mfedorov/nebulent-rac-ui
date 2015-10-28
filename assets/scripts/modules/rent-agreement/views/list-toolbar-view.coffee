@@ -5,6 +5,10 @@ define ['./templates/list-toolbar-template', './rental-actions-view'], (template
     class Module.AgreementsListToolbarView extends Marionette.LayoutView
       className:  "item-view rent-agreemens-list-toolbar clearfix"
       template: template
+      options:
+        actionsEnabled:     true
+        searchEnabled:      true
+        mainButtonsEnabled: true
 
       ui:
         searchQuery: '#rental-query'
@@ -24,7 +28,7 @@ define ['./templates/list-toolbar-template', './rental-actions-view'], (template
         'select:one': 'onRentalSelected'
 
       templateHelpers: ->
-        actionsEnabled: true
+        options: @options
 
       onSearch: ->
         @update()
@@ -54,6 +58,7 @@ define ['./templates/list-toolbar-template', './rental-actions-view'], (template
         @onSearch()
 
       onRentalSelected: ->
-        @actionsRegion.show new RentalActionsView(model: @collection.selected or @collection.first())
+        if @options.actionsEnabled
+          @actionsRegion.show new RentalActionsView(model: @collection.selected or @collection.first())
 
   App.CarRentAgreement.AgreementsListToolbarView
