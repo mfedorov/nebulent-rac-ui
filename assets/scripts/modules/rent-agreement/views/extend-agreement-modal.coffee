@@ -14,6 +14,7 @@ define [
       ui:
         days:             "[name='days']"
         newDueDate:       "[name=dueDate]"
+
       bindings:
         'input[name="daily_rate"]'         : observe: 'dailyRate'
         'input[name="dueDate"]'            :
@@ -26,10 +27,10 @@ define [
         'input[name="amount_paid"]'        : observe: 'amountPaid'
 
       events:
-        "change input[name='days']":       "onDaysCountChange"
-        "dp.change input[name='dueDate']": "onDueDateChange"
-        "change input[name='dueDate']":    "onDueDateChange"
-        "click .extend":                   "onExtendClick"
+        "change @ui.days":          "onDaysCountChange"
+        "dp.change @ui.newDueDate": "onDueDateChange"
+        "change @ui.newDueDate":    "onDueDateChange"
+        "click .extend":            "onExtendClick"
 
       initialize: (options)->
         @originalModel = options.originalModel
@@ -58,12 +59,13 @@ define [
         @$el.closest('.modal').on 'hidden.bs.modal',  => @destroy()
 
       initElements: ->
+        @ui.newDueDate.val @minDate
         @ui.newDueDate.datetimepicker
-          format: App.DataHelper.dateFormats.us
-          minDate: @minDate
+          format:      App.DataHelper.dateFormats.us
+          minDate:     @minDate
         @model.recalcAll()
 
-      onDueDateChange: (e)->
+      onDueDateChange: ->
         if moment(@ui.newDueDate.val()).unix() > moment(@dueDate).unix()
           dateDifference = @getDaysDifference @ui.newDueDate.val(), @dueDate
           if dateDifference > 0
@@ -105,7 +107,7 @@ define [
         @model.save()
           .success (data)=>
             toastr.success "Successfully Extended Agreement"
-            @originalModel.fetch()
+            @originalModel.fetch(parse: true)
             @originalModel.collection.trigger('change')
             @$('.close').click()
           .error   (data)=>
