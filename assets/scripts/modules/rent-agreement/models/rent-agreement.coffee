@@ -64,7 +64,6 @@ define [
         @set('amountDue', total - @get('amountPaid'))
 
       parse: (response, options) ->
-        debugger
         if !@get('customer')? or !(@get('customer').constructor.name is 'CustomerModel')
           @set 'customer',  new CustomerModel()
 
