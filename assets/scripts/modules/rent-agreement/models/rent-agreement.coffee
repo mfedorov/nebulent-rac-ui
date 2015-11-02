@@ -88,14 +88,14 @@ define [
         if !@get('lineItems')? or !(@get('lineItems').constructor.name is 'LineItemsCollection')
           @set 'lineItems', new LineItemsCollection()
 
-        @get('customer').set(response.customer).parse(response.customer)
-        @get('vehicle').set       response.vehicle,      parse:true
-        @get('deposit').set       response.deposit,      parse:true
-        @get('notes').set         response.notes,        parse:true
-        @get('gpsTrackings').set  response.gpsTrackings, parse:true
+        @get('customer').set           @get('customer').parse(response.customer)
+        @get('vehicle').set            @get('vehicle').parse(response.vehicle)
+        @get('deposit').set            @get('deposit').parse(response.deposit)
+        @get('notes').set              response.notes,        parse:true
+        @get('gpsTrackings').set       response.gpsTrackings, parse:true
         @get('additionalDrivers').set  response.additionalDrivers, parse:true
-        @get('payments').set  response.payments, parse:true
-        @get('lineItems').set  response.lineItems, parse:true
+        @get('payments').set           response.payments, parse:true
+        @get('lineItems').set          response.lineItems, parse:true
 
         response.vehicle            = @get 'vehicle'
         response.customer           = @get 'customer'
