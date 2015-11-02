@@ -40,6 +40,7 @@ define [
         attributes
 
       parse: (response, options)->
+        debugger
         @set 'customer', new CustomerModel() unless @get('customer')?.constructor.name is "CustomerModel"
         @set 'payment', new PaymentModel() unless @get('payment')?.constructor.name is "PaymentModel"
 
