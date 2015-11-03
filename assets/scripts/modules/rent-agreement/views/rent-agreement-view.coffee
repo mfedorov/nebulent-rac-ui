@@ -74,12 +74,12 @@ define [
         Module.organization ?= @organization
         @listenTo @model, 'change:customer',      @onChange
         @listenTo @model, 'change:vehicle',       @onChange
-        @listenTo @model, 'change:deposit',       @onChange
+        @listenTo @model, 'change:deposit',       (model, options)=> @onChange(model, options)
         @listenTo @model, 'change:days',          @refreshModel
         @listenTo @model, 'change:discountRate',  @refreshModel
         @listenTo @model, 'change:dailyRate',     @refreshModel
         @listenTo @model, 'change:amountPaid',    @refreshModel
-        @listenTo @model, 'change:total',         @refreshModel
+        @listenTo @model, 'change:total',         => @model.recalcPaidAndDue()
 
         @listenTo @organization, 'sync', _.partial(@loaded, 'organization')
         @listenTo @organization.get('customers'), 'sync',  _.partial(@loaded, 'customers')
@@ -276,8 +276,9 @@ define [
           unless @ui.depositSearch.select2('val')?
             setTimeout (=> @ui.depositSearch.select2('open')),100
 
-      onChange: ->
+      onChange: (model, options)->
         @reflow()
+        return if options?.silent
         @refreshModel()
         if @model.get("vehicle").get('itemID')
           @model.set 'startMileage', @organization.get('vehicles').get(@model.get("vehicle").get('itemID')).get('currentMileage')
@@ -304,7 +305,7 @@ define [
               @showModelMessage "success", "Successfully Created Deposit for Agreement", data
               channel = Backbone.Radio.channel "deposits"
               channel.command "deposit:created"
-              @model.set "deposit", itemID: data.itemID
+              @model.set "deposit", itemID: data.itemID, silent: true
               @rentalSave()
             .error  (data)=>
               @showModelMessage "error", "Error Creating Deposit", data
