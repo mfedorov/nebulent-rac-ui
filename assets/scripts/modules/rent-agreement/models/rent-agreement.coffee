@@ -27,12 +27,12 @@ define [
         dailyRate:         50
         days:              2
         subTotal:          ""
-        total:             ""
+        total:             100
         startMileage:      ""
         fuelLevel:         "FULL"
         totalTax:          ""
         discountRate:      ""
-        amountPaid:        0
+        amountPaid:        null
         amountDue:         0
         location:          null
         type:              "ACCREC"
@@ -53,15 +53,17 @@ define [
 
       recalcAll: ->
         #TODO remove commented lines if not needed later
+        paid = @get('amountPaid') or 0
         subtotal = @get('days')*@get('dailyRate')
         dailyRate = @vehicle?.get('dailyRate') or Module.organization?.get('rentalDailyFee')
         total     = subtotal - (parseInt(@get('discountRate')) or 0)
         @set 'total', total
-        @set('amountDue', total - @get('amountPaid'))
+        @set('amountDue', total - paid)
 
       recalcPaidAndDue: ->
-        total = @get 'total'
-        @set('amountDue', total - @get('amountPaid'))
+        total = @get 'total' or 0
+        paid  = @get 'amountPaid' or 0
+        @set 'amountDue', total - paid
 
       parse: (response, options) ->
         if !@get('customer')? or !(@get('customer').constructor.name is 'CustomerModel')

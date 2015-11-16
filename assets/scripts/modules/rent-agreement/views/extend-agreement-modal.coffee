@@ -100,17 +100,20 @@ define [
         @calculateAndSave()
 
       calculateAndSave: ->
+        unless @model.get "amountPaid"
+          toastr.error "Please fill the amount paid field"
+          return false
         @model.get('deposit').set 'status', 'ARCHIVED'
         #TODO: think of the way to avoid this kind of nulling
         @model.set 'amountDue', undefined
         @model.set 'dueDate', undefined
         @model.save()
-          .success (data)=>
+          .success =>
             toastr.success "Successfully Extended Agreement"
             @originalModel.fetch(parse: true)
             @originalModel.collection.trigger('change')
             @$('.close').click()
-          .error   (data)=>
+          .error   =>
             toastr.error "Error Extending Agreement"
 
       destroy: ->
