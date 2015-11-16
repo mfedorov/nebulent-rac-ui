@@ -125,7 +125,7 @@ gulp.task "cleanPublic", ->
 
 gulp.task "default", default_dependencies, ->
   if env is 'development'
-    ignore = ['./assets/', './public/']
+    ignore = ['./assets/', './public/', './sessions']
 
     nodemon
       script: "app.coffee"

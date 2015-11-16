@@ -324,9 +324,13 @@ define [
             @showModelMessage "error", "Error Creating Rent Agreement", data
 
       isValid:->
+        result = true
         unless @model.get "location"
           toastr.error "Please select a location"
-          return false
-        true
+          result = false
+        unless @model.get "amountPaid"
+          toastr.error "Please fill the amount paid field"
+          result = false
+        result
 
   App.CarRentAgreement.RentAgreement
