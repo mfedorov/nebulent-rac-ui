@@ -305,7 +305,7 @@ define [
               @showModelMessage "success", "Successfully Created Deposit for Agreement", data
               channel = Backbone.Radio.channel "deposits"
               channel.command "deposit:created"
-              @model.set "deposit", itemID: data.itemID, silent: true
+              @model.set {'deposit': {itemID: data.itemID}}, silent: true
               @rentalSave()
             .error  (data)=>
               @showModelMessage "error", "Error Creating Deposit", data
