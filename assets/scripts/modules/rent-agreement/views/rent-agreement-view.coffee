@@ -208,11 +208,12 @@ define [
             url:          "api/customers"
             dataType:     "json"
             type:         "GET"
-            delay:  1000
+            delay:        1000
             data: (params)->
               search: params.term
               asc:    false
             processResults: (data, page) =>
+              data = _.filter data, (customer)-> customer.blackListed
               @organization.get('customers').set(data, parse: true)
               result = _.map data , (item)->
                 id: item.contactID, text: item.firstName + ' ' + item.lastName + " (#{item.driverLicense})"
@@ -224,11 +225,13 @@ define [
         @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
         @ui.vehicleSearch.hide().parent().find('i').show()
         initSelect = (activeRentals)=>
-          activeRentals = @collection.filter (item)-> item.get('status') in ["NEW", "EXTENDED"]
+          activeRentals = @collection.filter (item)-> item.get('status') in ['NEW', 'EXTENDED']
           rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id
+          deletedVehicleIds = _.map @organization.get('vehicles').where(status: 'DELETED'), (model)-> model.id
+          vehiclesToRemoveFromList = _.uniq rentedVehicleIds.concat(deletedVehicleIds)
           @ui.vehicleSearch.show().parent().find('i').hide()
           @ui.vehicleSearch.select2
-            data: @organization.get('vehicles').toArray(rentedVehicleIds)
+            data: @organization.get('vehicles').toArray vehiclesToRemoveFromList
             minimumInputLength: 1
 
         channel = Backbone.Radio.channel "dashboard"
@@ -305,7 +308,7 @@ define [
               @showModelMessage "success", "Successfully Created Deposit for Agreement", data
               channel = Backbone.Radio.channel "deposits"
               channel.command "deposit:created"
-              @model.set "deposit", itemID: data.itemID, silent: true
+              @model.set {'deposit': {itemID: data.itemID}}, silent: true
               @rentalSave()
             .error  (data)=>
               @showModelMessage "error", "Error Creating Deposit", data
