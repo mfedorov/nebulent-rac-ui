@@ -158,12 +158,14 @@ define [
         @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
         @ui.vehicleSearch.hide().parent().find('i').show()
         initSelect = (activeRentals)=>
-          activeRentals = @collection.filter (item)-> item.get('status') in ["NEW", "EXTENDED"]
+          activeRentals = @collection.filter (item)-> item.get('status') in ['NEW', 'EXTENDED']
           rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id
           rentedVehicleIds = _.without(rentedVehicleIds, @model.get('vehicle').id) if @model.id
+          deletedVehicleIds = _.map @organization.get('vehicles').where(status: 'DELETED'), (model)-> model.id
+          vehiclesToRemoveFromList = _.uniq rentedVehicleIds.concat(deletedVehicleIds)
           @ui.vehicleSearch.show().parent().find('i').hide()
           @ui.vehicleSearch.select2
-            data: @organization.get('vehicles').toArray(rentedVehicleIds)
+            data: @organization.get('vehicles').toArray vehiclesToRemoveFromList
             minimumInputLength: 1
 
         channel = Backbone.Radio.channel "dashboard"
@@ -220,7 +222,7 @@ define [
           @rentalSave()
 
       rentalSave: ->
-        @model.get('deposit').set "status", "ARCHIVED"
+        @model.get('deposit').set 'status', 'ARCHIVED'
         @model.set 'status', 'SUBMITTED'
         #TODO: make sure edit uses a newly created sepparate model and this kind of nulling should be avoided
         @model.set 'dueDate', undefined
