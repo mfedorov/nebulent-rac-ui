@@ -71,7 +71,7 @@ gulp.task "scripts", ["cleanScripts"], ->
       "runtime":                  "./public/scripts/vendor/runtime"
       "backbone.radio.shim":      "./public/scripts/vendor/backbone.radio.shim"
       "bootstrap-growl":          "./public/scripts/vendor/jquery.bootstrap-growl"
-      "backbone.select":           "./public/scripts/vendor/backbone.select"
+      "backbone.select":          "./public/scripts/vendor/backbone.select"
       "handlebars":               "./public/scripts/vendor/handlebars"
       "toastr":                   "./public/scripts/vendor/toastr"
       "jquery-cookie":            "./public/scripts/vendor/jquery-cookie"
@@ -91,15 +91,15 @@ gulp.task "scripts", ["cleanScripts"], ->
       "backbone.paginator":       "./public/scripts/vendor/backbone.paginator"
       "bootbox":                  "./public/scripts/vendor/metronic/bootbox.min"
     shim:
-      "jquery-ui":
-        deps: ['jquery']
+      # "jquery-ui":
+      #   deps: ['jquery']
       bootstrap:
         deps: ['jquery', 'jquery-ui']
       "bootstrap-growl":
         deps: ['bootstrap']
       "backbone.picky":
         deps: ['backbone']
-       "datatables-bootstrap":
+      "datatables-bootstrap":
         deps: ['jquery','datatables']
 
   _.extend amdOptimize_options.paths, pjson.browser

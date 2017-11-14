@@ -213,7 +213,7 @@ define [
               search: params.term
               asc:    false
             processResults: (data, page) =>
-              data = _.filter data, (customer)-> !customer.blackListed
+              data = _.filter data, (customer)-> !customer.blackListed && customer.status isnt 'DELETED'
               @organization.get('customers').set(data, parse: true)
               result = _.map data , (item)->
                 id: item.contactID, text: item.firstName + ' ' + item.lastName + " (#{item.driverLicense})"
