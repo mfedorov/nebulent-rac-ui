@@ -32,7 +32,8 @@ define ['./layout-template', './module'],
               $.backstretch("destroy", false)
               channel.trigger "auth:success", data
             .error (data)=>
-              toastr.error "Wrong combination of username and password. Please try again!"
+              message = data?.responseJSON?.code
+              toastr.error message || "Wrong combination of username and password. Please try again!"
               @model.set "username", ""
               @model.set "password", ""
               @ui.username.focus()

@@ -36,7 +36,8 @@ define [
               @showView()
               @fetched = true
             .error (data)->
-              toastr.error "error fetching customers info"
+              message = data?.responseJSON?.code
+              toastr.error message || "error fetching customers info"
               console.log 'get customers failed', data
 
       refreshData:->

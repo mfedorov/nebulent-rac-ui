@@ -68,7 +68,8 @@ define [
             console.log 'data received', data
             @onRefresh()
           .error (data)->
-            toastr.error "Error fetching dashboard data"
+            message = data?.responseJSON?.code;
+            toastr.error message || "Error fetching dashboard data"
             console.log 'error fetching', data
 
         viewTracking: (model)->

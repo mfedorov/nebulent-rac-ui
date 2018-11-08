@@ -38,7 +38,8 @@ define [
             @showView()
             @fetched = true
           .fail (data)->
-            toastr.error "error fetching rent deposits information"
+            message = data?.responseJSON?.code
+            toastr.error message || "error fetching rent deposits information"
             console.log "get deposits failed", data
 
       refreshData:->
@@ -61,6 +62,7 @@ define [
             @modal_region.show view
             @ui.modal.modal()
           .error (data)->
-            toastr.error "Error fetching deposit rent agreements"
+            message = data?.responseJSON?.code
+            toastr.error message || "Error fetching deposit rent agreements"
 
   App.Deposits.LayoutView

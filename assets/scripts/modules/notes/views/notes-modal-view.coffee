@@ -48,7 +48,8 @@ define [
               console.log "added note"
               @refreshNote()
             .error (data)=>
-              toastr.error "Error adding note"
+              message = data?.responseJSON?.code
+              toastr.error message || "Error adding note"
               @model.get('notes').remove(@newNote)
 
         destroy: ->

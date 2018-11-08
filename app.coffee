@@ -34,7 +34,6 @@ app.use passport.session()
 app.use '/', require "./routes/index"
 
 env = process.env.NODE_ENV || "development"
-console.log(express.static);
 app.use(express.static(path.join(__dirname, staticDir)));
 
 

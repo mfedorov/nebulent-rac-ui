@@ -28,7 +28,8 @@ define [
                 @showView()
                 @fetched = true
               .error (data)->
-                toastr.error "error fetching vehicle information"
+                message = data?.responseJSON?.code
+                toastr.error message || "error fetching vehicle information"
                 console.log "get vehicles failed", data
 
         refreshData:->

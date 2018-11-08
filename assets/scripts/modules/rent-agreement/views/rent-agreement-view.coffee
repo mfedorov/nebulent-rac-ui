@@ -139,7 +139,8 @@ define [
         collection.fetch()
         .success (data)-> console.log "#{name} loaded"
         .error   (data)->
-          toastr.error "Error getting #{name} data"
+          message = data?.responseJSON?.code;
+          toastr.error message || "Error getting #{name} data"
           console.error "error fetching #{name} data", data
 
       initViewElements:->
@@ -240,7 +241,8 @@ define [
           activeRentals = new RentalsCollection data.activeRentals, parse:true
           initSelect(activeRentals)
         .fail (data)->
-          console.log "error receiving active rentals"
+          message = data?.responseJSON?.code
+          console.log message || "error receiving active rentals"
 
       #opens/closes portlets
       portlet: (selector, action="open")->
@@ -310,8 +312,9 @@ define [
               channel.command "deposit:created"
               @model.set {'deposit': {itemID: data.itemID}}, silent: true
               @rentalSave()
-            .error  (data)=>
-              @showModelMessage "error", "Error Creating Deposit", data
+            .error (data)=>
+              message = data?.responseJSON?.code;
+              @showModelMessage "error", message || "Error Creating Deposit", data
         else
           @rentalSave()
 
@@ -324,7 +327,8 @@ define [
             channel.command "rent:agreement:created", @model
             App.Router.navigate "#rent-agreements", trigger: true
           .error (data)=>
-            @showModelMessage "error", "Error Creating Rent Agreement", data
+            message = data?.responseJSON?.code;
+            @showModelMessage "error", message || "Error Creating Rent Agreement", data
 
       isValid:->
         result = true

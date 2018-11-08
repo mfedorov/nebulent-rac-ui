@@ -105,7 +105,8 @@ define [
             #redirect to customer list
             App.Router.navigate "#customers", trigger:true
           .error (data)->
-            toastr.error "Error Creating Customer"
+            message = data?.responseJSON?.code
+            toastr.error message || "Error Creating Customer"
             console.log "error creating customer", data
 
 

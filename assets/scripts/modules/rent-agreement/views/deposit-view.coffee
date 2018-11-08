@@ -62,7 +62,8 @@ define [
             toastr.success "Successfully Created Deposit"
             console.log "deposit creation successful:", data
           .error (data)->
-            toastr.error "Errors occured whe creating Deposit"
+            message = data?.responseJSON?.code
+            toastr.error message || "Errors occured whe creating Deposit"
             console.log "deposit creation error:", data
 
   App.CarRentAgreement.Deposit
