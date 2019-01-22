@@ -13,6 +13,11 @@ require [
 ) ->
   window.App = new App()
   window.App.DataHelper = DataHelper
+  window.App.ApiUrl = (withOrg = true) ->
+    org_id = localStorage.getItem 'org_id'
+    "#{window.apiUrl}/rac/orgs/#{org_id}"
+
+
   window.App.on 'start', ->
     new AppLayoutView().render()
     window.App.Router = new AppRouter controller: new AppController()

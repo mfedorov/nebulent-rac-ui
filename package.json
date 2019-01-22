@@ -60,6 +60,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.12.0",
+    "gulp-string-replace": "^1.1.2",
     "gulp-wrap-amd": "^0.4.1",
     "http-proxy": "^1.16.2",
     "jade": "^1.11.0",

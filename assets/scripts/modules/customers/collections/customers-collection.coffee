@@ -5,7 +5,7 @@ define [
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.CustomersCollection extends Backbone.PageableCollection
-      url: -> "api/customers"
+      url: -> "#{App.ApiUrl()}/customers"
       model: CustomersModel
 
       state:

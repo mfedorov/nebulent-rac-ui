@@ -9,7 +9,7 @@ define ->
   App.module "Vehicles", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.VehicleModel extends Backbone.Model
-      urlRoot: -> "api/vehicles"
+      urlRoot: -> "#{App.ApiUrl()}/vehicles"
       idAttribute: "itemID"
 
       validation:

@@ -24,7 +24,7 @@ define [
           placeholder:          "Search for drivers..."
           minimumInputLength:   3
           ajax:
-            url:          "api/customers"
+            url:          "#{App.ApiUrl()}/customers"
             dataType:     "json"
             type:         "GET"
             delay:  1000

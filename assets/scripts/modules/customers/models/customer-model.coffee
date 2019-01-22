@@ -34,7 +34,7 @@ define [
   App.module "Customers", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.CustomerModel extends Backbone.Model
-      url: -> "api/customers#{if @id then "/" + @id else ""}"
+      url: -> "#{App.ApiUrl()}/customers#{if @id then "/" + @id else ""}"
       idAttribute: "contactID"
 
       validation:

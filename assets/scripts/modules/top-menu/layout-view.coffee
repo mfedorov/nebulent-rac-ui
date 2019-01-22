@@ -21,7 +21,9 @@ define ['./layout-template', './module'],
           App.Router.navigate '', trigger: true
 
         onLogout:()->
-          window.location.href = window.location.origin + "/logout"
+          localStorage.removeItem 'apiKey'
+          localStorage.removeItem 'org_id'
+          window.location.href = window.location.origin + "/login"
 
 
     App.TopMenu.LayoutView

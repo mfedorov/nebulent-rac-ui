@@ -2,6 +2,7 @@ gulp        = require "gulp"
 jade        = require "gulp-jade"
 sass        = require "gulp-sass"
 sourcemaps  = require "gulp-sourcemaps"
+replace = require "gulp-string-replace"
 coffee      = require "gulp-coffee"
 concat      = require "gulp-concat"
 nodemon     = require "gulp-nodemon"
@@ -17,7 +18,7 @@ dotenv.load()
 
 env = process.env.NODE_ENV || "development"
 
-default_dependencies = ["stylesheets", "fonts", "images", "scripts"]
+default_dependencies = ["stylesheets", "index", "fonts", "images", "scripts"]
 if env is "development"
   default_dependencies.push "watch"
 
@@ -35,6 +36,11 @@ gulp.task 'stylesheets', ->
       .on "error", notify.onError (error) ->
         "Error: #{error.message}"
     .pipe gulp.dest './public/stylesheets/'
+
+gulp.task 'index',  ->
+  gulp.src 'assets/templates/**/*.html'
+    .pipe(replace("{{API_URL}}", process.env.API_URL || '/no-api-url-setting'))
+    .pipe gulp.dest './public/'
 
 gulp.task 'fonts',  ->
   gulp.src './node_modules/bootstrap-sass/assets/fonts/**/*'

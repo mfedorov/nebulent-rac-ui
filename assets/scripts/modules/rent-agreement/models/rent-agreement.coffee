@@ -13,7 +13,7 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.RentAgreement extends Backbone.Model
-      url:-> "api/rentals#{if @id then "/" + @id else ""}"
+      url:-> "#{App.ApiUrl()}/rentals#{if @id then "/" + @id else ""}"
       idAttribute: "invoiceID"
       defaults:->
         customer:          new CustomerModel()

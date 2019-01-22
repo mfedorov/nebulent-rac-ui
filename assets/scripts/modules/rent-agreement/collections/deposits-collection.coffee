@@ -5,7 +5,7 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.DepositCollection extends Backbone.Collection
-      url:-> "api/deposits/active"
+      url:-> "#{App.ApiUrl()}/deposits/active"
       model: DepositModel
 
       toArray: ->

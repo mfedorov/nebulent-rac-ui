@@ -206,7 +206,7 @@ define [
           placeholder:          "Search for customer..."
           minimumInputLength:   3
           ajax:
-            url:          "api/customers"
+            url:          "#{App.ApiUrl()}/customers"
             dataType:     "json"
             type:         "GET"
             delay:        1000
@@ -226,7 +226,8 @@ define [
         @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
         @ui.vehicleSearch.hide().parent().find('i').show()
         initSelect = (activeRentals)=>
-          activeRentals = @collection.filter (item)-> item.get('status') in ['NEW', 'EXTENDED']
+          # TODO: doublecheck if submitted status is considered active rental
+          activeRentals = @collection.filter (item)-> item.get('status') in ['NEW', 'EXTENDED', 'SUBMITTED']
           rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id
           deletedVehicleIds = _.map @organization.get('vehicles').where(status: 'DELETED'), (model)-> model.id
           vehiclesToRemoveFromList = _.uniq rentedVehicleIds.concat(deletedVehicleIds)
