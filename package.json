@@ -2,7 +2,10 @@
   "name": "rac-ui",
   "description": "tool to create create command lines",
   "author": "Glushkov Ilia",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "engines": {
+    "node": "6.x"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mfedorov/nebulent-rac-ui.git"
