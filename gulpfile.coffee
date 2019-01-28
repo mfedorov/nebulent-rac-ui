@@ -130,13 +130,4 @@ gulp.task "cleanPublic", ->
     .pipe clean force: true
 
 gulp.task "default", default_dependencies, ->
-  if env is 'development'
-    ignore = ['./assets/', './public/', './sessions']
-
-    nodemon
-      script: "app.coffee"
-      ignore: ignore
-      # nodeArgs: ['--nodejs', '--debug']
-      # node inspector is running on http://127.0.0.1:8080/debug?port=5858
-
   return
