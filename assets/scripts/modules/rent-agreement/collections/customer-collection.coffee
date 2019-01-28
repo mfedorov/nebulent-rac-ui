@@ -5,7 +5,7 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.CustomerCollection extends Backbone.Collection
-      url:-> "api/customers?asc=false&size=200"
+      url:-> "#{App.ApiUrl()}/customers?asc=false&size=200"
       model: CustomerModel
 
       toArray:->

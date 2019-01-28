@@ -53,7 +53,8 @@ define [
               @showView()
               @fetched = true
             .error (data)->
-              toastr.error "error fetching rent agreements information"
+              message = data?.responseJSON?.code
+              toastr.error message || "error fetching rent agreements information"
               console.log "get rentals failed", data
 
         refreshData:->

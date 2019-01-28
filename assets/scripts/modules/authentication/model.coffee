@@ -4,11 +4,11 @@ define ['./module'], ->
 
     class Module.Model extends Backbone.Model
 
-      url: "authentication/sign-in"
+      url: "#{window.apiUrl}/public/login" || "authentication/sign-in"
 
       defaults:
         username: ""
-        password: ""
+        passwordHash: ""
 
 #      validation:
 #        username:
@@ -22,6 +22,10 @@ define ['./module'], ->
 #          containsNumber: {}
 #          rangeLength: [6, 20]
 #          notEqualTo: 'username'
+
+      storeCredentials: (data) ->
+        localStorage.setItem 'apiKey', data.apikey
+        localStorage.setItem 'org_id', data.id
 
     Module.on 'start', ->
       user = new Module.Model()

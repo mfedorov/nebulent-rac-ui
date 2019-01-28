@@ -7,7 +7,7 @@ define [], ->
   App.module "Deposits", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.CustomerModel extends Backbone.Model
-      url: -> "api/customers"
+      url: -> "#{App.ApiUrl()}/customers"
       idAttribute: "contactID"
 
       defaults: ->

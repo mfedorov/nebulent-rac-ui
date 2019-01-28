@@ -139,7 +139,8 @@ define [
         collection.fetch()
         .success (data)-> console.log "#{name} loaded"
         .error   (data)->
-          toastr.error "Error getting #{name} data"
+          message = data?.responseJSON?.code;
+          toastr.error message || "Error getting #{name} data"
           console.error "error fetching #{name} data", data
 
       initViewElements:->
@@ -205,7 +206,7 @@ define [
           placeholder:          "Search for customer..."
           minimumInputLength:   3
           ajax:
-            url:          "api/customers"
+            url:          "#{App.ApiUrl()}/customers"
             dataType:     "json"
             type:         "GET"
             delay:        1000
@@ -213,7 +214,7 @@ define [
               search: params.term
               asc:    false
             processResults: (data, page) =>
-              data = _.filter data, (customer)-> !customer.blackListed
+              data = _.filter data, (customer)-> !customer.blackListed && customer.status isnt 'DELETED'
               @organization.get('customers').set(data, parse: true)
               result = _.map data , (item)->
                 id: item.contactID, text: item.firstName + ' ' + item.lastName + " (#{item.driverLicense})"
@@ -225,7 +226,8 @@ define [
         @ui.vehicleSearch.select2('destroy') if @ui.vehicleSearch.data('select2')
         @ui.vehicleSearch.hide().parent().find('i').show()
         initSelect = (activeRentals)=>
-          activeRentals = @collection.filter (item)-> item.get('status') in ['NEW', 'EXTENDED']
+          # TODO: doublecheck if submitted status is considered active rental
+          activeRentals = @collection.filter (item)-> item.get('status') in ['NEW', 'EXTENDED', 'SUBMITTED']
           rentedVehicleIds = _.map activeRentals, (rental)-> rental.get('vehicle').id
           deletedVehicleIds = _.map @organization.get('vehicles').where(status: 'DELETED'), (model)-> model.id
           vehiclesToRemoveFromList = _.uniq rentedVehicleIds.concat(deletedVehicleIds)
@@ -240,7 +242,8 @@ define [
           activeRentals = new RentalsCollection data.activeRentals, parse:true
           initSelect(activeRentals)
         .fail (data)->
-          console.log "error receiving active rentals"
+          message = data?.responseJSON?.code
+          console.log message || "error receiving active rentals"
 
       #opens/closes portlets
       portlet: (selector, action="open")->
@@ -310,8 +313,9 @@ define [
               channel.command "deposit:created"
               @model.set {'deposit': {itemID: data.itemID}}, silent: true
               @rentalSave()
-            .error  (data)=>
-              @showModelMessage "error", "Error Creating Deposit", data
+            .error (data)=>
+              message = data?.responseJSON?.code;
+              @showModelMessage "error", message || "Error Creating Deposit", data
         else
           @rentalSave()
 
@@ -324,7 +328,8 @@ define [
             channel.command "rent:agreement:created", @model
             App.Router.navigate "#rent-agreements", trigger: true
           .error (data)=>
-            @showModelMessage "error", "Error Creating Rent Agreement", data
+            message = data?.responseJSON?.code;
+            @showModelMessage "error", message || "Error Creating Rent Agreement", data
 
       isValid:->
         result = true

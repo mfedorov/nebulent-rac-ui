@@ -6,7 +6,7 @@ define [
   App.module "GpsTrackings", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.Model extends Backbone.Model
-      url: -> "api/dashboard"
+      url: -> "#{App.ApiUrl()}/dashboard"
 
       defaults:
         gpsTrackings:             new GpsTrackingsCollection()

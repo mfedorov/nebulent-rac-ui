@@ -122,7 +122,8 @@ define [
             #redirect to vehicle list
             App.Router.navigate "#vehicles", trigger:true
           .error (data)->
-            toastr.error "Error creating vehicle"
+            message = data?.responseJSON?.code
+            toastr.error message || "Error creating vehicle"
             console.log "error creating vehicle", data
 
   App.Vehicles.VehicleView

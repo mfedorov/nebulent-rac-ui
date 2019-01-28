@@ -17,7 +17,7 @@ passport.use new LocalStrategy (username, password, done) ->
     url: "#{process.env.API_URL}/public/login"
     json:
       username: username
-      passwordHash: new Buffer(password).toString('base64')
+      passwordHash: new Buffer.from(password).toString('base64')
   }, (error, response, body) ->
     if not error && response.statusCode is 200
       return done null, response.body

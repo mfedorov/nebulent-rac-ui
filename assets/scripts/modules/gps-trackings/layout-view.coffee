@@ -25,7 +25,8 @@ define [
               @fetched = true
               @renderElements()
             .error (data)->
-              toastr.error "Error fetching trackings data"
+              message = data?.responseJSON?.code
+              toastr.error message || "Error fetching trackings data"
 
         renderElements: ->
           @renderVehicles()

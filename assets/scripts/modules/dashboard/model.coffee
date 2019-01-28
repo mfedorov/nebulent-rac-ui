@@ -9,9 +9,8 @@ define [
 ], (DepositsDue, LastCallLogs, RentalDues, Utilization, VehicleCollection, GpsTrackingCollection)->
 
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
-
     class Module.Model extends Backbone.Model
-      url: -> "api/dashboard"
+      url: -> "#{App.ApiUrl()}/dashboard"
       defaults:
         vehiclesNeedInspections:  new VehicleCollection()
         vehiclesNeedOilChange:    new VehicleCollection()

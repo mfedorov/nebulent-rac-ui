@@ -177,7 +177,8 @@ define [
           initSelect(activeRentals)
           @vehicle_region.show new VehicleView model: @model.get('vehicle')
         .fail (data)->
-          console.log "error receiving active rentals"
+          message = data?.responseJSON?.code
+          console.log message || "error receiving active rentals"
 
       #opens/closes portlets
       portlet: (selector, action="open")->
@@ -217,7 +218,8 @@ define [
             @model.set "deposit", itemID: data.itemID
             @rentalSave()
           .error  (data)=>
-            @showModelMessage "error", "Error Updating Deposit", data
+            message = data?.responseJSON?.code
+            @showModelMessage "error", message || "Error Updating Deposit", data
         else
           @rentalSave()
 
@@ -234,7 +236,8 @@ define [
             channel.command "rent:agreement:updated", @model
             App.Router.navigate "#rent-agreements", trigger: true
           .error (data)=>
-            @showModelMessage "error", "Error Creating Rent Agreement", data
+            message = data?.responseJSON?.code
+            @showModelMessage "error", message || "Error Creating Rent Agreement", data
 
       isValid:->
         result = true

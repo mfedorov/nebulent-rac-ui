@@ -5,7 +5,7 @@ define [
   App.module "Dashboard", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.OrganizationModel extends Backbone.Model
-      url: -> "api"
+      url: -> App.ApiUrl()
 
       defaults:
         vehicles:   new VehicleCollection()

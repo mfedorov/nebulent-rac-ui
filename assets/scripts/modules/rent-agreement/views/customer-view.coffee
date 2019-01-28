@@ -68,7 +68,8 @@ define [
             toastr.success "Successfully Created customer"
             console.log "successfully created customer", data
           .error (data)->
-            toastr.error "Error Creating Customer"
+            message = data?.responseJSON?.code
+            toastr.error message || "Error Creating Customer"
             console.log "error creating customer", data
 
   App.CarRentAgreement.CustomerView

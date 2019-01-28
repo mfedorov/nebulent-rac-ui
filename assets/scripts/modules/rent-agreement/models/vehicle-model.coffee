@@ -3,7 +3,7 @@ define [],  ->
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.VehicleModel extends Backbone.Model
-      url: -> "api/vehicles#{if @id then "/" + @id else ""}"
+      url: -> "#{App.ApiUrl()}/vehicles#{if @id then "/" + @id else ""}"
       idAttribute: "itemID"
 
       defaults:

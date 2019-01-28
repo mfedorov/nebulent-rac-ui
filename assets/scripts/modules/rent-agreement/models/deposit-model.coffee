@@ -6,7 +6,7 @@ define [
   App.module "CarRentAgreement", (Module, App, Backbone, Marionette, $, _) ->
 
     class Module.DepositModel extends Backbone.Model
-      url:-> "api/customers/#{@get('customer').get('contactID')}/deposits"
+      url:-> "#{App.ApiUrl()}/customers/#{@get('customer').get('contactID')}/deposits"
       idAttribute: "itemID"
 
       defaults: ->

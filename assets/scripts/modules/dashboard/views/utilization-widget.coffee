@@ -23,7 +23,8 @@ define [
           .success (data)=>
             @drawChart()
           .error (data)->
-            toastr.error "Problems occured when trying to get vehicle data"
+            message = data?.responseJSON?.code
+            toastr.error message || "Problems occured when trying to get vehicle data"
             console.log "organization fetch error"
 
       getRates: (dailyRates)->

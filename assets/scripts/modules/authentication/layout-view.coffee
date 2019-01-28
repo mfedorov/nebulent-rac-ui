@@ -14,8 +14,11 @@ define ['./layout-template', './module'],
           "username": "[name=username]"
 
         bindings:
-          "[name=username]":  observe: "username"
-          "[name=password]":  observe: "password"
+          "[name=username]": observe: "username"
+          "[name=password]":
+            observe: "passwordHash"
+            onGet: (value)-> atob(value)
+            onSet: (value)-> btoa(value)
 
         onRender: ->
           @stickit()
@@ -27,14 +30,16 @@ define ['./layout-template', './module'],
           event.preventDefault()
           this.model.save()
             .success (data)=>
+              @model.storeCredentials(data);
               toastr.success "Successfully authenticated"
               channel = Backbone.Radio.channel "authentication"
               $.backstretch("destroy", false)
               channel.trigger "auth:success", data
             .error (data)=>
-              toastr.error "Wrong combination of username and password. Please try again!"
+              message = data?.responseJSON?.code
+              toastr.error message || "Wrong combination of username and password. Please try again!"
               @model.set "username", ""
-              @model.set "password", ""
+              @model.set "passwordHash", ""
               @ui.username.focus()
 
     App.Authentication.LayoutView

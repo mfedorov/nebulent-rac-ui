@@ -8,6 +8,6 @@ define [
       model: RentAgreement
 
       setUrl: (depositId)->
-        @url = "api/deposits/#{depositId}/rentals"
+        @url = "#{App.ApiUrl()}/deposits/#{depositId}/rentals"
 
   App.CarRentAgreement.DepositRentalsCollection

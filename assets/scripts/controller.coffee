@@ -4,10 +4,12 @@ define ->
 
     index: ->
       channel = Backbone.Radio.channel 'app'
-
-      if window.location.pathname is '/login'
+      apiKey = localStorage.getItem 'apiKey'
+      regExp = new RegExp('^/login', 'i')
+      if regExp.test(window.location.pathname)
         channel.trigger 'show:index'
       else
+        return window.location.href = window.location.origin + "/login" if !apiKey
         channel.trigger 'show:dashboard'
 
     rentAgreement: (rentalId)->

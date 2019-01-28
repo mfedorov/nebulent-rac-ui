@@ -10,6 +10,8 @@ passport      = require "passport"
 FileStore     = require("session-file-store")(session)
 favicon       = require 'serve-favicon'
 dotenv        = require "dotenv"
+path          = require 'path'
+staticDir     = 'public';
 
 dotenv.load()
 app = express()
@@ -32,6 +34,8 @@ app.use passport.session()
 app.use '/', require "./routes/index"
 
 env = process.env.NODE_ENV || "development"
+app.use(express.static(path.join(__dirname, staticDir)));
+
 
 server = app.listen 3000, ->
 
